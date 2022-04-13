@@ -13,7 +13,7 @@ https://creecros.github.io/simple_logo_gen/
 
 # To-do list
 - [x] Multiple Logo Styles
-- [ ] Incorporate a nice Icon Picker
+- [x] Incorporate a nice Icon Picker
 - [x] Effects
 - [x] More fonts
 
