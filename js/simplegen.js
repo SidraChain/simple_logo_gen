@@ -1,18 +1,20 @@
-var canvas = document.getElementById('logo_image');
-var canvas2 = document.getElementById('fav_image');
+var canvas_logo = document.getElementById('logo_image');
+var canvas_fav = document.getElementById('fav_image');
 
-  canvas.width  = 5;
-  canvas.height = 5;
-  canvas2.width = 5;
-  canvas2.height = 5;
+  canvas_logo.width  = 5;
+  canvas_logo.height = 5;
+  canvas_fav.width = 5;
+  canvas_fav.height = 5;
   
 
 var ctx = logo_image.getContext("2d");
 var ctx2 = fav_image.getContext("2d");
 var txt = "";
 var txt2 = "";
-var ico_b = document.getElementById('ico').value;
-var ico = String.fromCharCode(parseInt(ico_b,16))
+var ico = window.getComputedStyle( document.querySelector('#icp-component i'), ':before' )
+           .content.replace(/'|"/g, '');
+var ico_font_family = window.getComputedStyle( document.querySelector('#icp-component i')).fontFamily;
+var ico_font_weight = window.getComputedStyle( document.querySelector('#icp-component i')).fontWeight;
 var clr = "#000000"
 var ico_clr = clr;
 var ico_sz = 48;
@@ -27,11 +29,17 @@ var a_bold = "bold ";
 var m_bold = "bold ";
 var l_sp = 0;
 
-document.getElementById('ico').oninput = function() {
-  ico_b = document.getElementById('ico').value;
-  ico = String.fromCharCode(parseInt(ico_b,16));
+var margin_w = 15;
+var margin_h = 30;
+
+$('#icp').iconpicker({});
+$('#icp').on('iconpickerSelected', function (e) {
+  ico = window.getComputedStyle( document.querySelector('#icp-component i'), ':before' )
+           .content.replace(/'|"/g, '');
+  ico_font_family = window.getComputedStyle( document.querySelector('#icp-component i')).fontFamily;
+  ico_font_weight = window.getComputedStyle( document.querySelector('#icp-component i')).fontWeight;
   if (sty) {renderImage();} else {renderImage2();}
-}
+});
 
 document.getElementById('txt').oninput = function() {
   txt = document.getElementById('txt').value;
@@ -154,11 +162,11 @@ function renderImage() {
 
 document.fonts.ready.then(_ => {
   
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   var ico_w = ctx.measureText(ico).width;
   var ico_h = parseInt(ctx.font.match(/\d+/), 10);
   
-  ctx2.font = '900 48px "Font Awesome 5 Free"';
+  ctx2.font = ico_font_weight+' 48px '+ico_font_family;
   var ico_w2 = ctx2.measureText(ico).width;
   
   ctx.font = m_bold + '48px '+ fnt;
@@ -170,16 +178,16 @@ document.fonts.ready.then(_ => {
   var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
   
   var max_h = Math.max(ico_h, txt_h, txt2_h);
-  var start_ico = max_h + 12.5;
-  var start_txt = max_h + 12.5 + 2;
+  var start_ico = max_h;
+  var start_txt = max_h -2;
   
-  canvas.width  = ico_w + txt_w + txt2_w + 15;
-  canvas.height = max_h+25;
-  canvas2.width = ico_w2 +5;
-  canvas2.height = 58;
+  canvas_logo.width  = ico_w + txt_w + txt2_w + margin_w;
+  canvas_logo.height = max_h + margin_h;
+  canvas_fav.width = ico_w2 + 5;
+  canvas_fav.height = 58;
   
   if (off_1 == 3){
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   ctx.fillStyle = off_clr;
   ctx.fillText(ico, off_1, start_ico + off_1);
   ctx.font = m_bold + '48px '+ fnt;
@@ -193,10 +201,10 @@ document.fonts.ready.then(_ => {
   ctx.fillText(txt2, ico_w + 0 + txt_w + 5 + off_1,start_txt + off_1); 
   }
   
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   ctx.fillStyle = ico_clr;
   ctx.fillText(ico, 0 , start_ico );
-  ctx2.font = '900 48px "Font Awesome 5 Free"';
+  ctx2.font = ico_font_weight+' 48px '+ico_font_family;
   ctx2.fillStyle = ico_clr;
   ctx2.fillText(ico, 0, 48);
   ctx.font = m_bold + '48px '+ fnt;
@@ -205,19 +213,19 @@ document.fonts.ready.then(_ => {
   
   if (txt2 != "" && shapes) {
   ctx.strokeStyle = clr;
-  ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt);
-  ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt - txt2_h);
-  ctx.arcTo(ico_w + 0 + txt_w + 2, start_txt - txt2_h -3, ico_w + 0 + txt_w + 5, start_txt - txt2_h -3, 3);
-  ctx.lineTo(ico_w + 0 + txt_w + 2 + txt2_w + 3, start_txt - txt2_h -3);
-  ctx.arcTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt - txt2_h -3, ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt - txt2_h, 3);
-  ctx.lineTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt);
-  ctx.arcTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt + 3, ico_w + 0 + txt_w + 2 + txt2_w + 3, start_txt + 3, 3);
-  ctx.lineTo(ico_w + 0 + txt_w + 5, start_txt + 3);
-  ctx.arcTo(ico_w + 0 + txt_w + 2, start_txt + 3, ico_w + 0 + txt_w + 2, start_txt, 3);
+  ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt +margin_h/2 -3);
+  ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt +margin_h/2 -3 - txt2_h);
+  ctx.arcTo(ico_w + 0 + txt_w + 2, start_txt +margin_h/2 -3 - txt2_h -3, ico_w + 0 + txt_w + 5, start_txt +margin_h/2 -3 - txt2_h -3, 3);
+  ctx.lineTo(ico_w + 0 + txt_w + 2 + txt2_w + 3, start_txt +margin_h/2 -3 - txt2_h -3);
+  ctx.arcTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt +margin_h/2 -3 - txt2_h -3, ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt +margin_h/2 -3 - txt2_h, 3);
+  ctx.lineTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt +margin_h/2 -3);
+  ctx.arcTo(ico_w + 0 + txt_w + 2 + txt2_w + 6, start_txt +margin_h/2 -3 + 3, ico_w + 0 + txt_w + 2 + txt2_w + 3, start_txt +margin_h/2 -3 + 3, 3);
+  ctx.lineTo(ico_w + 0 + txt_w + 5, start_txt +margin_h/2 -3 + 3);
+  ctx.arcTo(ico_w + 0 + txt_w + 2, start_txt +margin_h/2 -3 + 3, ico_w + 0 + txt_w + 2, start_txt +margin_h/2 -3, 3);
   ctx.lineWidth = 3;
   ctx.stroke();
   ctx.fillStyle = clr;
-  ctx.fillRect(ico_w + 0 + txt_w + 2, start_txt - txt2_h -3,txt2_w + 6, txt2_h + 6);
+  ctx.fillRect(ico_w + 0 + txt_w + 2, start_txt+margin_h/2-3 - txt2_h -3,txt2_w + 6, txt2_h + 6);
   }
   
   ctx.font = a_bold + '48px '+ fnt2;
@@ -229,12 +237,12 @@ document.fonts.ready.then(_ => {
 function renderImage2() {
 
 document.fonts.ready.then(_ => {
-  canvas.style.letterSpacing = 0 + 'px';
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  canvas_logo.style.letterSpacing = 0 + 'px';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   var ico_w = ctx.measureText(ico).width;
   var ico_h = parseInt(ctx.font.match(/\d+/), 10);
   
-  ctx2.font = '900 48px "Font Awesome 5 Free"';
+  ctx2.font = ico_font_weight+' 48px '+ico_font_family;
   var ico_w2 = ctx2.measureText(ico).width;
   
   ctx.font = m_bold + '48px '+ fnt;
@@ -246,51 +254,51 @@ document.fonts.ready.then(_ => {
   var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
   
   var max_w = Math.max(ico_w, txt_w, txt2_w);
-  var center = (max_w + 15) / 2;
+  var center = (max_w + margin_w) / 2;
   
-  canvas.width  = max_w + 15;
-  canvas.height = ico_h + txt_h + txt2_h + 35;
-  canvas2.width = ico_w2 +5;
-  canvas2.height = 58;
+  canvas_logo.width  = max_w + margin_w;
+  canvas_logo.height = ico_h + txt_h + txt2_h + margin_h;
+  canvas_fav.width = ico_w2 +5;
+  canvas_fav.height = 58;
   
   ctx.textAlign = "center";
   
   if (off_1 == 3){
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   ctx.fillStyle = off_clr;
-  ctx.fillText(ico, center + off_1, ico_h + 12.5 + off_1);
+  ctx.fillText(ico, center + off_1, ico_h + off_1);
   ctx.font = m_bold + '48px '+ fnt;
   ctx.fillStyle = off_clr;
-  ctx.fillText(txt, center + off_1 ,ico_h + 5 + txt_h + 12.5 + off_1);
+  ctx.fillText(txt, center + off_1 ,ico_h + 5 + txt_h + off_1);
   }
-  ctx.font = '900 '+ico_sz+'px "Font Awesome 5 Free"';
+  ctx.font = ico_font_weight+' '+ico_sz+'px '+ico_font_family;
   ctx.fillStyle = ico_clr;
-  ctx.fillText(ico, center , ico_h + 12.5 );
-  ctx2.font = '900 48px "Font Awesome 5 Free"';
+  ctx.fillText(ico, center , ico_h );
+  ctx2.font = ico_font_weight+' 48px '+ico_font_family;
   ctx2.fillStyle = ico_clr;
   ctx2.fillText(ico, 0, 48);
-  canvas.style.letterSpacing = 0 + 'px';
+  canvas_logo.style.letterSpacing = 0 + 'px';
   ctx.font = m_bold + '48px '+ fnt;
   ctx.fillStyle = clr;
-  ctx.fillText(txt, center, ico_h + 5 + txt_h + 12.5);
+  ctx.fillText(txt, center, ico_h + 5 + txt_h );
   
   if (txt2 != "" && shapes) {
   ctx.strokeStyle = clr;
-  ctx.moveTo(center - (txt_w/2), ico_h + 10 + txt_h + 12.5);
-  ctx.lineTo(center + (txt_w/2), ico_h + 10 + txt_h + 12.5);
+  ctx.moveTo(center - (txt_w/2), ico_h + 10 + txt_h + margin_h/2);
+  ctx.lineTo(center + (txt_w/2), ico_h + 10 + txt_h + margin_h/2);
   ctx.lineWidth = 2;
   ctx.stroke();
   }
   if (off_1 == 3){
-  canvas.style.letterSpacing = document.getElementById('l_sp').value + 'px';
+  canvas_logo.style.letterSpacing = document.getElementById('l_sp').value + 'px';
   ctx.font = a_bold + '12px '+ fnt2;
   ctx.fillStyle = off_clr;
-  ctx.fillText(txt2, center + off_1 ,ico_h + 5 + txt_h + 5 + txt2_h + 12.5 + off_1); 
+  ctx.fillText(txt2, center + off_1 ,ico_h + 5 + txt_h + 5 + txt2_h + off_1 + margin_h/2); 
   }
-  canvas.style.letterSpacing = document.getElementById('l_sp').value + 'px';
+  canvas_logo.style.letterSpacing = document.getElementById('l_sp').value + 'px';
   ctx.font = a_bold + '12px '+ fnt2;
   ctx.fillStyle = clr2;
-  ctx.fillText(txt2, center,ico_h + 5 + txt_h + 5 + txt2_h + 12.5); 
+  ctx.fillText(txt2, center,ico_h + 5 + txt_h + 5 + txt2_h + margin_h/2); 
   l_sp = 0;
 })
 }
@@ -298,15 +306,14 @@ document.fonts.ready.then(_ => {
 
 var button = document.getElementById('fav-download');
 button.addEventListener('click', function (e) {
-    var dataURL = canvas2.toDataURL('image/png');
+    var dataURL = canvas_fav.toDataURL('image/png');
     button.href = dataURL;
 });
 var button2 = document.getElementById('logo-download');
 button2.addEventListener('click', function (e) {
-    var dataURL2 = canvas.toDataURL('image/png');
+    var dataURL2 = canvas_logo.toDataURL('image/png');
     button2.href = dataURL2;
 });
-
 
 /* hexToComplimentary : Converts hex value to HSL, shifts
  * hue by 180 degrees and then converts hex, giving complimentary color
