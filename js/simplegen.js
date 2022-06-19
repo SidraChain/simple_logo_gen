@@ -509,16 +509,43 @@ function renderImage2() {
   });
 }
 
-var button = document.getElementById("fav-download");
-button.addEventListener("click", function (e) {
-  var dataURL = canvas_fav.toDataURL("image/png");
-  button.href = dataURL;
-});
-var button2 = document.getElementById("logo-download");
-button2.addEventListener("click", function (e) {
-  var dataURL2 = canvas_logo.toDataURL("image/png");
-  button2.href = dataURL2;
-});
+var btn_download_fav = document.getElementById("fav-download");
+btn_download_fav.addEventListener(
+  "click",function (e) {
+    exportCanva(btn_download_fav, canvas_fav, "favicon"); 
+  }
+);
+var btn_download_logo = document.getElementById("logo-download");
+btn_download_logo.addEventListener(
+  "click",
+  function (e) {
+    exportCanva(btn_download_logo, canvas_logo, "logo")
+  }
+);
+function exportCanva(btn_download,canvas, filename) {
+  var selectFormat = document.getElementById("selectFormat");
+  var mimetype = selectFormat.options[selectFormat.selectedIndex].value;
+  var extension = selectFormat.options[selectFormat.selectedIndex].text;
+  switch (mimetype) {
+    case "image/png":
+      break;
+    case "image/webp":
+      break;
+    case "image/jpeg":
+      var canvas_temp = canvas.cloneNode(true);
+      var ctx_temp = canvas_temp.getContext('2d');
+      ctx_temp.fillStyle = '#FFF';
+      ctx_temp.fillRect(0,0,canvas_temp.width,canvas_temp.height);
+      ctx_temp.drawImage(canvas, 0, 0);
+      canvas = canvas_temp;
+      break;
+    default:
+      break;
+  }
+  var dataURL = canvas.toDataURL(mimetype);
+  btn_download.setAttribute("download", filename + "." + extension);
+  btn_download.href = dataURL;
+}
 
 /* hexToComplimentary : Converts hex value to HSL, shifts
  * hue by 180 degrees and then converts hex, giving complimentary color

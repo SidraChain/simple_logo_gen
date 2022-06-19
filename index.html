@@ -236,21 +236,21 @@
 
       <canvas id="logo_image" style="border: none solid #d3d3d3"></canvas>
       <br />
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <a
-          href="#"
-          class="btn btn-outline-primary btn-sm"
-          id="fav-download"
-          download="favicon.png"
-          >Download favicon</a
-        >
-        <a
-          href="#"
-          class="btn btn btn-outline-secondary btn-sm"
-          id="logo-download"
-          download="logo.png"
-          >Download logo</a
-        >
+      <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="input-group input-group-sm mr-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Format</div>
+          </div>
+          <select id="selectFormat" class="form-control" aria-label="format" aria-describedby="basic-addon1">
+            <option value="image/png">png</option>
+            <option value="image/jpeg">jpg</option>
+            <option value="image/webp">webp</option>
+          </select>
+        </div>
+        <div class="btn-group" role="group" aria-label="First group">
+          <a href="#" class="btn btn-outline-primary btn-sm" id="fav-download" download="favicon.png">Download favicon</a>
+          <a href="#" class="btn btn btn-outline-secondary btn-sm" id="logo-download" download="logo.png">Download logo</a>
+        </div>
       </div>
       <br /><br />
       <div class="alert alert-dark" role="alert">
