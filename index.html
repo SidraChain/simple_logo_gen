@@ -225,17 +225,16 @@
           hidden
         />
       </div>
-      <br />
-      <p>Favicon:</p>
-
-      <canvas id="fav_image" style="border: none solid #d3d3d3"></canvas>
-      <br />
-
-      <br />
-      <p>Logo:</p>
-
-      <canvas id="logo_image" style="border: none solid #d3d3d3"></canvas>
-      <br />
+      <section class="container row">
+        <div id="fav_container" class="col-md-6 text-center">
+          <p class="font-weight-bold">Favicon</p>
+          <canvas id="fav_image" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+        </div>
+        <div id="logo_container" class="col-md-6 text-center">
+          <p class="font-weight-bold">Logo</p>
+          <canvas id="logo_image" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+        </div>
+      </section>
       <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
         <div class="input-group input-group-sm mr-2">
           <div class="input-group-prepend">

@@ -330,7 +330,7 @@ function renderImage() {
   document.fonts.ready.then((_) => {
     ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
     var ico_w = ctx.measureText(ico).width;
-    var ico_h = parseInt(ctx.font.match(/\d+/), 10);
+    var ico_h = parseInt(ico_sz, 10);
 
     ctx2.font = ico_font_weight + " 48px " + ico_font_family;
     var ico_w2 = ctx2.measureText(ico).width;
@@ -440,7 +440,7 @@ function renderImage2() {
     canvas_logo.style.letterSpacing = 0 + "px";
     ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
     var ico_w = ctx.measureText(ico).width;
-    var ico_h = parseInt(ctx.font.match(/\d+/), 10);
+    var ico_h = parseInt(ico_sz, 10);
 
     ctx2.font = ico_font_weight + " 48px " + ico_font_family;
     var ico_w2 = ctx2.measureText(ico).width;
