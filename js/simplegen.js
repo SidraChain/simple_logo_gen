@@ -6,8 +6,8 @@ canvas_logo.height = 5;
 canvas_fav.width = 5;
 canvas_fav.height = 5;
 
-var ctx = logo_image.getContext("2d");
-var ctx2 = fav_image.getContext("2d");
+var ctx_logo = logo_image.getContext("2d");
+var ctx_fav = fav_image.getContext("2d");
 var txt = "";
 var txt2 = "";
 var ico = window
@@ -328,20 +328,20 @@ function fontChange2() {
 
 function renderImage() {
   document.fonts.ready.then((_) => {
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    var ico_w = ctx.measureText(ico).width;
+    ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+    var ico_w = ctx_logo.measureText(ico).width;
     var ico_h = parseInt(ico_sz, 10);
 
-    ctx2.font = ico_font_weight + " 48px " + ico_font_family;
-    var ico_w2 = ctx2.measureText(ico).width;
+    ctx_fav.font = ico_font_weight + " 48px " + ico_font_family;
+    var ico_w2 = ctx_fav.measureText(ico).width;
 
-    ctx.font = m_bold + "48px " + fnt;
-    var txt_w = ctx.measureText(txt).width;
-    var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+    ctx_logo.font = m_bold + "48px " + fnt;
+    var txt_w = ctx_logo.measureText(txt).width;
+    var txt_h = parseInt(ctx_logo.font.match(/\d+/), 10);
 
-    ctx.font = a_bold + "48px " + fnt2;
-    var txt2_w = ctx.measureText(txt2).width;
-    var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+    ctx_logo.font = a_bold + "48px " + fnt2;
+    var txt2_w = ctx_logo.measureText(txt2).width;
+    var txt2_h = parseInt(ctx_logo.font.match(/\d+/), 10);
 
     var max_h = Math.max(ico_h, txt_h, txt2_h);
     var start_ico = max_h;
@@ -353,75 +353,75 @@ function renderImage() {
     canvas_fav.height = 58;
 
     if (off_1 == 3) {
-      ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(ico, off_1, start_ico + off_1);
-      ctx.font = m_bold + "48px " + fnt;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(txt, ico_w + off_1, start_txt + off_1);
+      ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(ico, off_1, start_ico + off_1);
+      ctx_logo.font = m_bold + "48px " + fnt;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(txt, ico_w + off_1, start_txt + off_1);
     }
 
     if (off_1 == 3 && !shapes) {
-      ctx.font = a_bold + "48px " + fnt2;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(txt2, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
+      ctx_logo.font = a_bold + "48px " + fnt2;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(txt2, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
     }
 
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    ctx.fillStyle = ico_clr;
-    ctx.fillText(ico, 0, start_ico);
-    ctx2.font = ico_font_weight + " 48px " + ico_font_family;
-    ctx2.fillStyle = ico_clr;
-    ctx2.fillText(ico, 0, 48);
-    ctx.font = m_bold + "48px " + fnt;
-    ctx.fillStyle = clr;
-    ctx.fillText(txt, ico_w, start_txt);
+    ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+    ctx_logo.fillStyle = ico_clr;
+    ctx_logo.fillText(ico, 0, start_ico);
+    ctx_fav.font = ico_font_weight + " 48px " + ico_font_family;
+    ctx_fav.fillStyle = ico_clr;
+    ctx_fav.fillText(ico, 0, 48);
+    ctx_logo.font = m_bold + "48px " + fnt;
+    ctx_logo.fillStyle = clr;
+    ctx_logo.fillText(txt, ico_w, start_txt);
 
     if (txt2 != "" && shapes) {
-      ctx.strokeStyle = clr;
-      ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3);
-      ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3 - txt2_h);
-      ctx.arcTo(
+      ctx_logo.strokeStyle = clr;
+      ctx_logo.moveTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3);
+      ctx_logo.lineTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3 - txt2_h);
+      ctx_logo.arcTo(
         ico_w + 0 + txt_w + 2,
         start_txt + margin_h / 2 - 3 - txt2_h - 3,
         ico_w + 0 + txt_w + 5,
         start_txt + margin_h / 2 - 3 - txt2_h - 3,
         3
       );
-      ctx.lineTo(
+      ctx_logo.lineTo(
         ico_w + 0 + txt_w + 2 + txt2_w + 3,
         start_txt + margin_h / 2 - 3 - txt2_h - 3
       );
-      ctx.arcTo(
+      ctx_logo.arcTo(
         ico_w + 0 + txt_w + 2 + txt2_w + 6,
         start_txt + margin_h / 2 - 3 - txt2_h - 3,
         ico_w + 0 + txt_w + 2 + txt2_w + 6,
         start_txt + margin_h / 2 - 3 - txt2_h,
         3
       );
-      ctx.lineTo(
+      ctx_logo.lineTo(
         ico_w + 0 + txt_w + 2 + txt2_w + 6,
         start_txt + margin_h / 2 - 3
       );
-      ctx.arcTo(
+      ctx_logo.arcTo(
         ico_w + 0 + txt_w + 2 + txt2_w + 6,
         start_txt + margin_h / 2 - 3 + 3,
         ico_w + 0 + txt_w + 2 + txt2_w + 3,
         start_txt + margin_h / 2 - 3 + 3,
         3
       );
-      ctx.lineTo(ico_w + 0 + txt_w + 5, start_txt + margin_h / 2 - 3 + 3);
-      ctx.arcTo(
+      ctx_logo.lineTo(ico_w + 0 + txt_w + 5, start_txt + margin_h / 2 - 3 + 3);
+      ctx_logo.arcTo(
         ico_w + 0 + txt_w + 2,
         start_txt + margin_h / 2 - 3 + 3,
         ico_w + 0 + txt_w + 2,
         start_txt + margin_h / 2 - 3,
         3
       );
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.fillStyle = clr;
-      ctx.fillRect(
+      ctx_logo.lineWidth = 3;
+      ctx_logo.stroke();
+      ctx_logo.fillStyle = clr;
+      ctx_logo.fillRect(
         ico_w + 0 + txt_w + 2,
         start_txt + margin_h / 2 - 3 - txt2_h - 3,
         txt2_w + 6,
@@ -429,29 +429,29 @@ function renderImage() {
       );
     }
 
-    ctx.font = a_bold + "48px " + fnt2;
-    ctx.fillStyle = clr2;
-    ctx.fillText(txt2, ico_w + 0 + txt_w + 5, start_txt);
+    ctx_logo.font = a_bold + "48px " + fnt2;
+    ctx_logo.fillStyle = clr2;
+    ctx_logo.fillText(txt2, ico_w + 0 + txt_w + 5, start_txt);
   });
 }
 
 function renderImage2() {
   document.fonts.ready.then((_) => {
     canvas_logo.style.letterSpacing = 0 + "px";
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    var ico_w = ctx.measureText(ico).width;
+    ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+    var ico_w = ctx_logo.measureText(ico).width;
     var ico_h = parseInt(ico_sz, 10);
 
-    ctx2.font = ico_font_weight + " 48px " + ico_font_family;
-    var ico_w2 = ctx2.measureText(ico).width;
+    ctx_fav.font = ico_font_weight + " 48px " + ico_font_family;
+    var ico_w2 = ctx_fav.measureText(ico).width;
 
-    ctx.font = m_bold + "48px " + fnt;
-    var txt_w = ctx.measureText(txt).width;
-    var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+    ctx_logo.font = m_bold + "48px " + fnt;
+    var txt_w = ctx_logo.measureText(txt).width;
+    var txt_h = parseInt(ctx_logo.font.match(/\d+/), 10);
 
-    ctx.font = a_bold + "12px " + fnt2;
-    var txt2_w = ctx.measureText(txt2).width;
-    var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+    ctx_logo.font = a_bold + "12px " + fnt2;
+    var txt2_w = ctx_logo.measureText(txt2).width;
+    var txt2_h = parseInt(ctx_logo.font.match(/\d+/), 10);
 
     var max_w = Math.max(ico_w, txt_w, txt2_w);
     var center = (max_w + margin_w) / 2;
@@ -461,40 +461,40 @@ function renderImage2() {
     canvas_fav.width = ico_w2 + 5;
     canvas_fav.height = 58;
 
-    ctx.textAlign = "center";
+    ctx_logo.textAlign = "center";
 
     if (off_1 == 3) {
-      ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(ico, center + off_1, ico_h + off_1);
-      ctx.font = m_bold + "48px " + fnt;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(txt, center + off_1, ico_h + 5 + txt_h + off_1);
+      ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(ico, center + off_1, ico_h + off_1);
+      ctx_logo.font = m_bold + "48px " + fnt;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(txt, center + off_1, ico_h + 5 + txt_h + off_1);
     }
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    ctx.fillStyle = ico_clr;
-    ctx.fillText(ico, center, ico_h);
-    ctx2.font = ico_font_weight + " 48px " + ico_font_family;
-    ctx2.fillStyle = ico_clr;
-    ctx2.fillText(ico, 0, 48);
+    ctx_logo.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+    ctx_logo.fillStyle = ico_clr;
+    ctx_logo.fillText(ico, center, ico_h);
+    ctx_fav.font = ico_font_weight + " 48px " + ico_font_family;
+    ctx_fav.fillStyle = ico_clr;
+    ctx_fav.fillText(ico, 0, 48);
     canvas_logo.style.letterSpacing = 0 + "px";
-    ctx.font = m_bold + "48px " + fnt;
-    ctx.fillStyle = clr;
-    ctx.fillText(txt, center, ico_h + 5 + txt_h);
+    ctx_logo.font = m_bold + "48px " + fnt;
+    ctx_logo.fillStyle = clr;
+    ctx_logo.fillText(txt, center, ico_h + 5 + txt_h);
 
     if (txt2 != "" && shapes) {
-      ctx.strokeStyle = clr;
-      ctx.moveTo(center - txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
-      ctx.lineTo(center + txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
-      ctx.lineWidth = 2;
-      ctx.stroke();
+      ctx_logo.strokeStyle = clr;
+      ctx_logo.moveTo(center - txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
+      ctx_logo.lineTo(center + txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
+      ctx_logo.lineWidth = 2;
+      ctx_logo.stroke();
     }
     if (off_1 == 3) {
       canvas_logo.style.letterSpacing =
         document.getElementById("l_sp").value + "px";
-      ctx.font = a_bold + "12px " + fnt2;
-      ctx.fillStyle = off_clr;
-      ctx.fillText(
+      ctx_logo.font = a_bold + "12px " + fnt2;
+      ctx_logo.fillStyle = off_clr;
+      ctx_logo.fillText(
         txt2,
         center + off_1,
         ico_h + 5 + txt_h + 5 + txt2_h + off_1 + margin_h / 2
@@ -502,9 +502,9 @@ function renderImage2() {
     }
     canvas_logo.style.letterSpacing =
       document.getElementById("l_sp").value + "px";
-    ctx.font = a_bold + "12px " + fnt2;
-    ctx.fillStyle = clr2;
-    ctx.fillText(txt2, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
+    ctx_logo.font = a_bold + "12px " + fnt2;
+    ctx_logo.fillStyle = clr2;
+    ctx_logo.fillText(txt2, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
     l_sp = 0;
   });
 }
