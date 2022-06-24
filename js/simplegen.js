@@ -302,11 +302,7 @@ function fontChange2() {
 function render() {
   document.fonts.ready.then((_) => {
     renderFav(ctx_fav , canvas_fav);
-    if (layout.toUpperCase() == "HORIZONTAL") {
-      renderLogoHorizontal(ctx_logo, canvas_logo);
-    } else {
-      renderLogoVertical(ctx_logo, canvas_logo);
-    }
+    renderLogo(ctx_logo, canvas_logo);
   });
 }
 
@@ -325,12 +321,24 @@ function renderFav(ctx, canvas) {
 }
 
 /**
+ * Render logo
+ * @param {CanvasRenderingContext2D} ctx : Context for drawing logo
+ * @param {HTMLCanvasElement} canvas : Painting canvas element
+ */
+function renderLogo(ctx, canvas) {
+  if (layout.toUpperCase() == "HORIZONTAL") {
+    renderLogoHorizontal(ctx, canvas);
+  } else {
+    renderLogoVertical(ctx, canvas);
+  }
+}
+
+/**
  * Render Logo in horizontal layout
  * @param {CanvasRenderingContext2D} ctx : Context for drawing logo
  * @param {HTMLCanvasElement} canvas : Painting canvas element
  */
 function renderLogoHorizontal(ctx, canvas) {
-  document.fonts.ready.then((_) => {
     ctx.font =  icon.getFont();
     var ico_w = ctx.measureText(icon.text).width;
     var ico_h = parseInt(icon.fontSize, 10);
@@ -427,7 +435,6 @@ function renderLogoHorizontal(ctx, canvas) {
     ctx.font = accent.getFont();
     ctx.fillStyle =  accent.color;
     ctx.fillText(accent.text, ico_w + 0 + txt_w + 5, start_txt);
-  });
 }
 
 /**
@@ -436,7 +443,6 @@ function renderLogoHorizontal(ctx, canvas) {
  * @param {HTMLCanvasElement} canvas : Painting canvas element
  */
 function renderLogoVertical(ctx, canvas) {
-  document.fonts.ready.then((_) => {
     canvas.style.letterSpacing = 0 + "px";
     ctx.font =  icon.getFont();
     var ico_w = ctx.measureText(icon.text).width;
@@ -498,38 +504,59 @@ function renderLogoVertical(ctx, canvas) {
     ctx.fillStyle = accent.color;
     ctx.fillText(accent.text, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
     l_sp = 0;
-  });
 }
 
 var btn_download_fav = document.getElementById("fav-download");
 btn_download_fav.addEventListener(
   "click",function (e) {
-    exportCanva(btn_download_fav, canvas_fav, "favicon"); 
+    exportCanva(btn_download_fav, canvas_fav, "favicon", renderFav); 
   }
 );
 var btn_download_logo = document.getElementById("logo-download");
 btn_download_logo.addEventListener(
   "click",
   function (e) {
-    exportCanva(btn_download_logo, canvas_logo, "logo")
+    exportCanva(btn_download_logo, canvas_logo, "logo", renderLogo)
   }
 );
-function exportCanva(btn_download,canvas, filename) {
+
+/**
+ * 
+ * @param {HTMLAnchorElement} btn_download : Anchor element for downloading
+ * @param {HTMLCanvasElement} canvas : Canvas element to export
+ * @param {String} filename : Downloading filename without extension
+ * @param {Function} renderFunction : Canvas render function
+ */
+function exportCanva(btn_download,canvas, filename, renderFunction) {
   var selectFormat = document.getElementById("selectFormat");
   var mimetype = selectFormat.options[selectFormat.selectedIndex].value;
   var extension = selectFormat.options[selectFormat.selectedIndex].text;
+
+  var canvas_temp = canvas.cloneNode(true);
+  var ctx_temp;
+  var dataURL;
   switch (mimetype) {
     case "image/png":
+      dataURL = canvas.toDataURL(mimetype);
       break;
     case "image/webp":
+      dataURL = canvas.toDataURL(mimetype);
       break;
     case "image/jpeg":
-      var canvas_temp = canvas.cloneNode(true);
-      var ctx_temp = canvas_temp.getContext('2d');
+      ctx_temp = canvas_temp.getContext('2d');
       ctx_temp.fillStyle = '#FFF';
       ctx_temp.fillRect(0,0,canvas_temp.width,canvas_temp.height);
       ctx_temp.drawImage(canvas, 0, 0);
-      canvas = canvas_temp;
+      dataURL = canvas.toDataURL(mimetype);
+      break;
+    case "image/svg+xml":
+      ctx_temp = new C2S(canvas_temp.width,canvas_temp.height);
+      renderFunction(ctx_temp, canvas_temp);
+      var svgfonts = '<style>\r\n';
+      svgfonts += '@import url("https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette|Annie+Use+Your+Telescope|Baloo|Bowlby+One+SC|Bungee+Inline|Cabin+Sketch|Caveat|Contrail+One|Damion|Economica|Fascinate+Inline|Faster+One|Fredericka+the+Great|Gabriela|Just+Another+Hand|Kodchasan|Love+Ya+Like+A+Sister|Megrim|Monoton|Mouse+Memoirs|Podkova|Pompiere|Quicksand|Reenie+Beanie|Rokkitt|Six+Caps|Source+Sans+Pro|Special+Elite|Spicy+Rice|VT323|Wire+One");\r\n';
+      svgfonts += '@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");\r\n';
+      var svg = ctx_temp.getSerializedSvg().replace('<defs/>',svgfonts+'</style>\r\n<defs/>');
+      dataURL = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent('<?xml version="1.0" standalone="no"?>\r\n'+svg);
       break;
     default:
       break;
