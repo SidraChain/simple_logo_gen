@@ -1,3 +1,32 @@
+/**
+ * Class representing a text component
+ */
+class SimplegenTextComponent{
+  /**
+   * Create a SimplegenTextComponent
+   * @param {Sting} text Component text
+   * @param {String} color Text color in hex
+   * @param {String} fontFamily Text font family
+   * @param {String} fontWeight Text font weight
+   * @param {Number} fontSize Text font size
+   */
+ constructor(text, color, fontFamily, fontWeight, fontSize){
+  this.text = text;
+  this.color = color;
+  this.fontFamily = fontFamily;
+  this.fontWeight = fontWeight;
+  this.fontSize = fontSize;
+ }
+
+ /**
+  * Get CSS font property
+  * @returns {String} CSS font property
+  */
+ getFont() {
+  return this.fontWeight + " " + this.fontSize + "px " + this.fontFamily;
+ }
+}
+
 var canvas_logo = document.getElementById("logo_image");
 var canvas_fav = document.getElementById("fav_image");
 
@@ -8,29 +37,37 @@ canvas_fav.height = 5;
 
 var ctx_logo = logo_image.getContext("2d");
 var ctx_fav = fav_image.getContext("2d");
-var txt = "";
-var txt2 = "";
-var ico = window
+let icon = new SimplegenTextComponent(
+  window
   .getComputedStyle(document.querySelector("#icp-component i"), ":before")
-  .content.replace(/'|"/g, "");
-var ico_font_family = window.getComputedStyle(
-  document.querySelector("#icp-component i")
-).fontFamily;
-var ico_font_weight = window.getComputedStyle(
-  document.querySelector("#icp-component i")
-).fontWeight;
-var clr = "#000000";
-var ico_clr = clr;
-var ico_sz = 48;
-var fnt = "Arial";
-var fnt2 = "Arial";
-var clr2 = "#cccccc";
+  .content.replace(/'|"/g, ""),
+  "#000000",
+  window.getComputedStyle(
+    document.querySelector("#icp-component i")
+  ).fontFamily,
+  window.getComputedStyle(
+    document.querySelector("#icp-component i")
+  ).fontWeight,
+  48
+);
+let main = new SimplegenTextComponent(
+  "",
+  "#000000",
+  "Arial",
+  "bold",
+  48
+);
+let accent = new SimplegenTextComponent(
+  "",
+  "#cccccc",
+  "Arial",
+  "bold",
+  48
+);
 var off_1 = 0;
 var layout = 'HORIZONTAL';
 var shapes = true;
 var off_clr = "#f2f2f2";
-var a_bold = "bold ";
-var m_bold = "bold ";
 var l_sp = 0;
 
 var margin_w = 15;
@@ -38,25 +75,25 @@ var margin_h = 30;
 
 $("#icp").iconpicker({});
 $("#icp").on("iconpickerSelected", function (e) {
-  ico = window
+  icon.text = window
     .getComputedStyle(document.querySelector("#icp-component i"), ":before")
     .content.replace(/'|"/g, "");
-  ico_font_family = window.getComputedStyle(
+    icon.fontFamily = window.getComputedStyle(
     document.querySelector("#icp-component i")
   ).fontFamily;
-  ico_font_weight = window.getComputedStyle(
+  icon.fontWeight = window.getComputedStyle(
     document.querySelector("#icp-component i")
   ).fontWeight;
   render();
 });
 
 document.getElementById("txt").oninput = function () {
-  txt = document.getElementById("txt").value;
+  main.text = document.getElementById("txt").value;
   render();
 };
 
 document.getElementById("txt2").oninput = function () {
-  txt2 = document.getElementById("txt2").value;
+  accent.text = document.getElementById("txt2").value;
   render();
 };
 
@@ -71,9 +108,9 @@ document.getElementById("fx1").onclick = function () {
 };
 
 document.getElementById("fx2").onclick = function () {
-  clr = document.getElementById("clr").value;
-  clr2 = hexToComplimentary(clr);
-  document.getElementById("clr2").value = clr2;
+  main.color = document.getElementById("clr").value;
+  accent.color = hexToComplimentary(main.color);
+  document.getElementById("clr2").value = accent.color;
   render();
 };
 
@@ -81,27 +118,29 @@ document.getElementById("fx4").onclick = function () {
   if (layout.toUpperCase() == 'HORIZONTAL') {
     layout = 'VERTICAL';
     document.getElementById("l_sp").hidden = false;
+    accent.fontSize = 12;
   } else {
     layout = 'HORIZONTAL';
     document.getElementById("l_sp").hidden = true;
+    accent.fontSize = 48;
   }
   render();
 };
 
 document.getElementById("m_bold").onclick = function () {
-  if (m_bold == "") {
-    m_bold = "bold ";
+  if (main.fontWeight == "normal") {
+    main.fontWeight = "bold";
   } else {
-    m_bold = "";
+    main.fontWeight = "normal";
   }
   render();
 };
 
 document.getElementById("a_bold").onclick = function () {
-  if (a_bold == "") {
-    a_bold = "bold ";
+  if (accent.fontWeight == "normal") {
+    accent.fontWeight = "bold";
   } else {
-    a_bold = "";
+    accent.fontWeight = "normal";
   }
   render();
 };
@@ -116,12 +155,12 @@ document.getElementById("fx5").onclick = function () {
 };
 
 document.getElementById("clr").oninput = function () {
-  clr = document.getElementById("clr").value;
+  main.color = document.getElementById("clr").value;
   render();
 };
 
 document.getElementById("clr2").oninput = function () {
-  clr2 = document.getElementById("clr2").value;
+  accent.color = document.getElementById("clr2").value;
   render();
 };
 
@@ -131,12 +170,12 @@ document.getElementById("off_clr").oninput = function () {
 };
 
 document.getElementById("ico_clr").oninput = function () {
-  ico_clr = document.getElementById("ico_clr").value;
+  icon.color = document.getElementById("ico_clr").value;
   render();
 };
 
 document.getElementById("ico_sz").oninput = function () {
-  ico_sz = document.getElementById("ico_sz").value;
+  icon.fontSize = document.getElementById("ico_sz").value;
   render();
 };
 
@@ -218,13 +257,13 @@ for (var a = 0; a < fonts.length; a++) {
 }
 
 document.getElementById("select").oninput = function () {
-  fnt = document.getElementById("select").value;
+  main.fontFamily = document.getElementById("select").value;
   fontChange();
   render();
 };
 
 document.getElementById("select2").oninput = function () {
-  fnt2 = document.getElementById("select2").value;
+  accent.fontFamily = document.getElementById("select2").value;
   fontChange2();
   render();
 };
@@ -264,9 +303,9 @@ function render() {
   document.fonts.ready.then((_) => {
     renderFav(ctx_fav , canvas_fav);
     if (layout.toUpperCase() == "HORIZONTAL") {
-      renderLogoHorizontal(ctx_logo,canvas_logo);
+      renderLogoHorizontal(ctx_logo, canvas_logo);
     } else {
-      renderLogoVertical(ctx_logo,canvas_logo);
+      renderLogoVertical(ctx_logo, canvas_logo);
     }
   });
 }
@@ -277,12 +316,12 @@ function render() {
  * @param {HTMLCanvasElement} canvas : Painting canvas element
  */
 function renderFav(ctx, canvas) {
-  ctx.font = ico_font_weight + " 48px " + ico_font_family;
-  canvas.width = ctx.measureText(ico).width + 5;
+  ctx.font =  icon.getFont();
+  canvas.width = ctx.measureText(icon.text).width + 5;
   canvas.height = 58;
-  ctx.font = ico_font_weight + " 48px " + ico_font_family;
-  ctx.fillStyle = ico_clr;
-  ctx.fillText(ico, 0, 48);
+  ctx.font = icon.getFont();
+  ctx.fillStyle = icon.color;
+  ctx.fillText(icon.text, 0, 48);
 }
 
 /**
@@ -292,16 +331,16 @@ function renderFav(ctx, canvas) {
  */
 function renderLogoHorizontal(ctx, canvas) {
   document.fonts.ready.then((_) => {
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    var ico_w = ctx.measureText(ico).width;
-    var ico_h = parseInt(ico_sz, 10);
+    ctx.font =  icon.getFont();
+    var ico_w = ctx.measureText(icon.text).width;
+    var ico_h = parseInt(icon.fontSize, 10);
 
-    ctx.font = m_bold + "48px " + fnt;
-    var txt_w = ctx.measureText(txt).width;
+    ctx.font = main.getFont();
+    var txt_w = ctx.measureText(main.text).width;
     var txt_h = parseInt(ctx.font.match(/\d+/), 10);
 
-    ctx.font = a_bold + "48px " + fnt2;
-    var txt2_w = ctx.measureText(txt2).width;
+    ctx.font = accent.getFont();
+    var txt2_w = ctx.measureText(accent.text).width;
     var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
 
     var max_h = Math.max(ico_h, txt_h, txt2_h);
@@ -312,29 +351,29 @@ function renderLogoHorizontal(ctx, canvas) {
     canvas.height = max_h + margin_h;
 
     if (off_1 == 3) {
-      ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+      ctx.font =  icon.getFont();
       ctx.fillStyle = off_clr;
-      ctx.fillText(ico, off_1, start_ico + off_1);
-      ctx.font = m_bold + "48px " + fnt;
+      ctx.fillText(icon.text, off_1, start_ico + off_1);
+      ctx.font = main.getFont();
       ctx.fillStyle = off_clr;
-      ctx.fillText(txt, ico_w + off_1, start_txt + off_1);
+      ctx.fillText(main.text, ico_w + off_1, start_txt + off_1);
     }
 
     if (off_1 == 3 && !shapes) {
-      ctx.font = a_bold + "48px " + fnt2;
+      ctx.font = accent.getFont();
       ctx.fillStyle = off_clr;
-      ctx.fillText(txt2, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
+      ctx.fillText(accent.text, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
     }
 
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    ctx.fillStyle = ico_clr;
-    ctx.fillText(ico, 0, start_ico);
-    ctx.font = m_bold + "48px " + fnt;
-    ctx.fillStyle = clr;
-    ctx.fillText(txt, ico_w, start_txt);
+    ctx.font =  icon.getFont();
+    ctx.fillStyle = icon.color;
+    ctx.fillText(icon.text, 0, start_ico);
+    ctx.font = main.getFont();
+    ctx.fillStyle = main.color;
+    ctx.fillText(main.text, ico_w, start_txt);
 
-    if (txt2 != "" && shapes) {
-      ctx.strokeStyle = clr;
+    if (accent.text != "" && shapes) {
+      ctx.strokeStyle = main.color;
       ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3);
       ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3 - txt2_h);
       ctx.arcTo(
@@ -376,7 +415,7 @@ function renderLogoHorizontal(ctx, canvas) {
       );
       ctx.lineWidth = 3;
       ctx.stroke();
-      ctx.fillStyle = clr;
+      ctx.fillStyle =  main.color;
       ctx.fillRect(
         ico_w + 0 + txt_w + 2,
         start_txt + margin_h / 2 - 3 - txt2_h - 3,
@@ -385,9 +424,9 @@ function renderLogoHorizontal(ctx, canvas) {
       );
     }
 
-    ctx.font = a_bold + "48px " + fnt2;
-    ctx.fillStyle = clr2;
-    ctx.fillText(txt2, ico_w + 0 + txt_w + 5, start_txt);
+    ctx.font = accent.getFont();
+    ctx.fillStyle =  accent.color;
+    ctx.fillText(accent.text, ico_w + 0 + txt_w + 5, start_txt);
   });
 }
 
@@ -399,16 +438,16 @@ function renderLogoHorizontal(ctx, canvas) {
 function renderLogoVertical(ctx, canvas) {
   document.fonts.ready.then((_) => {
     canvas.style.letterSpacing = 0 + "px";
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    var ico_w = ctx.measureText(ico).width;
-    var ico_h = parseInt(ico_sz, 10);
+    ctx.font =  icon.getFont();
+    var ico_w = ctx.measureText(icon.text).width;
+    var ico_h = parseInt(icon.fontSize, 10);
 
-    ctx.font = m_bold + "48px " + fnt;
-    var txt_w = ctx.measureText(txt).width;
+    ctx.font = main.getFont();
+    var txt_w = ctx.measureText(main.text).width;
     var txt_h = parseInt(ctx.font.match(/\d+/), 10);
 
-    ctx.font = a_bold + "12px " + fnt2;
-    var txt2_w = ctx.measureText(txt2).width;
+    ctx.font = accent.getFont();
+    var txt2_w = ctx.measureText(accent.text).width;
     var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
 
     var max_w = Math.max(ico_w, txt_w, txt2_w);
@@ -420,23 +459,23 @@ function renderLogoVertical(ctx, canvas) {
     ctx.textAlign = "center";
 
     if (off_1 == 3) {
-      ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
+      ctx.font =  icon.getFont();
       ctx.fillStyle = off_clr;
-      ctx.fillText(ico, center + off_1, ico_h + off_1);
-      ctx.font = m_bold + "48px " + fnt;
+      ctx.fillText(icon.text, center + off_1, ico_h + off_1);
+      ctx.font = main.getFont();
       ctx.fillStyle = off_clr;
-      ctx.fillText(txt, center + off_1, ico_h + 5 + txt_h + off_1);
+      ctx.fillText(main.text, center + off_1, ico_h + 5 + txt_h + off_1);
     }
-    ctx.font = ico_font_weight + " " + ico_sz + "px " + ico_font_family;
-    ctx.fillStyle = ico_clr;
-    ctx.fillText(ico, center, ico_h);
+    ctx.font =  icon.getFont();
+    ctx.fillStyle = icon.color;
+    ctx.fillText(icon.text, center, ico_h);
     canvas.style.letterSpacing = 0 + "px";
-    ctx.font = m_bold + "48px " + fnt;
-    ctx.fillStyle = clr;
-    ctx.fillText(txt, center, ico_h + 5 + txt_h);
+    ctx.font = main.getFont();
+    ctx.fillStyle =  main.color;
+    ctx.fillText(main.text, center, ico_h + 5 + txt_h);
 
-    if (txt2 != "" && shapes) {
-      ctx.strokeStyle = clr;
+    if (accent.text != "" && shapes) {
+      ctx.strokeStyle =  main.color;
       ctx.moveTo(center - txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
       ctx.lineTo(center + txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
       ctx.lineWidth = 2;
@@ -445,19 +484,19 @@ function renderLogoVertical(ctx, canvas) {
     if (off_1 == 3) {
       canvas.style.letterSpacing =
         document.getElementById("l_sp").value + "px";
-      ctx.font = a_bold + "12px " + fnt2;
+      ctx.font = accent.getFont();
       ctx.fillStyle = off_clr;
       ctx.fillText(
-        txt2,
+        accent.text,
         center + off_1,
         ico_h + 5 + txt_h + 5 + txt2_h + off_1 + margin_h / 2
       );
     }
     canvas.style.letterSpacing =
       document.getElementById("l_sp").value + "px";
-    ctx.font = a_bold + "12px " + fnt2;
-    ctx.fillStyle = clr2;
-    ctx.fillText(txt2, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
+    ctx.font = accent.getFont();
+    ctx.fillStyle = accent.color;
+    ctx.fillText(accent.text, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
     l_sp = 0;
   });
 }
@@ -495,7 +534,6 @@ function exportCanva(btn_download,canvas, filename) {
     default:
       break;
   }
-  var dataURL = canvas.toDataURL(mimetype);
   btn_download.setAttribute("download", filename + "." + extension);
   btn_download.href = dataURL;
 }
