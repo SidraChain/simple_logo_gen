@@ -48,27 +48,27 @@ $("#icp").on("iconpickerSelected", function (e) {
     document.querySelector("#icp-component i")
   ).fontWeight;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 });
 
 document.getElementById("txt").oninput = function () {
   txt = document.getElementById("txt").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("txt2").oninput = function () {
   txt2 = document.getElementById("txt2").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -76,16 +76,16 @@ document.getElementById("fx1").onclick = function () {
   if (off_1 !== 3) {
     off_1 = 3;
     if (sty) {
-      renderImage();
+      render('HORIZONTAL');
     } else {
-      renderImage2();
+      render('VERTICAL');
     }
   } else {
     off_1 = 0;
     if (sty) {
-      renderImage();
+      render('HORIZONTAL');
     } else {
-      renderImage2();
+      render('VERTICAL');
     }
   }
 };
@@ -95,9 +95,9 @@ document.getElementById("fx2").onclick = function () {
   clr2 = hexToComplimentary(clr);
   document.getElementById("clr2").value = clr2;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -105,11 +105,11 @@ document.getElementById("fx4").onclick = function () {
   if (sty) {
     sty = false;
     document.getElementById("l_sp").hidden = false;
-    renderImage2();
+    render('HORIZONTAL');
   } else {
     sty = true;
     document.getElementById("l_sp").hidden = true;
-    renderImage();
+    render('VERTICAL');
   }
 };
 
@@ -120,9 +120,9 @@ document.getElementById("m_bold").onclick = function () {
     m_bold = "";
   }
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -133,9 +133,9 @@ document.getElementById("a_bold").onclick = function () {
     a_bold = "";
   }
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -146,63 +146,63 @@ document.getElementById("fx5").onclick = function () {
     shapes = true;
   }
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("clr").oninput = function () {
   clr = document.getElementById("clr").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("clr2").oninput = function () {
   clr2 = document.getElementById("clr2").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("off_clr").oninput = function () {
   off_clr = document.getElementById("off_clr").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("ico_clr").oninput = function () {
   ico_clr = document.getElementById("ico_clr").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("ico_sz").oninput = function () {
   ico_sz = document.getElementById("ico_sz").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
 document.getElementById("l_sp").oninput = function () {
   l_sp = document.getElementById("l_sp").value;
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -282,9 +282,9 @@ document.getElementById("select").oninput = function () {
   fnt = document.getElementById("select").value;
   fontChange();
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -292,9 +292,9 @@ document.getElementById("select2").oninput = function () {
   fnt2 = document.getElementById("select2").value;
   fontChange2();
   if (sty) {
-    renderImage();
+    render('HORIZONTAL');
   } else {
-    renderImage2();
+    render('VERTICAL');
   }
 };
 
@@ -324,6 +324,18 @@ function fontChange2() {
       y[x].text +
       "';</style>"
   );
+}
+
+/**
+ * Render favicon and logo canvas
+ * @param {String} layout : logo layout to be render
+ */
+function render(layout){
+  if (layout.toUpperCase() == 'HORIZONTAL') {
+    renderImage();
+  } else {
+    renderImage2();
+  }
 }
 
 function renderImage() {
