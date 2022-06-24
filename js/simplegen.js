@@ -26,7 +26,7 @@ var fnt = "Arial";
 var fnt2 = "Arial";
 var clr2 = "#cccccc";
 var off_1 = 0;
-var sty = true;
+var layout = 'HORIZONTAL';
 var shapes = true;
 var off_clr = "#f2f2f2";
 var a_bold = "bold ";
@@ -47,70 +47,45 @@ $("#icp").on("iconpickerSelected", function (e) {
   ico_font_weight = window.getComputedStyle(
     document.querySelector("#icp-component i")
   ).fontWeight;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 });
 
 document.getElementById("txt").oninput = function () {
   txt = document.getElementById("txt").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("txt2").oninput = function () {
   txt2 = document.getElementById("txt2").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("fx1").onclick = function () {
   if (off_1 !== 3) {
     off_1 = 3;
-    if (sty) {
-      render('HORIZONTAL');
-    } else {
-      render('VERTICAL');
-    }
+    
   } else {
     off_1 = 0;
-    if (sty) {
-      render('HORIZONTAL');
-    } else {
-      render('VERTICAL');
-    }
   }
+  render(layout);
 };
 
 document.getElementById("fx2").onclick = function () {
   clr = document.getElementById("clr").value;
   clr2 = hexToComplimentary(clr);
   document.getElementById("clr2").value = clr2;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("fx4").onclick = function () {
-  if (sty) {
-    sty = false;
+  if (layout.toUpperCase() == 'HORIZONTAL') {
+    layout = 'VERTICAL';
     document.getElementById("l_sp").hidden = false;
-    render('HORIZONTAL');
   } else {
-    sty = true;
+    layout = 'HORIZONTAL';
     document.getElementById("l_sp").hidden = true;
-    render('VERTICAL');
   }
+  render(layout);
 };
 
 document.getElementById("m_bold").onclick = function () {
@@ -119,11 +94,7 @@ document.getElementById("m_bold").onclick = function () {
   } else {
     m_bold = "";
   }
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("a_bold").onclick = function () {
@@ -132,11 +103,7 @@ document.getElementById("a_bold").onclick = function () {
   } else {
     a_bold = "";
   }
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("fx5").onclick = function () {
@@ -145,65 +112,37 @@ document.getElementById("fx5").onclick = function () {
   } else {
     shapes = true;
   }
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("clr").oninput = function () {
   clr = document.getElementById("clr").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("clr2").oninput = function () {
   clr2 = document.getElementById("clr2").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("off_clr").oninput = function () {
   off_clr = document.getElementById("off_clr").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("ico_clr").oninput = function () {
   ico_clr = document.getElementById("ico_clr").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("ico_sz").oninput = function () {
   ico_sz = document.getElementById("ico_sz").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("l_sp").oninput = function () {
   l_sp = document.getElementById("l_sp").value;
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 var fonts = [
@@ -281,21 +220,13 @@ for (var a = 0; a < fonts.length; a++) {
 document.getElementById("select").oninput = function () {
   fnt = document.getElementById("select").value;
   fontChange();
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 document.getElementById("select2").oninput = function () {
   fnt2 = document.getElementById("select2").value;
   fontChange2();
-  if (sty) {
-    render('HORIZONTAL');
-  } else {
-    render('VERTICAL');
-  }
+  render(layout);
 };
 
 function fontChange() {
