@@ -137,8 +137,8 @@ for (const font of fonts) {
   var opt = document.createElement("option");
   opt.value = opt.innerHTML = font;
   opt.style.fontFamily = font;
-  document.getElementById("select").add(opt.cloneNode(true));
-  document.getElementById("select2").add(opt.cloneNode(true));
+  document.getElementById("main-font-select").add(opt.cloneNode(true));
+  document.getElementById("accent-font-select").add(opt.cloneNode(true));
 }
 
 /* LISTENERS */
@@ -252,15 +252,15 @@ document.getElementById("l_sp").oninput = function () {
   render();
 };
 
-document.getElementById("select").oninput = function () {
-  main.fontFamily = document.getElementById("select").value;
-  fontChange();
+document.getElementById("main-font-select").oninput = function () {
+  main.fontFamily = document.getElementById("main-font-select").value;
+  setSelectFont(document.getElementById("main-font-select"));
   render();
 };
 
-document.getElementById("select2").oninput = function () {
-  accent.fontFamily = document.getElementById("select2").value;
-  fontChange2();
+document.getElementById("accent-font-select").oninput = function () {
+  accent.fontFamily = document.getElementById("accent-font-select").value;
+  setSelectFont(document.getElementById("accent-font-select"));
   render();
 };
 
@@ -278,32 +278,12 @@ document.getElementById("logo-download").addEventListener(
 );
 
 /* FUNCTIONS */
-function fontChange() {
-  var x = document.getElementById("select").selectedIndex;
-  var y = document.getElementById("select").options;
-  document.body.insertAdjacentHTML(
-    "beforeend",
-    "<style> #text{ font-family:'" +
-      y[x].text +
-      "';}" +
-      "#select{font-family:'" +
-      y[x].text +
-      "';</style>"
-  );
-}
-
-function fontChange2() {
-  var x = document.getElementById("select2").selectedIndex;
-  var y = document.getElementById("select2").options;
-  document.body.insertAdjacentHTML(
-    "beforeend",
-    "<style> #text{ font-family:'" +
-      y[x].text +
-      "';}" +
-      "#select2{font-family:'" +
-      y[x].text +
-      "';</style>"
-  );
+/**
+ * Set the selected font family to the selector
+ * @param {HTMLSelectElement} select : HTML select element to change font family
+ */
+ function setSelectFont(select) {
+  select.style.fontFamily = select.value;
 }
 
 /**
