@@ -17,4 +17,5 @@ https://creecros.github.io/simple_logo_gen/
  - :bulb: ¿Do you have a great idea? Open a issue in [GitHub feature request](https://github.com/creecros/simple_logo_gen/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D)
 # Collaborators welcome!
  - :computer: ¿Do you know how to fix a bug? Open a pull request in [GitHub pull repuest](https://github.com/creecros/simple_logo_gen/compare).
+ 
 [![GitHub Contributors](https://contrib.rocks/image?repo=creecros/simple_logo_gen)](https://github.com/creecros/simple_logo_gen/graphs/contributors)
