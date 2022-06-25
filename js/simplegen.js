@@ -27,20 +27,21 @@ class SimplegenTextComponent{
  }
 }
 
+/* DEFAULT PARAMETERS */
 var canvas_logo = document.getElementById("logo_image");
-var canvas_fav = document.getElementById("fav_image");
-
 canvas_logo.width = 5;
 canvas_logo.height = 5;
+var ctx_logo = logo_image.getContext("2d");
+
+var canvas_fav = document.getElementById("fav_image");
 canvas_fav.width = 5;
 canvas_fav.height = 5;
-
-var ctx_logo = logo_image.getContext("2d");
 var ctx_fav = fav_image.getContext("2d");
+
 let icon = new SimplegenTextComponent(
   window
   .getComputedStyle(document.querySelector("#icp-component i"), ":before")
-  .content.replace(/'|"/g, ""),
+  .content.replace(/['"]/g, ""),
   "#000000",
   window.getComputedStyle(
     document.querySelector("#icp-component i")
@@ -64,20 +65,87 @@ let accent = new SimplegenTextComponent(
   "bold",
   48
 );
+
 var off_1 = 0;
 var layout = 'HORIZONTAL';
 var shapes = true;
 var off_clr = "#f2f2f2";
 var l_sp = 0;
-
 var margin_w = 15;
 var margin_h = 30;
 
+/* SETTINGS */
 $("#icp").iconpicker({});
-$("#icp").on("iconpickerSelected", function (e) {
+
+var fonts = [
+  "Arial",
+  "Montez",
+  "Lobster",
+  "Josefin Sans",
+  "Shadows Into Light",
+  "Pacifico",
+  "Amatic SC",
+  "Orbitron",
+  "Rokkitt",
+  "Righteous",
+  "Dancing Script",
+  "Bangers",
+  "Chewy",
+  "Sigmar One",
+  "Architects Daughter",
+  "Abril Fatface",
+  "Covered By Your Grace",
+  "Kaushan Script",
+  "Gloria Hallelujah",
+  "Satisfy",
+  "Lobster Two",
+  "Comfortaa",
+  "Cinzel",
+  "Courgette",
+  "Annie Use Your Telescope",
+  "Baloo",
+  "Bowlby One SC",
+  "Bungee Inline",
+  "Cabin Sketch",
+  "Caveat",
+  "Contrail One",
+  "Damion",
+  "Economica",
+  "Fascinate Inline",
+  "Faster One",
+  "Fredericka the Great",
+  "Gabriela",
+  "Just Another Hand",
+  "Kodchasan",
+  "Love Ya Like A Sister",
+  "Megrim",
+  "Monoton",
+  "Mouse Memoirs",
+  "Podkova",
+  "Pompiere",
+  "Quicksand",
+  "Reenie Beanie",
+  "Rokkitt",
+  "Six Caps",
+  "Source Sans Pro",
+  "Special Elite",
+  "Spicy Rice",
+  "VT323",
+  "Wire One",
+];
+for (const font of fonts) {
+  var opt = document.createElement("option");
+  opt.value = opt.innerHTML = font;
+  opt.style.fontFamily = font;
+  document.getElementById("select").add(opt.cloneNode(true));
+  document.getElementById("select2").add(opt.cloneNode(true));
+}
+
+/* LISTENERS */
+$("#icp").on("iconpickerSelected", function (_e) {
   icon.text = window
     .getComputedStyle(document.querySelector("#icp-component i"), ":before")
-    .content.replace(/'|"/g, "");
+    .content.replace(/['"]/g, "");
     icon.fontFamily = window.getComputedStyle(
     document.querySelector("#icp-component i")
   ).fontFamily;
@@ -184,78 +252,6 @@ document.getElementById("l_sp").oninput = function () {
   render();
 };
 
-var fonts = [
-  "Arial",
-  "Montez",
-  "Lobster",
-  "Josefin Sans",
-  "Shadows Into Light",
-  "Pacifico",
-  "Amatic SC",
-  "Orbitron",
-  "Rokkitt",
-  "Righteous",
-  "Dancing Script",
-  "Bangers",
-  "Chewy",
-  "Sigmar One",
-  "Architects Daughter",
-  "Abril Fatface",
-  "Covered By Your Grace",
-  "Kaushan Script",
-  "Gloria Hallelujah",
-  "Satisfy",
-  "Lobster Two",
-  "Comfortaa",
-  "Cinzel",
-  "Courgette",
-  "Annie Use Your Telescope",
-  "Baloo",
-  "Bowlby One SC",
-  "Bungee Inline",
-  "Cabin Sketch",
-  "Caveat",
-  "Contrail One",
-  "Damion",
-  "Economica",
-  "Fascinate Inline",
-  "Faster One",
-  "Fredericka the Great",
-  "Gabriela",
-  "Just Another Hand",
-  "Kodchasan",
-  "Love Ya Like A Sister",
-  "Megrim",
-  "Monoton",
-  "Mouse Memoirs",
-  "Podkova",
-  "Pompiere",
-  "Quicksand",
-  "Reenie Beanie",
-  "Rokkitt",
-  "Six Caps",
-  "Source Sans Pro",
-  "Special Elite",
-  "Spicy Rice",
-  "VT323",
-  "Wire One",
-];
-var string = "";
-var select = document.getElementById("select");
-var select2 = document.getElementById("select2");
-for (var a = 0; a < fonts.length; a++) {
-  var opt = document.createElement("option");
-  opt.value = opt.innerHTML = fonts[a];
-  opt.style.fontFamily = fonts[a];
-  select.add(opt);
-}
-for (var a = 0; a < fonts.length; a++) {
-  var opt = document.createElement("option");
-  opt.value = opt.innerHTML = fonts[a];
-  opt.style.fontFamily = fonts[a];
-  select2.add(opt);
-}
-
 document.getElementById("select").oninput = function () {
   main.fontFamily = document.getElementById("select").value;
   fontChange();
@@ -268,6 +264,20 @@ document.getElementById("select2").oninput = function () {
   render();
 };
 
+document.getElementById("fav-download").addEventListener(
+  "click",function (_e) {
+    exportCanva(document.getElementById("fav-download"), canvas_fav, "favicon", renderFav); 
+  }
+);
+
+document.getElementById("logo-download").addEventListener(
+  "click",
+  function (_e) {
+    exportCanva(document.getElementById("logo-download"), canvas_logo, "logo", renderLogo)
+  }
+);
+
+/* FUNCTIONS */
 function fontChange() {
   var x = document.getElementById("select").selectedIndex;
   var y = document.getElementById("select").options;
@@ -505,20 +515,6 @@ function renderLogoVertical(ctx, canvas) {
     ctx.fillText(accent.text, center, ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2);
     l_sp = 0;
 }
-
-var btn_download_fav = document.getElementById("fav-download");
-btn_download_fav.addEventListener(
-  "click",function (e) {
-    exportCanva(btn_download_fav, canvas_fav, "favicon", renderFav); 
-  }
-);
-var btn_download_logo = document.getElementById("logo-download");
-btn_download_logo.addEventListener(
-  "click",
-  function (e) {
-    exportCanva(btn_download_logo, canvas_logo, "logo", renderLogo)
-  }
-);
 
 /**
  * 
