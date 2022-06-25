@@ -10,5 +10,11 @@ https://creecros.github.io/simple_logo_gen/
 
 ![image](https://user-images.githubusercontent.com/26339368/55569084-ecf14f80-56ce-11e9-9fd5-8d8ee03a257e.png)
 
+¿Do you like the project? Give us a :star: in [GitHub](https://github.com/creecros/simple_logo_gen).
+## Support
+ - :sos: ¿Do you need some help? Open a issue in [GitHub help wanted](https://github.com/creecros/simple_logo_gen/issues/new?assignees=&labels=help+wanted&template=help-wanted.md&title=%5BHELP%5D)
+ - :bug: ¿Do you find a bug? Open a issue in [GitHub bug report](https://github.com/creecros/simple_logo_gen/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D)
+ - :bulb: ¿Do you have a great idea? Open a issue in [GitHub feature request](https://github.com/creecros/simple_logo_gen/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D)
 # Collaborators welcome!
+ - :computer: ¿Do you know how to fix a bug? Open a pull request in [GitHub pull repuest](https://github.com/creecros/simple_logo_gen/compare).
 [![GitHub Contributors](https://contrib.rocks/image?repo=creecros/simple_logo_gen)](https://github.com/creecros/simple_logo_gen/graphs/contributors)
