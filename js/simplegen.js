@@ -28,15 +28,15 @@ class SimplegenTextComponent {
 }
 
 /* DEFAULT PARAMETERS */
-var canvas_logo = document.getElementById("logo_image");
+var canvas_logo = document.getElementById("logo-canvas");
 canvas_logo.width = 5;
 canvas_logo.height = 5;
-var ctx_logo = logo_image.getContext("2d");
+var ctx_logo = canvas_logo.getContext("2d");
 
-var canvas_fav = document.getElementById("fav_image");
+var canvas_fav = document.getElementById("fav-canvas");
 canvas_fav.width = 5;
 canvas_fav.height = 5;
-var ctx_fav = fav_image.getContext("2d");
+var ctx_fav = canvas_fav.getContext("2d");
 
 let icon = new SimplegenTextComponent(
   window
@@ -54,13 +54,19 @@ let icon = new SimplegenTextComponent(
 let main = new SimplegenTextComponent("", "#000000", "Arial", "bold", 48);
 let accent = new SimplegenTextComponent("", "#cccccc", "Arial", "bold", 48);
 
+const padding = new Object();
+padding.width = 7;
+padding.height = 7;
+padding.internal = new Object();
+padding.internal.x = 3;
+padding.internal.y = 5;
+Object.freeze(padding);
+
 var off_1 = 0;
 var layout = "HORIZONTAL";
 var shapes = true;
-var off_clr = "#f2f2f2";
+var offset_clr = "#f2f2f2";
 var l_sp = 0;
-var margin_w = 15;
-var margin_h = 30;
 
 /* SETTINGS */
 $("#icp").iconpicker({});
@@ -125,8 +131,8 @@ for (const font of fonts) {
   var opt = document.createElement("option");
   opt.value = opt.innerHTML = font;
   opt.style.fontFamily = font;
-  document.getElementById("main-font-select").add(opt.cloneNode(true));
-  document.getElementById("accent-font-select").add(opt.cloneNode(true));
+  document.getElementById("main_font-select").add(opt.cloneNode(true));
+  document.getElementById("accent_font-select").add(opt.cloneNode(true));
 }
 
 /* LISTENERS */
@@ -143,17 +149,17 @@ $("#icp").on("iconpickerSelected", function (_e) {
   render();
 });
 
-document.getElementById("txt").oninput = function () {
-  main.text = document.getElementById("txt").value;
+document.getElementById("main-input").oninput = function () {
+  main.text = document.getElementById("main-input").value;
   render();
 };
 
-document.getElementById("txt2").oninput = function () {
-  accent.text = document.getElementById("txt2").value;
+document.getElementById("accent-input").oninput = function () {
+  accent.text = document.getElementById("accent-input").value;
   render();
 };
 
-document.getElementById("fx1").onclick = function () {
+document.getElementById("offset-btn").onclick = function () {
   if (off_1 !== 3) {
     off_1 = 3;
   } else {
@@ -162,14 +168,14 @@ document.getElementById("fx1").onclick = function () {
   render();
 };
 
-document.getElementById("fx2").onclick = function () {
-  main.color = document.getElementById("clr").value;
+document.getElementById("compliment_color-btn").onclick = function () {
+  main.color = document.getElementById("main-clr").value;
   accent.color = hexToComplimentary(main.color);
-  document.getElementById("clr2").value = accent.color;
+  document.getElementById("accent-clr").value = accent.color;
   render();
 };
 
-document.getElementById("fx4").onclick = function () {
+document.getElementById("layout-btn").onclick = function () {
   if (layout.toUpperCase() == "HORIZONTAL") {
     layout = "VERTICAL";
     document.getElementById("l_sp").hidden = false;
@@ -182,7 +188,7 @@ document.getElementById("fx4").onclick = function () {
   render();
 };
 
-document.getElementById("m_bold").onclick = function () {
+document.getElementById("main_weight-btn").onclick = function () {
   if (main.fontWeight == "normal") {
     main.fontWeight = "bold";
   } else {
@@ -191,7 +197,7 @@ document.getElementById("m_bold").onclick = function () {
   render();
 };
 
-document.getElementById("a_bold").onclick = function () {
+document.getElementById("accent_weight-btn").onclick = function () {
   if (accent.fontWeight == "normal") {
     accent.fontWeight = "bold";
   } else {
@@ -200,7 +206,7 @@ document.getElementById("a_bold").onclick = function () {
   render();
 };
 
-document.getElementById("fx5").onclick = function () {
+document.getElementById("shapes-btn").onclick = function () {
   if (shapes) {
     shapes = false;
   } else {
@@ -209,28 +215,28 @@ document.getElementById("fx5").onclick = function () {
   render();
 };
 
-document.getElementById("clr").oninput = function () {
-  main.color = document.getElementById("clr").value;
+document.getElementById("main-clr").oninput = function () {
+  main.color = document.getElementById("main-clr").value;
   render();
 };
 
-document.getElementById("clr2").oninput = function () {
-  accent.color = document.getElementById("clr2").value;
+document.getElementById("accent-clr").oninput = function () {
+  accent.color = document.getElementById("accent-clr").value;
   render();
 };
 
-document.getElementById("off_clr").oninput = function () {
-  off_clr = document.getElementById("off_clr").value;
+document.getElementById("offset-clr").oninput = function () {
+  offset_clr = document.getElementById("offset-clr").value;
   render();
 };
 
-document.getElementById("ico_clr").oninput = function () {
-  icon.color = document.getElementById("ico_clr").value;
+document.getElementById("icon-clr").oninput = function () {
+  icon.color = document.getElementById("icon-clr").value;
   render();
 };
 
-document.getElementById("ico_sz").oninput = function () {
-  icon.fontSize = document.getElementById("ico_sz").value;
+document.getElementById("icon-sz").oninput = function () {
+  icon.fontSize = parseInt(document.getElementById("icon-sz").value);
   render();
 };
 
@@ -239,23 +245,23 @@ document.getElementById("l_sp").oninput = function () {
   render();
 };
 
-document.getElementById("main-font-select").oninput = function () {
-  main.fontFamily = document.getElementById("main-font-select").value;
-  setSelectFont(document.getElementById("main-font-select"));
+document.getElementById("main_font-select").oninput = function () {
+  main.fontFamily = document.getElementById("main_font-select").value;
+  setSelectFont(document.getElementById("main_font-select"));
   render();
 };
 
-document.getElementById("accent-font-select").oninput = function () {
-  accent.fontFamily = document.getElementById("accent-font-select").value;
-  setSelectFont(document.getElementById("accent-font-select"));
+document.getElementById("accent_font-select").oninput = function () {
+  accent.fontFamily = document.getElementById("accent_font-select").value;
+  setSelectFont(document.getElementById("accent_font-select"));
   render();
 };
 
 document
-  .getElementById("fav-download")
+  .getElementById("fav_download-btn")
   .addEventListener("click", function (_e) {
     exportCanva(
-      document.getElementById("fav-download"),
+      document.getElementById("fav_download-btn"),
       canvas_fav,
       "favicon",
       renderFav
@@ -263,10 +269,10 @@ document
   });
 
 document
-  .getElementById("logo-download")
+  .getElementById("logo_download-btn")
   .addEventListener("click", function (_e) {
     exportCanva(
-      document.getElementById("logo-download"),
+      document.getElementById("logo_download-btn"),
       canvas_logo,
       "logo",
       renderLogo
@@ -299,11 +305,12 @@ function render() {
  */
 function renderFav(ctx, canvas) {
   ctx.font = icon.getFont();
-  canvas.width = ctx.measureText(icon.text).width + 5;
-  canvas.height = 58;
+  canvas.width = ctx.measureText(icon.text).width + 2 * padding.width;
+  canvas.height = icon.fontSize + 2 * padding.height;
+  ctx.textBaseline = "middle";
   ctx.font = icon.getFont();
   ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, 0, 48);
+  ctx.fillText(icon.text, padding.width, canvas.height / 2);
 }
 
 /**
@@ -326,101 +333,85 @@ function renderLogo(ctx, canvas) {
  */
 function renderLogoHorizontal(ctx, canvas) {
   ctx.font = icon.getFont();
-  var ico_w = ctx.measureText(icon.text).width;
-  var ico_h = parseInt(icon.fontSize, 10);
+  var icon_w = ctx.measureText(icon.text).width;
 
   ctx.font = main.getFont();
-  var txt_w = ctx.measureText(main.text).width;
-  var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+  var main_w = ctx.measureText(main.text).width;
 
   ctx.font = accent.getFont();
-  var txt2_w = ctx.measureText(accent.text).width;
-  var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+  var accent_w = ctx.measureText(accent.text).width;
 
-  var max_h = Math.max(ico_h, txt_h, txt2_h);
-  var start_ico = max_h;
-  var start_txt = max_h - 2;
+  var max_h = Math.max(icon.fontSize, main.fontSize, accent.fontSize);
+  var baseline = canvas.height / 2;
+  var icon_start = padding.width;
+  var main_start =
+    icon_start + icon_w + (main.text != "" ? padding.internal.x : 0);
+  var accent_start =
+    main_start +
+    main_w +
+    (accent.text != "" ? padding.internal.x : 0) +
+    (accent.text != "" && shapes ? 2 * padding.internal.x : 0);
 
-  canvas.width = ico_w + txt_w + txt2_w + margin_w;
-  canvas.height = max_h + margin_h;
+  canvas.width =
+    icon_w +
+    (main.text != "" ? padding.internal.x : 0) +
+    main_w +
+    (accent.text != "" ? padding.internal.x : 0) +
+    (accent.text != "" && shapes ? 4 * padding.internal.x : 0) +
+    accent_w +
+    2 * padding.width;
+  canvas.height =
+    max_h +
+    (accent.text != "" && shapes ? 2 * padding.internal.y : 0) +
+    2 * padding.height;
 
+  ctx.textBaseline = "middle";
+
+  // Offset drawing
   if (off_1 == 3) {
     ctx.font = icon.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(icon.text, off_1, start_ico + off_1);
+    ctx.fillStyle = offset_clr;
+    ctx.fillText(icon.text, icon_start + off_1, baseline + off_1);
+
     ctx.font = main.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(main.text, ico_w + off_1, start_txt + off_1);
+    ctx.fillStyle = offset_clr;
+    ctx.fillText(main.text, main_start + off_1, baseline + off_1);
+
+    if (!shapes) {
+      ctx.font = accent.getFont();
+      ctx.fillStyle = offset_clr;
+      ctx.fillText(accent.text, accent_start + off_1, baseline + off_1);
+    }
   }
 
-  if (off_1 == 3 && !shapes) {
-    ctx.font = accent.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(accent.text, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
-  }
-
-  ctx.font = icon.getFont();
-  ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, 0, start_ico);
-  ctx.font = main.getFont();
-  ctx.fillStyle = main.color;
-  ctx.fillText(main.text, ico_w, start_txt);
-
+  // Shape Drawing
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
-    ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3);
-    ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3 - txt2_h);
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      ico_w + 0 + txt_w + 5,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      3
-    );
-    ctx.lineTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 3,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3
-    );
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 - txt2_h,
-      3
-    );
-    ctx.lineTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3
-    );
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 + 3,
-      ico_w + 0 + txt_w + 2 + txt2_w + 3,
-      start_txt + margin_h / 2 - 3 + 3,
-      3
-    );
-    ctx.lineTo(ico_w + 0 + txt_w + 5, start_txt + margin_h / 2 - 3 + 3);
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 + 3,
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3,
-      3
-    );
-    ctx.lineWidth = 3;
-    ctx.stroke();
     ctx.fillStyle = main.color;
-    ctx.fillRect(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      txt2_w + 6,
-      txt2_h + 6
+    roundRect(
+      ctx,
+      accent_start - 2 * padding.internal.x,
+      padding.height,
+      accent_w + 4 * padding.internal.x,
+      canvas.height - 2 * padding.height,
+      5,
+      true,
+      true
     );
   }
+
+  // Text drawing
+  ctx.font = icon.getFont();
+  ctx.fillStyle = icon.color;
+  ctx.fillText(icon.text, icon_start, baseline);
+
+  ctx.font = main.getFont();
+  ctx.fillStyle = main.color;
+  ctx.fillText(main.text, main_start, baseline);
 
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(accent.text, ico_w + 0 + txt_w + 5, start_txt);
+  ctx.fillText(accent.text, accent_start, baseline);
 }
 
 /**
@@ -431,67 +422,125 @@ function renderLogoHorizontal(ctx, canvas) {
 function renderLogoVertical(ctx, canvas) {
   canvas.style.letterSpacing = 0 + "px";
   ctx.font = icon.getFont();
-  var ico_w = ctx.measureText(icon.text).width;
-  var ico_h = parseInt(icon.fontSize, 10);
+  var icon_w = ctx.measureText(icon.text).width;
 
   ctx.font = main.getFont();
-  var txt_w = ctx.measureText(main.text).width;
-  var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+  var main_w = ctx.measureText(main.text).width;
 
   ctx.font = accent.getFont();
-  var txt2_w = ctx.measureText(accent.text).width;
-  var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+  var accent_w = ctx.measureText(accent.text).width;
 
-  var max_w = Math.max(ico_w, txt_w, txt2_w);
-  var center = (max_w + margin_w) / 2;
+  var max_w = Math.max(icon_w, main_w, accent_w);
+  var center = (max_w + 2*padding.width) / 2;
 
-  canvas.width = max_w + margin_w;
-  canvas.height = ico_h + txt_h + txt2_h + margin_h;
+  var icon_start = padding.height+icon.fontSize/2;
+  var main_start = icon_start+icon.fontSize/2+padding.internal.y+main.fontSize/2;
+  var accent_start = main_start + main.fontSize/2+padding.internal.y+accent.fontSize/2;
+
+  canvas.width = max_w + 2*padding.width;
+  canvas.height = icon.fontSize + padding.internal.y + main.fontSize + padding.internal.y + accent.fontSize + 2*padding.height;
 
   ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
-  if (off_1 == 3) {
-    ctx.font = icon.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(icon.text, center + off_1, ico_h + off_1);
-    ctx.font = main.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(main.text, center + off_1, ico_h + 5 + txt_h + off_1);
-  }
-  ctx.font = icon.getFont();
-  ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, center, ico_h);
-  canvas.style.letterSpacing = 0 + "px";
-  ctx.font = main.getFont();
-  ctx.fillStyle = main.color;
-  ctx.fillText(main.text, center, ico_h + 5 + txt_h);
-
+  // Shape drawing
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
-    ctx.moveTo(center - txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
-    ctx.lineTo(center + txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
+    ctx.moveTo(center - main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
+    ctx.lineTo(center + main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
     ctx.lineWidth = 2;
     ctx.stroke();
   }
+
+  // Offset Drawing
   if (off_1 == 3) {
-    canvas.style.letterSpacing = document.getElementById("l_sp").value + "px";
+    ctx.font = icon.getFont();
+    ctx.fillStyle = offset_clr;
+    ctx.fillText(icon.text, center + off_1, icon_start + off_1);
+
+    ctx.font = main.getFont();
+    ctx.fillStyle = offset_clr;
+    ctx.fillText(main.text, center + off_1, main_start + off_1);
+
+    canvas.style.letterSpacing = l_sp+ "px";
     ctx.font = accent.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(
-      accent.text,
-      center + off_1,
-      ico_h + 5 + txt_h + 5 + txt2_h + off_1 + margin_h / 2
-    );
+    ctx.fillStyle = offset_clr;
+    ctx.fillText(accent.text, center + off_1, accent_start + off_1);
   }
-  canvas.style.letterSpacing = document.getElementById("l_sp").value + "px";
+
+  // Text Drawing
+  canvas.style.letterSpacing = 0 + "px";
+  ctx.font = icon.getFont();
+  ctx.fillStyle = icon.color;
+  ctx.fillText(icon.text, center, icon_start);
+
+  canvas.style.letterSpacing = 0 + "px";
+  ctx.font = main.getFont();
+  ctx.fillStyle = main.color;
+  ctx.fillText(main.text, center, main_start);
+
+  canvas.style.letterSpacing = l_sp + "px";
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(
-    accent.text,
-    center,
-    ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2
+  ctx.fillText(accent.text, center, accent_start);
+}
+
+/**
+ * Draws a rounded rectangle using the current state of the canvas.
+ * If you omit the last three params, it will draw a rectangle
+ * outline with a 5 pixel border radius
+ * @author Juan Mendes (https://stackoverflow.com/a/3368118)
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} x The top left x coordinate
+ * @param {Number} y The top left y coordinate
+ * @param {Number} width The width of the rectangle
+ * @param {Number} height The height of the rectangle
+ * @param {Number} [radius = 5] The corner radius; It can also be an object
+ *                 to specify different radius for corners
+ * @param {Number} [radius.tl = 0] Top left
+ * @param {Number} [radius.tr = 0] Top right
+ * @param {Number} [radius.br = 0] Bottom right
+ * @param {Number} [radius.bl = 0] Bottom left
+ * @param {Boolean} [fill = false] Whether to fill the rectangle.
+ * @param {Boolean} [stroke = true] Whether to stroke the rectangle.
+ */
+function roundRect(
+  ctx,
+  x,
+  y,
+  width,
+  height,
+  radius = 5,
+  fill = false,
+  stroke = true
+) {
+  if (typeof radius === "number") {
+    radius = { tl: radius, tr: radius, br: radius, bl: radius };
+  } else {
+    radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
+  }
+  ctx.beginPath();
+  ctx.moveTo(x + radius.tl, y);
+  ctx.lineTo(x + width - radius.tr, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+  ctx.lineTo(x + width, y + height - radius.br);
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - radius.br,
+    y + height
   );
-  l_sp = 0;
+  ctx.lineTo(x + radius.bl, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+  ctx.lineTo(x, y + radius.tl);
+  ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+  ctx.closePath();
+  if (fill) {
+    ctx.fill();
+  }
+  if (stroke) {
+    ctx.stroke();
+  }
 }
 
 /**
@@ -502,7 +551,7 @@ function renderLogoVertical(ctx, canvas) {
  * @param {Function} renderFunction : Canvas render function
  */
 function exportCanva(btn_download, canvas, filename, renderFunction) {
-  var selectFormat = document.getElementById("selectFormat");
+  var selectFormat = document.getElementById("export_format-select");
   var mimetype = selectFormat.options[selectFormat.selectedIndex].value;
   var extension = selectFormat.options[selectFormat.selectedIndex].text;
 

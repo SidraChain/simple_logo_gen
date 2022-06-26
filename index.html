@@ -94,7 +94,7 @@
         min="25"
         max="100"
         step="1"
-        id="ico_sz"
+        id="icon-sz"
       />
       <div class="input-group input-group-sm mb-3">
         <div class="input-group-prepend">
@@ -102,7 +102,7 @@
         </div>
         <input
           type="color"
-          id="ico_clr"
+          id="icon-clr"
           class="form-control"
           aria-label="color"
           aria-describedby="basic-addon1"
@@ -113,7 +113,7 @@
           <span class="input-group-text" id="basic-addon1">Icon Effects:</span>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-primary btn-sm" id="fx4">Style</a>
+          <a class="btn btn-outline-primary btn-sm" id="layout-btn">Style</a>
         </div>
       </div>
       <div class="input-group input-group-sm mb-3">
@@ -122,7 +122,7 @@
         </div>
         <input
           type="text"
-          id="txt"
+          id="main-input"
           class="form-control"
           aria-label="outblock"
           aria-describedby="basic-addon1"
@@ -134,7 +134,7 @@
         </div>
         <input
           type="color"
-          id="clr"
+          id="main-clr"
           class="form-control"
           aria-label="color"
           aria-describedby="basic-addon1"
@@ -145,20 +145,20 @@
           <span class="input-group-text" id="basic-addon1">Main Font:</span>
         </div>
         <select
-          id="main-font-select"
+          id="main_font-select"
           class="form-control"
           aria-label="font"
           aria-describedby="basic-addon1"
         ></select>
-        <a class="btn btn-outline-warning btn-sm" id="m_bold">Normal/Bold</a>
+        <a class="btn btn-outline-warning btn-sm" id="main_weight-btn">Normal/Bold</a>
       </div>
       <div class="input-group input-group-sm mb-3">
         <div class="input-group-prepend">
-          <a class="btn btn-outline-primary" id="fx1">Offset</a>
+          <a class="btn btn-outline-primary" id="offset-btn">Offset</a>
         </div>
         <input
           type="color"
-          id="off_clr"
+          id="offset-clr"
           value="#f2f2f2"
           class="form-control"
           aria-label="color"
@@ -171,7 +171,7 @@
         </div>
         <input
           type="text"
-          id="txt2"
+          id="accent-input"
           class="form-control"
           aria-label="inblock"
           aria-describedby="basic-addon1"
@@ -184,7 +184,7 @@
         <input
           type="color"
           value="#cccccc"
-          id="clr2"
+          id="accent-clr"
           class="form-control"
           aria-label="color2"
           aria-describedby="basic-addon1"
@@ -195,12 +195,12 @@
           <span class="input-group-text" id="basic-addon1">Accent Font:</span>
         </div>
         <select
-          id="accent-font-select"
+          id="accent_font-select"
           class="form-control"
           aria-label="font"
           aria-describedby="basic-addon1"
         ></select>
-        <a class="btn btn-outline-warning btn-sm" id="a_bold">Normal/Bold</a>
+        <a class="btn btn-outline-warning btn-sm" id="accent_weight-btn">Normal/Bold</a>
       </div>
       <div class="input-group input-group-sm mb-3">
         <div class="input-group-prepend">
@@ -209,10 +209,10 @@
           >
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-primary btn-sm" id="fx2"
+          <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn"
             >Compliment Color</a
           >
-          <a class="btn btn-outline-warning btn-sm" id="fx5">Toggle shapes</a>
+          <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
         </div>
         <input
           type="range"
@@ -226,13 +226,13 @@
         />
       </div>
       <section class="container row">
-        <div id="fav_container" class="col-md-6 text-center">
+        <div id="fav-container" class="col-md-6 text-center">
           <p class="font-weight-bold">Favicon</p>
-          <canvas id="fav_image" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+          <canvas id="fav-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
         </div>
-        <div id="logo_container" class="col-md-6 text-center">
+        <div id="logo-container" class="col-md-6 text-center">
           <p class="font-weight-bold">Logo</p>
-          <canvas id="logo_image" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+          <canvas id="logo-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
         </div>
       </section>
       <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
@@ -240,7 +240,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">Format</div>
           </div>
-          <select id="selectFormat" class="form-control text-uppercase" aria-label="format" aria-describedby="basic-addon1">
+          <select id="export_format-select" class="form-control text-uppercase" aria-label="format" aria-describedby="basic-addon1">
             <option value="image/png">png</option>
             <option value="image/jpeg">jpg</option>
             <option value="image/webp">webp</option>
@@ -248,8 +248,8 @@
           </select>
         </div>
         <div class="btn-group" role="group" aria-label="First group">
-          <a href="#" class="btn btn-outline-primary btn-sm" id="fav-download" download="favicon.png">Download favicon</a>
-          <a href="#" class="btn btn btn-outline-secondary btn-sm" id="logo-download" download="logo.png">Download logo</a>
+          <a href="#" class="btn btn-outline-primary btn-sm" id="fav_download-btn" download="favicon.png">Download favicon</a>
+          <a href="#" class="btn btn btn-outline-secondary btn-sm" id="logo_download-btn" download="logo.png">Download logo</a>
         </div>
       </div>
       <br /><br />
