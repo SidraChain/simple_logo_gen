@@ -54,6 +54,11 @@ let icon = new SimplegenTextComponent(
 let main = new SimplegenTextComponent("", "#000000", "Arial", "bold", 48);
 let accent = new SimplegenTextComponent("", "#cccccc", "Arial", "bold", 48);
 
+const padding = new Object();
+padding.width = 5;
+padding.height = 5;
+Object.freeze(padding);
+
 var off_1 = 0;
 var layout = "HORIZONTAL";
 var shapes = true;
@@ -299,11 +304,12 @@ function render() {
  */
 function renderFav(ctx, canvas) {
   ctx.font = icon.getFont();
-  canvas.width = ctx.measureText(icon.text).width + 5;
-  canvas.height = 58;
+  canvas.width = ctx.measureText(icon.text).width + 2*padding.width;
+  canvas.height = icon.fontSize + 2*padding.height;
+  ctx.textBaseline = 'middle';
   ctx.font = icon.getFont();
   ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, 0, 48);
+  ctx.fillText(icon.text, padding.width, canvas.height/2);
 }
 
 /**
