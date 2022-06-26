@@ -55,8 +55,11 @@ let main = new SimplegenTextComponent("", "#000000", "Arial", "bold", 48);
 let accent = new SimplegenTextComponent("", "#cccccc", "Arial", "bold", 48);
 
 const padding = new Object();
-padding.width = 5;
-padding.height = 5;
+padding.width = 7;
+padding.height = 7;
+padding.internal = new Object();
+padding.internal.x = 3;
+padding.internal.y = 5;
 Object.freeze(padding);
 
 var off_1 = 0;
@@ -235,7 +238,7 @@ document.getElementById("ico_clr").oninput = function () {
 };
 
 document.getElementById("ico_sz").oninput = function () {
-  icon.fontSize = document.getElementById("ico_sz").value;
+  icon.fontSize = parseInt(document.getElementById("ico_sz").value);
   render();
 };
 
@@ -304,12 +307,12 @@ function render() {
  */
 function renderFav(ctx, canvas) {
   ctx.font = icon.getFont();
-  canvas.width = ctx.measureText(icon.text).width + 2*padding.width;
-  canvas.height = icon.fontSize + 2*padding.height;
-  ctx.textBaseline = 'middle';
+  canvas.width = ctx.measureText(icon.text).width + 2 * padding.width;
+  canvas.height = icon.fontSize + 2 * padding.height;
+  ctx.textBaseline = "middle";
   ctx.font = icon.getFont();
   ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, padding.width, canvas.height/2);
+  ctx.fillText(icon.text, padding.width, canvas.height / 2);
 }
 
 /**
@@ -332,101 +335,88 @@ function renderLogo(ctx, canvas) {
  */
 function renderLogoHorizontal(ctx, canvas) {
   ctx.font = icon.getFont();
-  var ico_w = ctx.measureText(icon.text).width;
-  var ico_h = parseInt(icon.fontSize, 10);
+  var icon_w = ctx.measureText(icon.text).width;
+  var icon_h = icon.fontSize;
 
   ctx.font = main.getFont();
-  var txt_w = ctx.measureText(main.text).width;
-  var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+  var main_w = ctx.measureText(main.text).width;
+  var main_h = main.fontSize;
 
   ctx.font = accent.getFont();
-  var txt2_w = ctx.measureText(accent.text).width;
-  var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+  var accent_w = ctx.measureText(accent.text).width;
+  var accent_h = accent.fontSize;
 
-  var max_h = Math.max(ico_h, txt_h, txt2_h);
-  var start_ico = max_h;
-  var start_txt = max_h - 2;
+  var max_h = Math.max(icon_h, main_h, accent_h);
+  var baseline = canvas.height / 2;
+  var icon_start = padding.width;
+  var main_start =
+    icon_start + icon_w + (main.text != "" ? padding.internal.x : 0);
+  var accent_start =
+    main_start +
+    main_w +
+    (accent.text != "" ? padding.internal.x : 0) +
+    (accent.text != "" && shapes ? 2 * padding.internal.x : 0);
 
-  canvas.width = ico_w + txt_w + txt2_w + margin_w;
-  canvas.height = max_h + margin_h;
+  canvas.width =
+    icon_w +
+    (main.text != "" ? padding.internal.x : 0) +
+    main_w +
+    (accent.text != "" ? padding.internal.x : 0) +
+    (accent.text != "" && shapes ? 4 * padding.internal.x : 0) +
+    accent_w +
+    2 * padding.width;
+  canvas.height =
+    max_h +
+    (accent.text != "" && shapes ? 2 * padding.internal.y : 0) +
+    2 * padding.height;
 
+  ctx.textBaseline = "middle";
+
+  // Offset drawing
   if (off_1 == 3) {
     ctx.font = icon.getFont();
     ctx.fillStyle = off_clr;
-    ctx.fillText(icon.text, off_1, start_ico + off_1);
+    ctx.fillText(icon.text, icon_start + off_1, baseline + off_1);
+
     ctx.font = main.getFont();
     ctx.fillStyle = off_clr;
-    ctx.fillText(main.text, ico_w + off_1, start_txt + off_1);
+    ctx.fillText(main.text, main_start + off_1, baseline + off_1);
+
+    if (!shapes) {
+      ctx.font = accent.getFont();
+      ctx.fillStyle = off_clr;
+      ctx.fillText(accent.text, accent_start + off_1, baseline + off_1);
+    }
   }
 
-  if (off_1 == 3 && !shapes) {
-    ctx.font = accent.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(accent.text, ico_w + 0 + txt_w + 5 + off_1, start_txt + off_1);
-  }
-
-  ctx.font = icon.getFont();
-  ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, 0, start_ico);
-  ctx.font = main.getFont();
-  ctx.fillStyle = main.color;
-  ctx.fillText(main.text, ico_w, start_txt);
-
+  // Shape Drawing
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
-    ctx.moveTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3);
-    ctx.lineTo(ico_w + 0 + txt_w + 2, start_txt + margin_h / 2 - 3 - txt2_h);
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      ico_w + 0 + txt_w + 5,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      3
-    );
-    ctx.lineTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 3,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3
-    );
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 - txt2_h,
-      3
-    );
-    ctx.lineTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3
-    );
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2 + txt2_w + 6,
-      start_txt + margin_h / 2 - 3 + 3,
-      ico_w + 0 + txt_w + 2 + txt2_w + 3,
-      start_txt + margin_h / 2 - 3 + 3,
-      3
-    );
-    ctx.lineTo(ico_w + 0 + txt_w + 5, start_txt + margin_h / 2 - 3 + 3);
-    ctx.arcTo(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 + 3,
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3,
-      3
-    );
-    ctx.lineWidth = 3;
-    ctx.stroke();
     ctx.fillStyle = main.color;
-    ctx.fillRect(
-      ico_w + 0 + txt_w + 2,
-      start_txt + margin_h / 2 - 3 - txt2_h - 3,
-      txt2_w + 6,
-      txt2_h + 6
+    roundRect(
+      ctx,
+      accent_start - 2 * padding.internal.x,
+      padding.height,
+      accent_w + 4 * padding.internal.x,
+      canvas.height - 2 * padding.height,
+      5,
+      true,
+      true
     );
   }
+
+  // Text drawing
+  ctx.font = icon.getFont();
+  ctx.fillStyle = icon.color;
+  ctx.fillText(icon.text, icon_start, baseline);
+
+  ctx.font = main.getFont();
+  ctx.fillStyle = main.color;
+  ctx.fillText(main.text, main_start, baseline);
 
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(accent.text, ico_w + 0 + txt_w + 5, start_txt);
+  ctx.fillText(accent.text, accent_start, baseline);
 }
 
 /**
@@ -498,6 +488,64 @@ function renderLogoVertical(ctx, canvas) {
     ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2
   );
   l_sp = 0;
+}
+
+/**
+ * Draws a rounded rectangle using the current state of the canvas.
+ * If you omit the last three params, it will draw a rectangle
+ * outline with a 5 pixel border radius
+ * @author Juan Mendes (https://stackoverflow.com/a/3368118)
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {Number} x The top left x coordinate
+ * @param {Number} y The top left y coordinate
+ * @param {Number} width The width of the rectangle
+ * @param {Number} height The height of the rectangle
+ * @param {Number} [radius = 5] The corner radius; It can also be an object
+ *                 to specify different radius for corners
+ * @param {Number} [radius.tl = 0] Top left
+ * @param {Number} [radius.tr = 0] Top right
+ * @param {Number} [radius.br = 0] Bottom right
+ * @param {Number} [radius.bl = 0] Bottom left
+ * @param {Boolean} [fill = false] Whether to fill the rectangle.
+ * @param {Boolean} [stroke = true] Whether to stroke the rectangle.
+ */
+function roundRect(
+  ctx,
+  x,
+  y,
+  width,
+  height,
+  radius = 5,
+  fill = false,
+  stroke = true
+) {
+  if (typeof radius === "number") {
+    radius = { tl: radius, tr: radius, br: radius, bl: radius };
+  } else {
+    radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
+  }
+  ctx.beginPath();
+  ctx.moveTo(x + radius.tl, y);
+  ctx.lineTo(x + width - radius.tr, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+  ctx.lineTo(x + width, y + height - radius.br);
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - radius.br,
+    y + height
+  );
+  ctx.lineTo(x + radius.bl, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+  ctx.lineTo(x, y + radius.tl);
+  ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+  ctx.closePath();
+  if (fill) {
+    ctx.fill();
+  }
+  if (stroke) {
+    ctx.stroke();
+  }
 }
 
 /**
