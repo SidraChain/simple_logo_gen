@@ -28,15 +28,15 @@ class SimplegenTextComponent {
 }
 
 /* DEFAULT PARAMETERS */
-var canvas_logo = document.getElementById("logo_image");
+var canvas_logo = document.getElementById("logo-canvas");
 canvas_logo.width = 5;
 canvas_logo.height = 5;
-var ctx_logo = logo_image.getContext("2d");
+var ctx_logo = canvas_logo.getContext("2d");
 
-var canvas_fav = document.getElementById("fav_image");
+var canvas_fav = document.getElementById("fav-canvas");
 canvas_fav.width = 5;
 canvas_fav.height = 5;
-var ctx_fav = fav_image.getContext("2d");
+var ctx_fav = canvas_fav.getContext("2d");
 
 let icon = new SimplegenTextComponent(
   window
@@ -65,10 +65,8 @@ Object.freeze(padding);
 var off_1 = 0;
 var layout = "HORIZONTAL";
 var shapes = true;
-var off_clr = "#f2f2f2";
+var offset_clr = "#f2f2f2";
 var l_sp = 0;
-var margin_w = 15;
-var margin_h = 30;
 
 /* SETTINGS */
 $("#icp").iconpicker({});
@@ -133,8 +131,8 @@ for (const font of fonts) {
   var opt = document.createElement("option");
   opt.value = opt.innerHTML = font;
   opt.style.fontFamily = font;
-  document.getElementById("main-font-select").add(opt.cloneNode(true));
-  document.getElementById("accent-font-select").add(opt.cloneNode(true));
+  document.getElementById("main_font-select").add(opt.cloneNode(true));
+  document.getElementById("accent_font-select").add(opt.cloneNode(true));
 }
 
 /* LISTENERS */
@@ -151,17 +149,17 @@ $("#icp").on("iconpickerSelected", function (_e) {
   render();
 });
 
-document.getElementById("txt").oninput = function () {
-  main.text = document.getElementById("txt").value;
+document.getElementById("main-input").oninput = function () {
+  main.text = document.getElementById("main-input").value;
   render();
 };
 
-document.getElementById("txt2").oninput = function () {
-  accent.text = document.getElementById("txt2").value;
+document.getElementById("accent-input").oninput = function () {
+  accent.text = document.getElementById("accent-input").value;
   render();
 };
 
-document.getElementById("fx1").onclick = function () {
+document.getElementById("offset-btn").onclick = function () {
   if (off_1 !== 3) {
     off_1 = 3;
   } else {
@@ -170,14 +168,14 @@ document.getElementById("fx1").onclick = function () {
   render();
 };
 
-document.getElementById("fx2").onclick = function () {
-  main.color = document.getElementById("clr").value;
+document.getElementById("compliment_color-btn").onclick = function () {
+  main.color = document.getElementById("main-clr").value;
   accent.color = hexToComplimentary(main.color);
-  document.getElementById("clr2").value = accent.color;
+  document.getElementById("accent-clr").value = accent.color;
   render();
 };
 
-document.getElementById("fx4").onclick = function () {
+document.getElementById("layout-btn").onclick = function () {
   if (layout.toUpperCase() == "HORIZONTAL") {
     layout = "VERTICAL";
     document.getElementById("l_sp").hidden = false;
@@ -190,7 +188,7 @@ document.getElementById("fx4").onclick = function () {
   render();
 };
 
-document.getElementById("m_bold").onclick = function () {
+document.getElementById("main_weight-btn").onclick = function () {
   if (main.fontWeight == "normal") {
     main.fontWeight = "bold";
   } else {
@@ -199,7 +197,7 @@ document.getElementById("m_bold").onclick = function () {
   render();
 };
 
-document.getElementById("a_bold").onclick = function () {
+document.getElementById("accent_weight-btn").onclick = function () {
   if (accent.fontWeight == "normal") {
     accent.fontWeight = "bold";
   } else {
@@ -208,7 +206,7 @@ document.getElementById("a_bold").onclick = function () {
   render();
 };
 
-document.getElementById("fx5").onclick = function () {
+document.getElementById("shapes-btn").onclick = function () {
   if (shapes) {
     shapes = false;
   } else {
@@ -217,28 +215,28 @@ document.getElementById("fx5").onclick = function () {
   render();
 };
 
-document.getElementById("clr").oninput = function () {
-  main.color = document.getElementById("clr").value;
+document.getElementById("main-clr").oninput = function () {
+  main.color = document.getElementById("main-clr").value;
   render();
 };
 
-document.getElementById("clr2").oninput = function () {
-  accent.color = document.getElementById("clr2").value;
+document.getElementById("accent-clr").oninput = function () {
+  accent.color = document.getElementById("accent-clr").value;
   render();
 };
 
-document.getElementById("off_clr").oninput = function () {
-  off_clr = document.getElementById("off_clr").value;
+document.getElementById("offset-clr").oninput = function () {
+  offset_clr = document.getElementById("offset-clr").value;
   render();
 };
 
-document.getElementById("ico_clr").oninput = function () {
-  icon.color = document.getElementById("ico_clr").value;
+document.getElementById("icon-clr").oninput = function () {
+  icon.color = document.getElementById("icon-clr").value;
   render();
 };
 
-document.getElementById("ico_sz").oninput = function () {
-  icon.fontSize = parseInt(document.getElementById("ico_sz").value);
+document.getElementById("icon-sz").oninput = function () {
+  icon.fontSize = parseInt(document.getElementById("icon-sz").value);
   render();
 };
 
@@ -247,23 +245,23 @@ document.getElementById("l_sp").oninput = function () {
   render();
 };
 
-document.getElementById("main-font-select").oninput = function () {
-  main.fontFamily = document.getElementById("main-font-select").value;
-  setSelectFont(document.getElementById("main-font-select"));
+document.getElementById("main_font-select").oninput = function () {
+  main.fontFamily = document.getElementById("main_font-select").value;
+  setSelectFont(document.getElementById("main_font-select"));
   render();
 };
 
-document.getElementById("accent-font-select").oninput = function () {
-  accent.fontFamily = document.getElementById("accent-font-select").value;
-  setSelectFont(document.getElementById("accent-font-select"));
+document.getElementById("accent_font-select").oninput = function () {
+  accent.fontFamily = document.getElementById("accent_font-select").value;
+  setSelectFont(document.getElementById("accent_font-select"));
   render();
 };
 
 document
-  .getElementById("fav-download")
+  .getElementById("fav_download-btn")
   .addEventListener("click", function (_e) {
     exportCanva(
-      document.getElementById("fav-download"),
+      document.getElementById("fav_download-btn"),
       canvas_fav,
       "favicon",
       renderFav
@@ -271,10 +269,10 @@ document
   });
 
 document
-  .getElementById("logo-download")
+  .getElementById("logo_download-btn")
   .addEventListener("click", function (_e) {
     exportCanva(
-      document.getElementById("logo-download"),
+      document.getElementById("logo_download-btn"),
       canvas_logo,
       "logo",
       renderLogo
@@ -372,16 +370,16 @@ function renderLogoHorizontal(ctx, canvas) {
   // Offset drawing
   if (off_1 == 3) {
     ctx.font = icon.getFont();
-    ctx.fillStyle = off_clr;
+    ctx.fillStyle = offset_clr;
     ctx.fillText(icon.text, icon_start + off_1, baseline + off_1);
 
     ctx.font = main.getFont();
-    ctx.fillStyle = off_clr;
+    ctx.fillStyle = offset_clr;
     ctx.fillText(main.text, main_start + off_1, baseline + off_1);
 
     if (!shapes) {
       ctx.font = accent.getFont();
-      ctx.fillStyle = off_clr;
+      ctx.fillStyle = offset_clr;
       ctx.fillText(accent.text, accent_start + off_1, baseline + off_1);
     }
   }
@@ -457,16 +455,16 @@ function renderLogoVertical(ctx, canvas) {
   // Offset Drawing
   if (off_1 == 3) {
     ctx.font = icon.getFont();
-    ctx.fillStyle = off_clr;
+    ctx.fillStyle = offset_clr;
     ctx.fillText(icon.text, center + off_1, icon_start + off_1);
 
     ctx.font = main.getFont();
-    ctx.fillStyle = off_clr;
+    ctx.fillStyle = offset_clr;
     ctx.fillText(main.text, center + off_1, main_start + off_1);
 
     canvas.style.letterSpacing = l_sp+ "px";
     ctx.font = accent.getFont();
-    ctx.fillStyle = off_clr;
+    ctx.fillStyle = offset_clr;
     ctx.fillText(accent.text, center + off_1, accent_start + off_1);
   }
 
@@ -553,7 +551,7 @@ function roundRect(
  * @param {Function} renderFunction : Canvas render function
  */
 function exportCanva(btn_download, canvas, filename, renderFunction) {
-  var selectFormat = document.getElementById("selectFormat");
+  var selectFormat = document.getElementById("export_format-select");
   var mimetype = selectFormat.options[selectFormat.selectedIndex].value;
   var extension = selectFormat.options[selectFormat.selectedIndex].text;
 
