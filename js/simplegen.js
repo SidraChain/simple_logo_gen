@@ -336,17 +336,14 @@ function renderLogo(ctx, canvas) {
 function renderLogoHorizontal(ctx, canvas) {
   ctx.font = icon.getFont();
   var icon_w = ctx.measureText(icon.text).width;
-  var icon_h = icon.fontSize;
 
   ctx.font = main.getFont();
   var main_w = ctx.measureText(main.text).width;
-  var main_h = main.fontSize;
 
   ctx.font = accent.getFont();
   var accent_w = ctx.measureText(accent.text).width;
-  var accent_h = accent.fontSize;
 
-  var max_h = Math.max(icon_h, main_h, accent_h);
+  var max_h = Math.max(icon.fontSize, main.fontSize, accent.fontSize);
   var baseline = canvas.height / 2;
   var icon_start = padding.width;
   var main_start =
@@ -427,67 +424,67 @@ function renderLogoHorizontal(ctx, canvas) {
 function renderLogoVertical(ctx, canvas) {
   canvas.style.letterSpacing = 0 + "px";
   ctx.font = icon.getFont();
-  var ico_w = ctx.measureText(icon.text).width;
-  var ico_h = parseInt(icon.fontSize, 10);
+  var icon_w = ctx.measureText(icon.text).width;
 
   ctx.font = main.getFont();
-  var txt_w = ctx.measureText(main.text).width;
-  var txt_h = parseInt(ctx.font.match(/\d+/), 10);
+  var main_w = ctx.measureText(main.text).width;
 
   ctx.font = accent.getFont();
-  var txt2_w = ctx.measureText(accent.text).width;
-  var txt2_h = parseInt(ctx.font.match(/\d+/), 10);
+  var accent_w = ctx.measureText(accent.text).width;
 
-  var max_w = Math.max(ico_w, txt_w, txt2_w);
-  var center = (max_w + margin_w) / 2;
+  var max_w = Math.max(icon_w, main_w, accent_w);
+  var center = (max_w + 2*padding.width) / 2;
 
-  canvas.width = max_w + margin_w;
-  canvas.height = ico_h + txt_h + txt2_h + margin_h;
+  var icon_start = padding.height+icon.fontSize/2;
+  var main_start = icon_start+icon.fontSize/2+padding.internal.y+main.fontSize/2;
+  var accent_start = main_start + main.fontSize/2+padding.internal.y+accent.fontSize/2;
+
+  canvas.width = max_w + 2*padding.width;
+  canvas.height = icon.fontSize + padding.internal.y + main.fontSize + padding.internal.y + accent.fontSize + 2*padding.height;
 
   ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
 
-  if (off_1 == 3) {
-    ctx.font = icon.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(icon.text, center + off_1, ico_h + off_1);
-    ctx.font = main.getFont();
-    ctx.fillStyle = off_clr;
-    ctx.fillText(main.text, center + off_1, ico_h + 5 + txt_h + off_1);
-  }
-  ctx.font = icon.getFont();
-  ctx.fillStyle = icon.color;
-  ctx.fillText(icon.text, center, ico_h);
-  canvas.style.letterSpacing = 0 + "px";
-  ctx.font = main.getFont();
-  ctx.fillStyle = main.color;
-  ctx.fillText(main.text, center, ico_h + 5 + txt_h);
-
+  // Shape drawing
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
-    ctx.moveTo(center - txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
-    ctx.lineTo(center + txt_w / 2, ico_h + 10 + txt_h + margin_h / 2);
+    ctx.moveTo(center - main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
+    ctx.lineTo(center + main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
     ctx.lineWidth = 2;
     ctx.stroke();
   }
+
+  // Offset Drawing
   if (off_1 == 3) {
-    canvas.style.letterSpacing = document.getElementById("l_sp").value + "px";
+    ctx.font = icon.getFont();
+    ctx.fillStyle = off_clr;
+    ctx.fillText(icon.text, center + off_1, icon_start + off_1);
+
+    ctx.font = main.getFont();
+    ctx.fillStyle = off_clr;
+    ctx.fillText(main.text, center + off_1, main_start + off_1);
+
+    canvas.style.letterSpacing = l_sp+ "px";
     ctx.font = accent.getFont();
     ctx.fillStyle = off_clr;
-    ctx.fillText(
-      accent.text,
-      center + off_1,
-      ico_h + 5 + txt_h + 5 + txt2_h + off_1 + margin_h / 2
-    );
+    ctx.fillText(accent.text, center + off_1, accent_start + off_1);
   }
-  canvas.style.letterSpacing = document.getElementById("l_sp").value + "px";
+
+  // Text Drawing
+  canvas.style.letterSpacing = 0 + "px";
+  ctx.font = icon.getFont();
+  ctx.fillStyle = icon.color;
+  ctx.fillText(icon.text, center, icon_start);
+
+  canvas.style.letterSpacing = 0 + "px";
+  ctx.font = main.getFont();
+  ctx.fillStyle = main.color;
+  ctx.fillText(main.text, center, main_start);
+
+  canvas.style.letterSpacing = l_sp + "px";
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(
-    accent.text,
-    center,
-    ico_h + 5 + txt_h + 5 + txt2_h + margin_h / 2
-  );
-  l_sp = 0;
+  ctx.fillText(accent.text, center, accent_start);
 }
 
 /**
