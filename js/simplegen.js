@@ -400,16 +400,13 @@ function renderLogoHorizontal(ctx, canvas) {
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
     ctx.fillStyle = main.color;
-    roundRect(
-      ctx,
-      accent_start - 2 * padding.internal.x,
-      padding.height,
-      accent_w + 4 * padding.internal.x,
-      canvas.height - 2 * padding.height,
-      5,
-      true,
-      true
-    );
+    var pos = new Object();
+    pos.x = accent_start - 2 * padding.internal.x;
+    pos.y = padding.height;
+    var dim = new Object();
+    dim.width = accent_w + 4 * padding.internal.x;
+    dim.height = canvas.height - 2 * padding.height;
+    roundRect(ctx, pos, dim, 5, true, true);
   }
 
   // Text drawing
@@ -517,10 +514,12 @@ function renderLogoVertical(ctx, canvas) {
  * outline with a 5 pixel border radius
  * @author Juan Mendes (https://stackoverflow.com/a/3368118)
  * @param {CanvasRenderingContext2D} ctx
- * @param {Number} x The top left x coordinate
- * @param {Number} y The top left y coordinate
- * @param {Number} width The width of the rectangle
- * @param {Number} height The height of the rectangle
+ * @param {Object} position coordinates for the top left corner
+ * @param {Number} [position.x] The top left x coordinate
+ * @param {Number} [position.y] The top left y coordinate
+ * @param {Object} dimention rectangle dimentions
+ * @param {Number} [dimention.width] The width of the rectangle
+ * @param {Number} [dimention.height] The height of the rectangle
  * @param {Number} [radius = 5] The corner radius; It can also be an object
  *                 to specify different radius for corners
  * @param {Number} [radius.tl = 0] Top left
@@ -532,10 +531,8 @@ function renderLogoVertical(ctx, canvas) {
  */
 function roundRect(
   ctx,
-  x,
-  y,
-  width,
-  height,
+  position,
+  dimention,
   radius = 5,
   fill = false,
   stroke = true
@@ -546,20 +543,38 @@ function roundRect(
     radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
   }
   ctx.beginPath();
-  ctx.moveTo(x + radius.tl, y);
-  ctx.lineTo(x + width - radius.tr, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
-  ctx.lineTo(x + width, y + height - radius.br);
+  ctx.moveTo(position.x + radius.tl, position.y);
+  ctx.lineTo(position.x + dimention.width - radius.tr, position.y);
   ctx.quadraticCurveTo(
-    x + width,
-    y + height,
-    x + width - radius.br,
-    y + height
+    position.x + dimention.width,
+    position.y,
+    position.x + dimention.width,
+    position.y + radius.tr
   );
-  ctx.lineTo(x + radius.bl, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
-  ctx.lineTo(x, y + radius.tl);
-  ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+  ctx.lineTo(
+    position.x + dimention.width,
+    position.y + dimention.height - radius.br
+  );
+  ctx.quadraticCurveTo(
+    position.x + dimention.width,
+    position.y + dimention.height,
+    position.x + dimention.width - radius.br,
+    position.y + dimention.height
+  );
+  ctx.lineTo(position.x + radius.bl, position.y + dimention.height);
+  ctx.quadraticCurveTo(
+    position.x,
+    position.y + dimention.height,
+    position.x,
+    position.y + dimention.height - radius.bl
+  );
+  ctx.lineTo(position.x, position.y + radius.tl);
+  ctx.quadraticCurveTo(
+    position.x,
+    position.y,
+    position.x + radius.tl,
+    position.y
+  );
   ctx.closePath();
   if (fill) {
     ctx.fill();
