@@ -1,0 +1,18 @@
+This product employe or contain pieces of code from the following sources:
+
+- [Bootstrap v4.3.1](https://getbootstrap.com/) licensed under MIT
+- [Font Awesome Free v5.15.4](https://fontawesome.com) licensed under Fontawesome Free License (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+- [Font Awesome Icon Picker](https://farbelous.github.io/fontawesome-iconpicker/) licensed under MIT
+- [Fonts form Google Font](https://fonts.google.com/) licensed under SIL Open Font License
+- [Popper js v1.14.7](https://popper.js.org/) licensed under MIT
+- [Showdown v2.1.0](https://showdownjs.com/) licensed under MIT
+- [Stackoverflow code by 0x000f](https://stackoverflow.com/a/34946092/17594569) licensed under CC BY-SA
+- [Stackoverflow code by Denis](https://stackoverflow.com/a/36253499/17594569) licensed under CC BY-SA
+- [Stackoverflow code by Juan Mendes](https://stackoverflow.com/a/3368118) licensed under CC BY-SA
+- [Stackoverflow code by Mohsen, edited Martin Thompson](https://stackoverflow.com/a/9493060/17594569) licensed under CC BY-SA
+- [canvas2svg-visj v1.0.21](gliffy.github.io/canvas2svg/) licensed under MIT
+- [jQuery v3.3.1](https://jquery.com/) licensed under MIT
+
+Original disclaimers in the code have been maintained as much as possible. Please contact us if you feel this has not been done correctly.
+
+We also thank those who reported bugs and suggested fixes. They are acknowledged in the Git commit messages.
