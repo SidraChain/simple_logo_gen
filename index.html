@@ -1,287 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Other CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css"
-      integrity="sha512-BfgviGirSi7OFeVB2z9bxp856rzU1Tyy9Dtq2124oRUZSKXIQqpy+2LPuafc2zMd8dNUa+F7cpxbvUsZZXFltQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette|Annie+Use+Your+Telescope|Baloo|Bowlby+One+SC|Bungee+Inline|Cabin+Sketch|Caveat|Contrail+One|Damion|Economica|Fascinate+Inline|Faster+One|Fredericka+the+Great|Gabriela|Just+Another+Hand|Kodchasan|Love+Ya+Like+A+Sister|Megrim|Monoton|Mouse+Memoirs|Podkova|Pompiere|Quicksand|Reenie+Beanie|Rokkitt|Six+Caps|Source+Sans+Pro|Special+Elite|Spicy+Rice|VT323|Wire+One"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="shortcut icon"
-      type="image/png"
-      href="imgs/favicon.png"
-    />
-    <title>Simple Logo Generator</title>
-  </head>
-  <body>
-    <div style="width: 800px; margin: 0 auto">
-      <div class="jumbotron jumbotron-fluid" style="position: relative">
-        <a href="https://github.com/creecros/simple_logo_gen"
-          ><img
-            width="149"
-            height="149"
-            src="https://github.blog/wp-content/uploads/2008/12/forkme_right_gray_6d6d6d.png?resize=149%2C149"
-            class="attachment-full size-full"
-            alt="Fork me on GitHub"
-            data-recalc-dims="1"
-            style="position: absolute; top: 0; right: 0"
-        /></a>
-        <div class="container">
-          <i class="fa fa-kiwi-bird" style="font-size: 48px"></i>
-          <h1 class="display-4">Simple Logo Generator</h1>
-          <p class="lead">
-            For those who need a favicon or logo, here is a simple tool for you.
-          </p>
-        </div>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+  <!-- Other CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css"
+    integrity="sha512-BfgviGirSi7OFeVB2z9bxp856rzU1Tyy9Dtq2124oRUZSKXIQqpy+2LPuafc2zMd8dNUa+F7cpxbvUsZZXFltQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette|Annie+Use+Your+Telescope|Baloo|Bowlby+One+SC|Bungee+Inline|Cabin+Sketch|Caveat|Contrail+One|Damion|Economica|Fascinate+Inline|Faster+One|Fredericka+the+Great|Gabriela|Just+Another+Hand|Kodchasan|Love+Ya+Like+A+Sister|Megrim|Monoton|Mouse+Memoirs|Podkova|Pompiere|Quicksand|Reenie+Beanie|Rokkitt|Six+Caps|Source+Sans+Pro|Special+Elite|Spicy+Rice|VT323|Wire+One"
+    rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" type="image/png" href="imgs/favicon.png" />
+  <title>Simple Logo Generator</title>
+</head>
+
+<body>
+  <div style="width: 800px; margin: 0 auto">
+    <div class="jumbotron jumbotron-fluid" style="position: relative">
+      <a href="https://github.com/creecros/simple_logo_gen"><img width="149" height="149"
+          src="https://github.blog/wp-content/uploads/2008/12/forkme_right_gray_6d6d6d.png?resize=149%2C149"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"
+          style="position: absolute; top: 0; right: 0" /></a>
+      <div class="container">
+        <i class="fa fa-kiwi-bird" style="font-size: 48px"></i>
+        <h1 class="display-4">Simple Logo Generator</h1>
+        <p class="lead">
+          For those who need a favicon or logo, here is a simple tool for you.
+        </p>
       </div>
-      <div class="btn-group d-flex">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Icon:</span>
-        </div>
-        <button
-          id="icp-component"
-          type="button"
-          class="btn btn-outline-secondary iconpicker-component w-100"
-        >
-          <i class="fa fa-fw fa-heart"></i>
-        </button>
-        <button
-          id="icp"
-          type="button"
-          class="btn btn-secondary dropdown-toggle"
-          data-selected="fa-car"
-          data-toggle="dropdown"
-        >
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <div class="dropdown-menu"></div>
-      </div>
-      <input
-        type="range"
-        class="custom-range"
-        value="48"
-        min="25"
-        max="100"
-        step="1"
-        id="icon-sz"
-      />
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Icon Color:</span>
-        </div>
-        <input
-          type="color"
-          id="icon-clr"
-          class="form-control"
-          aria-label="color"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Icon Effects:</span>
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-primary btn-sm" id="layout-btn">Style</a>
-        </div>
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Main Text:</span>
-        </div>
-        <input
-          type="text"
-          id="main-input"
-          class="form-control"
-          aria-label="outblock"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Main Color:</span>
-        </div>
-        <input
-          type="color"
-          id="main-clr"
-          class="form-control"
-          aria-label="color"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Main Font:</span>
-        </div>
-        <select
-          id="main_font-select"
-          class="form-control"
-          aria-label="font"
-          aria-describedby="basic-addon1"
-        ></select>
-        <a class="btn btn-outline-warning btn-sm" id="main_weight-btn">Normal/Bold</a>
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <a class="btn btn-outline-primary" id="offset-btn">Offset</a>
-        </div>
-        <input
-          type="color"
-          id="offset-clr"
-          value="#f2f2f2"
-          class="form-control"
-          aria-label="color"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Accent Text:</span>
-        </div>
-        <input
-          type="text"
-          id="accent-input"
-          class="form-control"
-          aria-label="inblock"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Accent Color:</span>
-        </div>
-        <input
-          type="color"
-          value="#cccccc"
-          id="accent-clr"
-          class="form-control"
-          aria-label="color2"
-          aria-describedby="basic-addon1"
-        />
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Accent Font:</span>
-        </div>
-        <select
-          id="accent_font-select"
-          class="form-control"
-          aria-label="font"
-          aria-describedby="basic-addon1"
-        ></select>
-        <a class="btn btn-outline-warning btn-sm" id="accent_weight-btn">Normal/Bold</a>
-      </div>
-      <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            >Accent Effects:</span
-          >
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn"
-            >Compliment Color</a
-          >
-          <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
-        </div>
-        <input
-          type="range"
-          class="custom-range"
-          value="0"
-          min="0"
-          max="20"
-          step="0.5"
-          id="l_sp"
-          hidden
-        />
-      </div>
-      <section class="container row">
-        <div id="fav-container" class="col-md-6 text-center">
-          <p class="font-weight-bold">Favicon</p>
-          <canvas id="fav-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
-        </div>
-        <div id="logo-container" class="col-md-6 text-center">
-          <p class="font-weight-bold">Logo</p>
-          <canvas id="logo-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
-        </div>
-      </section>
-      <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="input-group input-group-sm mr-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">Format</div>
-          </div>
-          <select id="export_format-select" class="form-control text-uppercase" aria-label="format" aria-describedby="basic-addon1">
-            <option value="image/png">png</option>
-            <option value="image/jpeg">jpg</option>
-            <option value="image/webp">webp</option>
-            <option value="image/svg+xml">svg</option>
-          </select>
-        </div>
-        <div class="btn-group" role="group" aria-label="First group">
-          <a href="#" class="btn btn-outline-primary btn-sm" id="fav_download-btn" download="favicon.png">Download favicon</a>
-          <a href="#" class="btn btn btn-outline-secondary btn-sm" id="logo_download-btn" download="logo.png">Download logo</a>
-        </div>
-      </div>
-      <br /><br />
-      <div class="alert alert-dark" role="alert">
-        If things aren't working, sorry, use Chrome or Firefox...
-      </div>
-      <p>authors: <a href="https://github.com/creecros">Craig Crosby</a></p>
-      <p> <a href="https://github.com/palcarazm">Pablo Alcaraz Martínez</a></p>
     </div>
+    <nav class="navbar navbar-light px-0 pt-0">
+      <ul class="nav nav-tabs w-100 justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+            aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="authors-tab" data-toggle="tab" href="#authors" role="tab" aria-controls="authors"
+            aria-selected="true">Authors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="license-tab" data-toggle="tab" href="#license" role="tab" aria-controls="license"
+            aria-selected="true">License</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="tab-content shadow-sm p-3 mb-5 rounded">
+      <main class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="btn-group d-flex">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Icon:</span>
+          </div>
+          <button id="icp-component" type="button" class="btn btn-outline-secondary iconpicker-component w-100">
+            <i class="fa fa-fw fa-heart"></i>
+          </button>
+          <button id="icp" type="button" class="btn btn-secondary dropdown-toggle" data-selected="fa-car"
+            data-toggle="dropdown">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu"></div>
+        </div>
+        <input type="range" class="custom-range" value="48" min="25" max="100" step="1" id="icon-sz" />
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Icon Color:</span>
+          </div>
+          <input type="color" id="icon-clr" class="form-control" aria-label="color" aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Icon Effects:</span>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-outline-primary btn-sm" id="layout-btn">Style</a>
+          </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Main Text:</span>
+          </div>
+          <input type="text" id="main-input" class="form-control" aria-label="outblock"
+            aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Main Color:</span>
+          </div>
+          <input type="color" id="main-clr" class="form-control" aria-label="color" aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Main Font:</span>
+          </div>
+          <select id="main_font-select" class="form-control" aria-label="font" aria-describedby="basic-addon1"></select>
+          <a class="btn btn-outline-warning btn-sm" id="main_weight-btn">Normal/Bold</a>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <a class="btn btn-outline-primary" id="offset-btn">Offset</a>
+          </div>
+          <input type="color" id="offset-clr" value="#f2f2f2" class="form-control" aria-label="color"
+            aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accent Text:</span>
+          </div>
+          <input type="text" id="accent-input" class="form-control" aria-label="inblock"
+            aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accent Color:</span>
+          </div>
+          <input type="color" value="#cccccc" id="accent-clr" class="form-control" aria-label="color2"
+            aria-describedby="basic-addon1" />
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accent Font:</span>
+          </div>
+          <select id="accent_font-select" class="form-control" aria-label="font"
+            aria-describedby="basic-addon1"></select>
+          <a class="btn btn-outline-warning btn-sm" id="accent_weight-btn">Normal/Bold</a>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accent Effects:</span>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn">Compliment Color</a>
+            <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
+          </div>
+          <input type="range" class="custom-range" value="0" min="0" max="20" step="0.5" id="l_sp" hidden />
+        </div>
+        <section class="container row">
+          <div id="fav-container" class="col-md-6 text-center">
+            <p class="font-weight-bold">Favicon</p>
+            <canvas id="fav-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+          </div>
+          <div id="logo-container" class="col-md-6 text-center">
+            <p class="font-weight-bold">Logo</p>
+            <canvas id="logo-canvas" style="border: none solid #d3d3d3" class="mt-1"></canvas>
+          </div>
+        </section>
+        <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="input-group input-group-sm mr-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Format</div>
+            </div>
+            <select id="export_format-select" class="form-control text-uppercase" aria-label="format"
+              aria-describedby="basic-addon1">
+              <option value="image/png">png</option>
+              <option value="image/jpeg">jpg</option>
+              <option value="image/webp">webp</option>
+              <option value="image/svg+xml">svg</option>
+            </select>
+          </div>
+          <div class="btn-group" role="group" aria-label="First group">
+            <a href="#" class="btn btn-outline-primary btn-sm" id="fav_download-btn" download="favicon.png">Download
+              favicon</a>
+            <a href="#" class="btn btn btn-outline-secondary btn-sm" id="logo_download-btn" download="logo.png">Download
+              logo</a>
+          </div>
+        </div>
+        <br /><br />
+        <div class="alert alert-dark" role="alert">
+          If things aren't working, sorry, use Chrome or Firefox...
+        </div>
+      </main>
+      <section class="tab-pane" id="authors" role="tabpanel" aria-labelledby="authors-tab">
+        <h3>Contributors</h3>
+        <ul class="list-style-none pl-0">
+          <li class="mb-2 d-flex">
+            <a href="https://github.com/creecros" class="mr-2" target="_blank"><img
+                src="https://avatars.githubusercontent.com/u/26339368" alt="@creecros" sizes="32" width="32" height="32"
+                class="avatar rounded-circle"></a>
+            <a href="https://github.com/creecros" class="text-decoration-none flex-self-center"><span
+                class="text-body font-weight-bold mr-2">creecros</span><span class="text-muted">Craig Crosby</span></a>
+          </li>
+          <li class="mb-2 d-flex">
+            <a href="https://github.com/palcarazm" class="mr-2" target="_blank"><img
+                src="https://avatars.githubusercontent.com/u/79061172" alt="@palcarazm" sizes="32" width="32"
+                height="32" class="avatar rounded-circle"></a>
+            <a href="https://github.com/palcarazm" class="text-decoration-none flex-self-center"><span
+                class="text-body font-weight-bold mr-2">palcarazm</span><span class="text-muted">Pablo Alcaraz
+                Martínez</span></a>
+          </li>
+        </ul>
+        <h3>Acknowledgement</h3>
+        <div class="widget text-justify" role="md2html" data-widget="./ACKNOWLEDGE"></div>
+      </section>
+      <section class="tab-pane" id="license" role="tabpanel" aria-labelledby="license-tab">
+        <div class="widget text-justify" role="md2html" data-widget="./LICENSE"></div>
+      </section>
+    </div>
+  </div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"
-      integrity="sha512-7dlzSK4Ulfm85ypS8/ya0xLf3NpXiML3s6HTLu4qDq7WiJWtLLyrXb9putdP3/1umwTmzIvhuu9EW7gHYSVtCQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas2svg-visjs@1.0.21/canvas2svg.min.js"></script>
-    <script src="js/simplegen.js"></script>
-  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"
+    integrity="sha512-7dlzSK4Ulfm85ypS8/ya0xLf3NpXiML3s6HTLu4qDq7WiJWtLLyrXb9putdP3/1umwTmzIvhuu9EW7gHYSVtCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas2svg-visjs@1.0.21/canvas2svg.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+    integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="js/simplegen.js"></script>
+</body>
+
 </html>

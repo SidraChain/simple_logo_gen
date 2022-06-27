@@ -69,6 +69,18 @@ var offset_clr = "#f2f2f2";
 var l_sp = 0;
 
 /* SETTINGS */
+$('.widget[role="md2html"]').each(function (_index, widget) {
+  var request = new XMLHttpRequest();
+  request.open("GET", $(widget).attr("data-widget"), true);
+  request.send(null);
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      var converter = new showdown.Converter();
+      $(widget).html(converter.makeHtml(request.responseText));
+    }
+  };
+});
+
 $("#icp").iconpicker({});
 
 var fonts = [
@@ -431,14 +443,22 @@ function renderLogoVertical(ctx, canvas) {
   var accent_w = ctx.measureText(accent.text).width;
 
   var max_w = Math.max(icon_w, main_w, accent_w);
-  var center = (max_w + 2*padding.width) / 2;
+  var center = (max_w + 2 * padding.width) / 2;
 
-  var icon_start = padding.height+icon.fontSize/2;
-  var main_start = icon_start+icon.fontSize/2+padding.internal.y+main.fontSize/2;
-  var accent_start = main_start + main.fontSize/2+padding.internal.y+accent.fontSize/2;
+  var icon_start = padding.height + icon.fontSize / 2;
+  var main_start =
+    icon_start + icon.fontSize / 2 + padding.internal.y + main.fontSize / 2;
+  var accent_start =
+    main_start + main.fontSize / 2 + padding.internal.y + accent.fontSize / 2;
 
-  canvas.width = max_w + 2*padding.width;
-  canvas.height = icon.fontSize + padding.internal.y + main.fontSize + padding.internal.y + accent.fontSize + 2*padding.height;
+  canvas.width = max_w + 2 * padding.width;
+  canvas.height =
+    icon.fontSize +
+    padding.internal.y +
+    main.fontSize +
+    padding.internal.y +
+    accent.fontSize +
+    2 * padding.height;
 
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -446,8 +466,14 @@ function renderLogoVertical(ctx, canvas) {
   // Shape drawing
   if (accent.text != "" && shapes) {
     ctx.strokeStyle = main.color;
-    ctx.moveTo(center - main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
-    ctx.lineTo(center + main_w / 2, main_start+main.fontSize/2+padding.internal.y/2);
+    ctx.moveTo(
+      center - main_w / 2,
+      main_start + main.fontSize / 2 + padding.internal.y / 2
+    );
+    ctx.lineTo(
+      center + main_w / 2,
+      main_start + main.fontSize / 2 + padding.internal.y / 2
+    );
     ctx.lineWidth = 2;
     ctx.stroke();
   }
@@ -462,7 +488,7 @@ function renderLogoVertical(ctx, canvas) {
     ctx.fillStyle = offset_clr;
     ctx.fillText(main.text, center + off_1, main_start + off_1);
 
-    canvas.style.letterSpacing = l_sp+ "px";
+    canvas.style.letterSpacing = l_sp + "px";
     ctx.font = accent.getFont();
     ctx.fillStyle = offset_clr;
     ctx.fillText(accent.text, center + off_1, accent_start + off_1);
