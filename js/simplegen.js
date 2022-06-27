@@ -9,13 +9,23 @@ class SimplegenTextComponent {
    * @param {String} fontFamily Text font family
    * @param {String} fontWeight Text font weight
    * @param {Number} fontSize Text font size
+   * @param {Number} letterSpacing Letter Spacing
    */
-  constructor(text, color, fontFamily, fontWeight, fontSize) {
+  constructor(text, color, fontFamily, fontWeight, fontSize, letterSpacing = 0) {
     this.text = text;
     this.color = color;
     this.fontFamily = fontFamily;
     this.fontWeight = fontWeight;
     this.fontSize = fontSize;
+    this.letterSpacing = letterSpacing;
+  }
+
+  /**
+   * Get text with the letter spacing
+   * @returns {String} Text with letter spacing
+   */
+  getText() {
+    return this.text.split("").join((String.fromCharCode(8202)).repeat(this.letterSpacing));
   }
 
   /**
@@ -66,7 +76,6 @@ var off_1 = 0;
 var layout = "HORIZONTAL";
 var shapes = true;
 var offset_clr = "#f2f2f2";
-var l_sp = 0;
 
 /* SETTINGS */
 $('.widget[role="md2html"]').each(function (_index, widget) {
@@ -190,11 +199,11 @@ document.getElementById("compliment_color-btn").onclick = function () {
 document.getElementById("layout-btn").onclick = function () {
   if (layout.toUpperCase() == "HORIZONTAL") {
     layout = "VERTICAL";
-    document.getElementById("l_sp").hidden = false;
+    document.getElementById("accent_letter_space-rng").hidden = false;
     accent.fontSize = 12;
   } else {
     layout = "HORIZONTAL";
-    document.getElementById("l_sp").hidden = true;
+    document.getElementById("accent_letter_space-rng").hidden = true;
     accent.fontSize = 48;
   }
   render();
@@ -252,8 +261,8 @@ document.getElementById("icon-sz").oninput = function () {
   render();
 };
 
-document.getElementById("l_sp").oninput = function () {
-  l_sp = document.getElementById("l_sp").value;
+document.getElementById("accent_letter_space-rng").oninput = function () {
+  accent.letterSpacing = document.getElementById("accent_letter_space-rng").value;
   render();
 };
 
@@ -348,10 +357,10 @@ function renderLogoHorizontal(ctx, canvas) {
   var icon_w = ctx.measureText(icon.text).width;
 
   ctx.font = main.getFont();
-  var main_w = ctx.measureText(main.text).width;
+  var main_w = ctx.measureText(main.getText()).width;
 
   ctx.font = accent.getFont();
-  var accent_w = ctx.measureText(accent.text).width;
+  var accent_w = ctx.measureText(accent.getText()).width;
 
   var max_h = Math.max(icon.fontSize, main.fontSize, accent.fontSize);
   var icon_start = padding.width;
@@ -387,12 +396,12 @@ function renderLogoHorizontal(ctx, canvas) {
 
     ctx.font = main.getFont();
     ctx.fillStyle = offset_clr;
-    ctx.fillText(main.text, main_start + off_1, baseline + off_1);
+    ctx.fillText(main.getText(), main_start + off_1, baseline + off_1);
 
     if (!shapes) {
       ctx.font = accent.getFont();
       ctx.fillStyle = offset_clr;
-      ctx.fillText(accent.text, accent_start + off_1, baseline + off_1);
+      ctx.fillText(accent.getText(), accent_start + off_1, baseline + off_1);
     }
   }
 
@@ -416,11 +425,11 @@ function renderLogoHorizontal(ctx, canvas) {
 
   ctx.font = main.getFont();
   ctx.fillStyle = main.color;
-  ctx.fillText(main.text, main_start, baseline);
+  ctx.fillText(main.getText(), main_start, baseline);
 
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(accent.text, accent_start, baseline);
+  ctx.fillText(accent.getText(), accent_start, baseline);
 }
 
 /**
@@ -429,15 +438,14 @@ function renderLogoHorizontal(ctx, canvas) {
  * @param {HTMLCanvasElement} canvas : Painting canvas element
  */
 function renderLogoVertical(ctx, canvas) {
-  canvas.style.letterSpacing = 0 + "px";
   ctx.font = icon.getFont();
   var icon_w = ctx.measureText(icon.text).width;
 
   ctx.font = main.getFont();
-  var main_w = ctx.measureText(main.text).width;
+  var main_w = ctx.measureText(main.getText()).width;
 
   ctx.font = accent.getFont();
-  var accent_w = ctx.measureText(accent.text).width;
+  var accent_w = ctx.measureText(accent.getText()).width;
 
   var max_w = Math.max(icon_w, main_w, accent_w);
   var center = (max_w + 2 * padding.width) / 2;
@@ -483,29 +491,25 @@ function renderLogoVertical(ctx, canvas) {
 
     ctx.font = main.getFont();
     ctx.fillStyle = offset_clr;
-    ctx.fillText(main.text, center + off_1, main_start + off_1);
+    ctx.fillText(main.getText(), center + off_1, main_start + off_1);
 
-    canvas.style.letterSpacing = l_sp + "px";
     ctx.font = accent.getFont();
     ctx.fillStyle = offset_clr;
-    ctx.fillText(accent.text, center + off_1, accent_start + off_1);
+    ctx.fillText(accent.getText(), center + off_1, accent_start + off_1);
   }
 
   // Text Drawing
-  canvas.style.letterSpacing = 0 + "px";
   ctx.font = icon.getFont();
   ctx.fillStyle = icon.color;
   ctx.fillText(icon.text, center, icon_start);
 
-  canvas.style.letterSpacing = 0 + "px";
   ctx.font = main.getFont();
   ctx.fillStyle = main.color;
-  ctx.fillText(main.text, center, main_start);
+  ctx.fillText(main.getText(), center, main_start);
 
-  canvas.style.letterSpacing = l_sp + "px";
   ctx.font = accent.getFont();
   ctx.fillStyle = accent.color;
-  ctx.fillText(accent.text, center, accent_start);
+  ctx.fillText(accent.getText(), center, accent_start);
 }
 
 /**
