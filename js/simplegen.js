@@ -354,7 +354,6 @@ function renderLogoHorizontal(ctx, canvas) {
   var accent_w = ctx.measureText(accent.text).width;
 
   var max_h = Math.max(icon.fontSize, main.fontSize, accent.fontSize);
-  var baseline = canvas.height / 2;
   var icon_start = padding.width;
   var main_start =
     icon_start + icon_w + (main.text != "" ? padding.internal.x : 0);
@@ -377,6 +376,7 @@ function renderLogoHorizontal(ctx, canvas) {
     (accent.text != "" && shapes ? 2 * padding.internal.y : 0) +
     2 * padding.height;
 
+  var baseline = canvas.height / 2;
   ctx.textBaseline = "middle";
 
   // Offset drawing
