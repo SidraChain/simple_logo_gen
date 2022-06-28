@@ -202,16 +202,16 @@ document.getElementById("compliment_color-btn").onclick = function () {
   render();
 };
 
-document.getElementById("layout-btn").onclick = function () {
-  if (layout.toUpperCase() == "HORIZONTAL") {
-    layout = "VERTICAL";
-    accent.fontSize = 12;
-  } else {
+$('input[data-toggle="toggle"][data-param="layout"]').on('change',function(_e){
+  if($(this).prop('checked')){
     layout = "HORIZONTAL";
     accent.fontSize = 48;
+  }else{
+    layout = "VERTICAL";
+    accent.fontSize = 12;
   }
   render();
-};
+});
 
 $('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(_e){
   components[$(this).attr('data-component')].fontWeight = $(this).prop('checked')?'bold':'normal';
