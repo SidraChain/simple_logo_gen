@@ -202,43 +202,27 @@ document.getElementById("compliment_color-btn").onclick = function () {
   render();
 };
 
-document.getElementById("layout-btn").onclick = function () {
-  if (layout.toUpperCase() == "HORIZONTAL") {
-    layout = "VERTICAL";
-    accent.fontSize = 12;
-  } else {
+$('input[data-toggle="toggle"][data-param="layout"]').on('change',function(_e){
+  if($(this).prop('checked')){
     layout = "HORIZONTAL";
     accent.fontSize = 48;
+  }else{
+    layout = "VERTICAL";
+    accent.fontSize = 12;
   }
   render();
-};
+});
 
-document.getElementById("main_weight-btn").onclick = function () {
-  if (main.fontWeight == "normal") {
-    main.fontWeight = "bold";
-  } else {
-    main.fontWeight = "normal";
-  }
+$('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(_e){
+  components[$(this).attr('data-component')].fontWeight = $(this).prop('checked')?'bold':'normal';
   render();
-};
+});
 
-document.getElementById("accent_weight-btn").onclick = function () {
-  if (accent.fontWeight == "normal") {
-    accent.fontWeight = "bold";
-  } else {
-    accent.fontWeight = "normal";
-  }
-  render();
-};
 
-document.getElementById("shapes-btn").onclick = function () {
-  if (shapes) {
-    shapes = false;
-  } else {
-    shapes = true;
-  }
+$('input[data-toggle="toggle"][data-param="shapes"]').on('change',function(_e){
+  shapes = $(this).prop('checked');
   render();
-};
+});
 
 document.getElementById("main-clr").oninput = function () {
   main.color = document.getElementById("main-clr").value;
@@ -266,8 +250,7 @@ document.getElementById("icon-sz").oninput = function () {
 };
 
 $('input[type="range"][data-param="letter_space"]').on('input',function(_e){
-  var component = components[$(this).attr('data-component')];
-  component.letterSpacing = $(this).val();
+  components[$(this).attr('data-component')].letterSpacing = $(this).val();
   $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
 });

@@ -18,6 +18,9 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/css/fontawesome-iconpicker.min.css"
     integrity="sha512-BfgviGirSi7OFeVB2z9bxp856rzU1Tyy9Dtq2124oRUZSKXIQqpy+2LPuafc2zMd8dNUa+F7cpxbvUsZZXFltQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-toggle/3.6.1/bootstrap4-toggle.min.css"
+    integrity="sha512-EzrsULyNzUc4xnMaqTrB4EpGvudqpetxG/WNjCpG6ZyyAGxeB6OBF9o246+mwx3l/9Cn838iLIcrxpPHTiygAA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link
     href="https://fonts.googleapis.com/css?family=Montez|Lobster|Josefin+Sans|Shadows+Into+Light|Pacifico|Amatic+SC:700|Orbitron:400,900|Rokkitt|Righteous|Dancing+Script:700|Bangers|Chewy|Sigmar+One|Architects+Daughter|Abril+Fatface|Covered+By+Your+Grace|Kaushan+Script|Gloria+Hallelujah|Satisfy|Lobster+Two:700|Comfortaa:700|Cinzel|Courgette|Annie+Use+Your+Telescope|Baloo|Bowlby+One+SC|Bungee+Inline|Cabin+Sketch|Caveat|Contrail+One|Damion|Economica|Fascinate+Inline|Faster+One|Fredericka+the+Great|Gabriela|Just+Another+Hand|Kodchasan|Love+Ya+Like+A+Sister|Megrim|Monoton|Mouse+Memoirs|Podkova|Pompiere|Quicksand|Reenie+Beanie|Rokkitt|Six+Caps|Source+Sans+Pro|Special+Elite|Spicy+Rice|VT323|Wire+One"
     rel="stylesheet" type="text/css" />
@@ -81,14 +84,6 @@
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Icon Effects:</span>
-          </div>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn btn-outline-primary btn-sm" id="layout-btn">Style</a>
-          </div>
-        </div>
-        <div class="input-group input-group-sm mb-3">
-          <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Main Text:</span>
           </div>
           <input type="text" id="main-input" class="form-control" aria-label="outblock"
@@ -105,13 +100,16 @@
             <span class="input-group-text" id="basic-addon1">Main Font:</span>
           </div>
           <select id="main_font-select" class="form-control" aria-label="font" aria-describedby="basic-addon1"></select>
-          <a class="btn btn-outline-warning btn-sm" id="main_weight-btn">Normal/Bold</a>
+          <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
+            data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
+            data-component="main" id="main_weight-toggle">
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Main letter spacing:</span>
           </div>
-          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main" value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main"
+            value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
           <div class="input-group-append" data-display="value">
             <span class="input-group-text" id="main_letter_space-value">0</span>
           </div>
@@ -143,13 +141,16 @@
           </div>
           <select id="accent_font-select" class="form-control" aria-label="font"
             aria-describedby="basic-addon1"></select>
-          <a class="btn btn-outline-warning btn-sm" id="accent_weight-btn">Normal/Bold</a>
+          <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
+            data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
+            data-component="accent" id="accent_weight-toggle">
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Accent letter spacing:</span>
           </div>
-          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent" value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent"
+            value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
           <div class="input-group-append" data-display="value">
             <span class="input-group-text" id="accent_letter_space-value">0</span>
           </div>
@@ -160,7 +161,24 @@
           </div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn">Compliment Color</a>
-            <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="input-group input-group-sm col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Layout:</span>
+            </div>
+            <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Horizontal" data-off="Vertical"
+              data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="layout"
+              data-component="global" id="layout-toggle">
+          </div>
+          <div class="input-group input-group-sm col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Shapes:</span>
+            </div>
+            <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="On" data-off="Off"
+              data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="shapes"
+              data-component="global" id="shapes-toggle">
           </div>
         </div>
         <section class="container row">
@@ -237,6 +255,9 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js"
     integrity="sha512-7dlzSK4Ulfm85ypS8/ya0xLf3NpXiML3s6HTLu4qDq7WiJWtLLyrXb9putdP3/1umwTmzIvhuu9EW7gHYSVtCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-toggle/3.6.1/bootstrap4-toggle.min.js"
+    integrity="sha512-bAjB1exAvX02w2izu+Oy4J96kEr1WOkG6nRRlCtOSQ0XujDtmAstq5ytbeIxZKuT9G+KzBmNq5d23D6bkGo8Kg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas2svg-visjs@1.0.21/canvas2svg.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
