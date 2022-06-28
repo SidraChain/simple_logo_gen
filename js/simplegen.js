@@ -218,14 +218,6 @@ $('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(
   render();
 });
 
-document.getElementById("main_weight-btn").onclick = function () {
-  if (main.fontWeight == "normal") {
-    main.fontWeight = "bold";
-  } else {
-    main.fontWeight = "normal";
-  }
-  render();
-};
 
 document.getElementById("accent_weight-btn").onclick = function () {
   if (accent.fontWeight == "normal") {
