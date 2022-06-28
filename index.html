@@ -161,16 +161,25 @@
           </div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn">Compliment Color</a>
-            <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
           </div>
         </div>
-        <div class="input-group input-group-sm mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Layout:</span>
+        <div class="row mb-3">
+          <div class="input-group input-group-sm col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Layout:</span>
+            </div>
+            <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Horizontal" data-off="Vertical"
+              data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="layout"
+              data-component="global" id="layout-toggle">
           </div>
-          <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Horizontal" data-off="Vertical"
-            data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="layout"
-            data-component="global" id="layout-toggle">
+          <div class="input-group input-group-sm col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Shapes:</span>
+            </div>
+            <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="On" data-off="Off"
+              data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="shapes"
+              data-component="global" id="shapes-toggle">
+          </div>
         </div>
         <section class="container row">
           <div id="fav-container" class="col-md-6 text-center">

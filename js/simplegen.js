@@ -219,23 +219,12 @@ $('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(
 });
 
 
-document.getElementById("accent_weight-btn").onclick = function () {
-  if (accent.fontWeight == "normal") {
-    accent.fontWeight = "bold";
-  } else {
-    accent.fontWeight = "normal";
-  }
+$('input[data-toggle="toggle"][data-param="shapes"]').on('change',function(_e){
+  console.log(shapes);
+  shapes = $(this).prop('checked');
+  console.log(shapes);
   render();
-};
-
-document.getElementById("shapes-btn").onclick = function () {
-  if (shapes) {
-    shapes = false;
-  } else {
-    shapes = true;
-  }
-  render();
-};
+});
 
 document.getElementById("main-clr").oninput = function () {
   main.color = document.getElementById("main-clr").value;
