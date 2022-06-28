@@ -266,8 +266,7 @@ document.getElementById("icon-sz").oninput = function () {
 };
 
 $('input[type="range"][data-param="letter_space"]').on('input',function(_e){
-  var component = components[$(this).attr('data-component')];
-  component.letterSpacing = $(this).val();
+  components[$(this).attr('data-component')].letterSpacing = $(this).val();
   $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
 });
