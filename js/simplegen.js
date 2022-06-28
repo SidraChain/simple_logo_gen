@@ -220,9 +220,7 @@ $('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(
 
 
 $('input[data-toggle="toggle"][data-param="shapes"]').on('change',function(_e){
-  console.log(shapes);
   shapes = $(this).prop('checked');
-  console.log(shapes);
   render();
 });
 
