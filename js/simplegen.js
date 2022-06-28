@@ -64,6 +64,12 @@ let icon = new SimplegenTextComponent(
 let main = new SimplegenTextComponent("", "#000000", "Arial", "bold", 48);
 let accent = new SimplegenTextComponent("", "#cccccc", "Arial", "bold", 48);
 
+var components ={
+  icon: icon,
+  main: main,
+  accent: accent
+};
+
 const padding = new Object();
 padding.width = 7;
 padding.height = 7;
@@ -199,11 +205,9 @@ document.getElementById("compliment_color-btn").onclick = function () {
 document.getElementById("layout-btn").onclick = function () {
   if (layout.toUpperCase() == "HORIZONTAL") {
     layout = "VERTICAL";
-    document.getElementById("accent_letter_space-rng").hidden = false;
     accent.fontSize = 12;
   } else {
     layout = "HORIZONTAL";
-    document.getElementById("accent_letter_space-rng").hidden = true;
     accent.fontSize = 48;
   }
   render();
@@ -261,10 +265,12 @@ document.getElementById("icon-sz").oninput = function () {
   render();
 };
 
-document.getElementById("accent_letter_space-rng").oninput = function () {
-  accent.letterSpacing = document.getElementById("accent_letter_space-rng").value;
+$('input[type="range"][data-param="letter_space"]').on('input',function(_e){
+  var component = components[$(this).attr('data-component')];
+  component.letterSpacing = $(this).val();
+  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
-};
+});
 
 document.getElementById("main_font-select").oninput = function () {
   main.fontFamily = document.getElementById("main_font-select").value;

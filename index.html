@@ -109,6 +109,15 @@
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Main letter spacing:</span>
+          </div>
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main" value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
+          <div class="input-group-append" data-display="value">
+            <span class="input-group-text" id="main_letter_space-value">0</span>
+          </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
             <a class="btn btn-outline-primary" id="offset-btn">Offset</a>
           </div>
           <input type="color" id="offset-clr" value="#f2f2f2" class="form-control" aria-label="color"
@@ -138,13 +147,21 @@
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Accent letter spacing:</span>
+          </div>
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent" value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
+          <div class="input-group-append" data-display="value">
+            <span class="input-group-text" id="accent_letter_space-value">0</span>
+          </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Accent Effects:</span>
           </div>
           <div class="btn-group" role="group" aria-label="Basic example">
             <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn">Compliment Color</a>
             <a class="btn btn-outline-warning btn-sm" id="shapes-btn">Toggle shapes</a>
           </div>
-          <input type="range" class="custom-range" value="0" min="0" max="20" step="0.25" id="accent_letter_space-rng" hidden />
         </div>
         <section class="container row">
           <div id="fav-container" class="col-md-6 text-center">
