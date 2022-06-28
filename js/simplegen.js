@@ -213,6 +213,11 @@ document.getElementById("layout-btn").onclick = function () {
   render();
 };
 
+$('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(_e){
+  components[$(this).attr('data-component')].fontWeight = $(this).prop('checked')?'bold':'normal';
+  render();
+});
+
 document.getElementById("main_weight-btn").onclick = function () {
   if (main.fontWeight == "normal") {
     main.fontWeight = "bold";

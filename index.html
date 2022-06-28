@@ -108,13 +108,16 @@
             <span class="input-group-text" id="basic-addon1">Main Font:</span>
           </div>
           <select id="main_font-select" class="form-control" aria-label="font" aria-describedby="basic-addon1"></select>
-          <a class="btn btn-outline-warning btn-sm" id="main_weight-btn">Normal/Bold</a>
+          <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
+            data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
+            data-component="main" id="main_weight-toggle">
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Main letter spacing:</span>
           </div>
-          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main" value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main"
+            value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
           <div class="input-group-append" data-display="value">
             <span class="input-group-text" id="main_letter_space-value">0</span>
           </div>
@@ -146,13 +149,16 @@
           </div>
           <select id="accent_font-select" class="form-control" aria-label="font"
             aria-describedby="basic-addon1"></select>
-          <a class="btn btn-outline-warning btn-sm" id="accent_weight-btn">Normal/Bold</a>
+          <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
+            data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
+            data-component="accent" id="accent_weight-toggle">
         </div>
         <div class="input-group input-group-sm mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Accent letter spacing:</span>
           </div>
-          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent" value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
+          <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent"
+            value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
           <div class="input-group-append" data-display="value">
             <span class="input-group-text" id="accent_letter_space-value">0</span>
           </div>
