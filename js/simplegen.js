@@ -176,6 +176,14 @@ $("#icp").on("iconpickerSelected", function (_e) {
   render();
 });
 
+$('.collapsible').on('hidden.bs.collapse', function () {
+  $('button[data-toggle="collapse"][data-target="#'+$(this).attr('id')+'"]').html('<i class="fas fa-chevron-down"></i>')
+})
+
+$('.collapsible').on('shown.bs.collapse', function () {
+  $('button[data-toggle="collapse"][data-target="#'+$(this).attr('id')+'"]').html('<i class="fas fa-chevron-up"></i>')
+})
+
 document.getElementById("main-input").oninput = function () {
   main.text = document.getElementById("main-input").value;
   render();
