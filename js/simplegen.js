@@ -21,6 +21,19 @@ class SimplegenTextComponent {
   }
 
   /**
+   * Sync component form object
+   * @param {Object} object Object with properties to sync
+   */
+  sync(object) {
+    this.text = object.text;
+    this.color = object.color;
+    this.fontFamily = object.fontFamily;
+    this.fontWeight = object.fontWeight;
+    this.fontSize = object.fontSize;
+    this.letterSpacing = object.letterSpacing;
+  }
+
+  /**
    * Get text with the letter spacing
    * @returns {String} Text with letter spacing
    */
@@ -303,6 +316,7 @@ document
 
 $("#conf_download-btn").on("click", function (_e){
   var conf ={
+    version:'v1.0.0',
     components: components,
     global:{
       offset:{
@@ -314,6 +328,44 @@ $("#conf_download-btn").on("click", function (_e){
     }
   };
   $(this).attr("href", "data:application/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(conf)));
+});
+
+$("#conf_upload-fs").on("change", function (e) {
+  var fileSelector = $(this);
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    try {
+      var conf = JSON.parse(event.target.result);
+      if(conf.version == 'v1.0.0'){
+        icon.sync(conf.components.icon);
+        main.sync(conf.components.main);
+        accent.sync(conf.components.accent);
+        off_1 = conf.global.offset.size;
+        offset_clr = conf.global.offset.color;
+        layout = conf.global.layout;
+        shapes = conf.global.shapes;
+      }else{
+        throw new DOMException('Version not supported', 'VersionError');
+      }
+
+      $(fileSelector).addClass('is-valid').removeClass('is-invalid');
+      $(fileSelector).parent().children('.feedback').remove();
+      $(fileSelector).parent().append($('<div></div>').addClass("feedback valid-feedback").html("Nice! We load the config."));
+    } catch (error) {
+      var message;
+      if(error.name == 'VersionError'){
+        message = 'Ouups! File version not supported.';
+      }else{
+        message = "Ouups! We can't parse the config.";
+      }
+
+      $(fileSelector).addClass('is-invalid').removeClass('is-valid');
+      $(fileSelector).parent().children('.feedback').remove();
+      $(fileSelector).parent().append($('<div></div>').addClass("feedback invalid-feedback").html(message));
+    }
+    render();
+  };
+  reader.readAsText(e.target.files[0]);
 });
 
 /* FUNCTIONS */
