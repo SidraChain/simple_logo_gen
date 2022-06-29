@@ -297,6 +297,21 @@ document
     );
   });
 
+$("#conf_download-btn").on("click", function (_e){
+  var conf ={
+    components: components,
+    global:{
+      offset:{
+        size: off_1,
+        color: offset_clr
+      },
+      layout: layout,
+      shapes: shapes
+    }
+  };
+  $(this).attr("href", "data:application/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(conf)));
+});
+
 /* FUNCTIONS */
 /**
  * Set the selected font family to the selector
