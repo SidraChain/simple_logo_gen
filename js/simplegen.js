@@ -98,6 +98,10 @@ $('.widget[role="md2html"]').each(function (_index, widget) {
 
 $("#icp").iconpicker({});
 
+$(document).ready(function () {
+  bsCustomFileInput.init()
+})
+
 var fonts = [
   "Arial",
   "Montez",
