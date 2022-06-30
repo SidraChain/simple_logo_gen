@@ -8,7 +8,7 @@
 A simple logo generator using fontawesome.
 https://creecros.github.io/simple_logo_gen/
 
-![127 0 0 1_5500_index html](https://user-images.githubusercontent.com/79061172/176622273-ca9754b1-d52a-4042-bc8f-1f6b2fccbbfe.png)
+![127 0 0 1_5555_](https://user-images.githubusercontent.com/79061172/176728432-088b3fa0-abc3-4d81-9eac-d8a3bc62d5a7.png)
 
 ¿Do you like the project? Give us a :star: in [GitHub](https://github.com/creecros/simple_logo_gen).
 ## Support
