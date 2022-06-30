@@ -253,6 +253,7 @@ $('input[data-toggle="toggle"][data-param="layout"]').on('change',function(_e){
     layout = "VERTICAL";
     accent.fontSize = 12;
   }
+  refreshGUI(['layout']);
   render();
 });
 
@@ -401,37 +402,46 @@ function setSelectFont(select) {
 
 /**
  * Refresh GUI data from JS objects
+ * @param {Array} ignore : Components to not refresh
  */
-function refreshGUI(){
+function refreshGUI(ignore = []){
+  ignore = ignore.map(component =>{
+    return component.toLowerCase();
+  })
   // Layout
-  var layout_toggle = $('input[data-toggle="toggle"][data-param="layout"]');
-  switch (layout.toUpperCase()) {
-    case "HORIZONTAL":
-      layout_toggle.bootstrapToggle('on');
-      break;
-    case "VERTICAL":
-      layout_toggle.bootstrapToggle('off');
-      break;
-    default:
-      layout="HORIZONTAL";
-      layout_toggle.bootstrapToggle('on');
-      break;
+  if(!ignore.includes('layout')){
+    var layout_toggle = $('input[data-toggle="toggle"][data-param="layout"]');
+    switch (layout.toUpperCase()) {
+      case "HORIZONTAL":
+        layout_toggle.bootstrapToggle('on');
+        break;
+      case "VERTICAL":
+        layout_toggle.bootstrapToggle('off');
+        break;
+      default:
+        layout="HORIZONTAL";
+        layout_toggle.bootstrapToggle('on');
+        break;
+    }
   }
 
   // Shapes
+  if(!ignore.includes('shapes')){
   var shapes_toggle = $('input[data-toggle="toggle"][data-param="shapes"]');
   shapes ? shapes_toggle.bootstrapToggle('on') : shapes_toggle.bootstrapToggle('off');
+  }
 
   // Offset
+  if(!ignore.includes('offset')){
   var offsetSize_input =$('input[data-component="global"][data-param="offsetSize"]');
   offsetSize_input.val(off_1);
   offsetSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(off_1);
   document.getElementById("offset-clr").value = offset_clr;
+  }
 
   // Components
+  if(!ignore.includes('icon')){
   icon.init();
-  main.init();
-  accent.init();
   $("#icp-component").children("i").remove();
   $("#icp-component").append(
     $("<i></i>")
@@ -444,6 +454,13 @@ function refreshGUI(){
       )
       .html(icon.text)
   );
+  }
+  if(!ignore.includes('main')){
+  main.init();
+  }
+  if(!ignore.includes('accent')){
+  accent.init();
+  }
 }
 
 /**

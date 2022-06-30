@@ -95,9 +95,9 @@
                     <span class="input-group-text" id="basic-addon1">Offset</span>
                   </div>
                   <input type="color" id="offset-clr" value="#f2f2f2" class="form-control" aria-label="color"
-                  aria-describedby="basic-addon1" />
-                  <input type="range" class="form-control custom-range w-25" data-param="offsetSize" data-component="global"
-                    value="0" min="0" max="10" step=".5" id="offset_size-rng" />
+                    aria-describedby="basic-addon1" />
+                  <input type="range" class="form-control custom-range w-25" data-param="offsetSize"
+                    data-component="global" value="0" min="0" max="10" step=".5" id="offset_size-rng" />
                   <div class="input-group-append" data-display="value">
                     <span class="input-group-text" id="offset_size-value">0</span>
                   </div>
@@ -120,7 +120,8 @@
                   </div>
                   <div class="input-group-apppend ml-1">
                     <div class="btn-group d-flex btn-group-sm">
-                      <button id="icp-component" type="button" class="btn btn-outline-secondary iconpicker-component w-100">
+                      <button id="icp-component" type="button"
+                        class="btn btn-outline-secondary iconpicker-component w-100">
                         <i class="fa fa-fw fa-heart"></i>
                       </button>
                       <button id="icp" type="button" class="btn btn-secondary dropdown-toggle" data-selected="fa-car"
@@ -136,8 +137,8 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Size</span>
                   </div>
-                  <input type="range" class="form-control custom-range" value="48" min="25" max="100" step="1" id="icon-sz"
-                  data-param="fontSize" data-component="icon" />
+                  <input type="range" class="form-control custom-range" value="48" min="25" max="100" step="1"
+                    id="icon-sz" data-param="fontSize" data-component="icon" />
                   <div class="input-group-append" data-display="value">
                     <span class="input-group-text" id="icon_size-value">48</span>
                   </div>
@@ -180,14 +181,26 @@
                 data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
                 data-component="main" id="main_weight-toggle">
             </div>
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Letter spacing</span>
+            <div class="row mb-2">
+              <div class="input-group input-group-sm mb-2 mb-md-0 col-md-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Size</span>
+                </div>
+                <input type="range" class="form-control custom-range" value="48" min="10" max="100" step="1"
+                  id="main-sz" data-param="fontSize" data-component="main" />
+                <div class="input-group-append" data-display="value">
+                  <span class="input-group-text" id="main_size-value">48</span>
+                </div>
               </div>
-              <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main"
-                value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
-              <div class="input-group-append" data-display="value">
-                <span class="input-group-text" id="main_letter_space-value">0</span>
+              <div class="input-group input-group-sm col-md-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Letter spacing</span>
+                </div>
+                <input type="range" class="form-control custom-range" data-param="letter_space" data-component="main"
+                  value="0" min="0" max="20" step="1" id="main_letter_space-rng" />
+                <div class="input-group-append" data-display="value">
+                  <span class="input-group-text" id="main_letter_space-value">0</span>
+                </div>
               </div>
             </div>
           </div>
@@ -212,21 +225,33 @@
                 <span class="input-group-text" id="basic-addon1">Font</span>
               </div>
               <input type="color" value="#cccccc" id="accent-clr" class="form-control" aria-label="color2"
-              aria-describedby="basic-addon1" data-param="color" data-component="accent" />
-              <select id="accent_font-select" class="form-control w-50" aria-label="font" aria-describedby="basic-addon1"
-                data-param="fontFamily" data-component="accent"></select>
+                aria-describedby="basic-addon1" data-param="color" data-component="accent" />
+              <select id="accent_font-select" class="form-control w-50" aria-label="font"
+                aria-describedby="basic-addon1" data-param="fontFamily" data-component="accent"></select>
               <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
                 data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
                 data-component="accent" id="accent_weight-toggle">
             </div>
-            <div class="input-group input-group-sm mb-2">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Letter spacing</span>
+            <div class="row mb-2">
+              <div class="input-group input-group-sm mb-2 mb-md-0 col-md-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Size</span>
+                </div>
+                <input type="range" class="form-control custom-range" value="48" min="10" max="100" step="1"
+                  id="accent-sz" data-param="fontSize" data-component="accent" />
+                <div class="input-group-append" data-display="value">
+                  <span class="input-group-text" id="accent_size-value">48</span>
+                </div>
               </div>
-              <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent"
-                value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
-              <div class="input-group-append" data-display="value">
-                <span class="input-group-text" id="accent_letter_space-value">0</span>
+              <div class="input-group input-group-sm col-md-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Letter spacing</span>
+                </div>
+                <input type="range" class="form-control custom-range" data-param="letter_space" data-component="accent"
+                  value="0" min="0" max="20" step="1" id="accent_letter_space-rng" />
+                <div class="input-group-append" data-display="value">
+                  <span class="input-group-text" id="accent_letter_space-value">0</span>
+                </div>
               </div>
             </div>
             <div class="input-group input-group-sm">
