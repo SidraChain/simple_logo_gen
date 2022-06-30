@@ -4,6 +4,7 @@
 class SimplegenTextComponent {
   /**
    * Create a SimplegenTextComponent
+   * @param {Sting} name Component name
    * @param {Sting} text Component text
    * @param {String} color Text color in hex
    * @param {String} fontFamily Text font family
@@ -11,13 +12,37 @@ class SimplegenTextComponent {
    * @param {Number} fontSize Text font size
    * @param {Number} letterSpacing Letter Spacing
    */
-  constructor(text, color, fontFamily, fontWeight, fontSize, letterSpacing = 0) {
+  constructor(name, text, color, fontFamily, fontWeight, fontSize, letterSpacing = 0) {
+    this.name = name;
     this.text = text;
     this.color = color;
     this.fontFamily = fontFamily;
     this.fontWeight = fontWeight;
     this.fontSize = fontSize;
     this.letterSpacing = letterSpacing;
+  }
+
+  init() {
+    $('input[data-component="'+this.name+'"][data-param="text"]').val(this.text);
+    $('input[data-component="'+this.name+'"][data-param="color"]').val(this.color);
+    $('select[data-component="'+this.name+'"][data-param="fontFamily"]').val(this.fontFamily);
+    setSelectFont($('select[data-component="'+this.name+'"][data-param="fontFamily"]')[0]);
+    $('input[data-component="'+this.name+'"][data-param="font_weight"]').bootstrapToggle(this.fontWeight == 'bold' ? 'on' : 'off');
+    $('input[data-component="'+this.name+'"][data-param="fontSize"]').val(this.fontSize);
+    $('input[data-component="'+this.name+'"][data-param="letter_space"]').val(this.letterSpacing);
+  }
+
+  /**
+   * Sync component form object
+   * @param {Object} object Object with properties to sync
+   */
+  sync(object) {
+    this.text = object.text;
+    this.color = object.color;
+    this.fontFamily = object.fontFamily;
+    this.fontWeight = object.fontWeight;
+    this.fontSize = object.fontSize;
+    this.letterSpacing = object.letterSpacing;
   }
 
   /**
@@ -49,6 +74,7 @@ canvas_fav.height = 5;
 var ctx_fav = canvas_fav.getContext("2d");
 
 let icon = new SimplegenTextComponent(
+  "icon",
   window
     .getComputedStyle(document.querySelector("#icp-component i"), ":before")
     .content.replace(/['"]/g, ""),
@@ -61,8 +87,8 @@ let icon = new SimplegenTextComponent(
   ).fontWeight,
   48
 );
-let main = new SimplegenTextComponent("", "#000000", "Arial", "bold", 48);
-let accent = new SimplegenTextComponent("", "#cccccc", "Arial", "bold", 48);
+let main = new SimplegenTextComponent("main", "", "#000000", "Arial", "bold", 48);
+let accent = new SimplegenTextComponent("accent", "", "#cccccc", "Arial", "bold", 48);
 
 var components ={
   icon: icon,
@@ -84,83 +110,90 @@ var shapes = true;
 var offset_clr = "#f2f2f2";
 
 /* SETTINGS */
-$('.widget[role="md2html"]').each(function (_index, widget) {
-  var request = new XMLHttpRequest();
-  request.open("GET", $(widget).attr("data-widget"), true);
-  request.send(null);
-  request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-      var converter = new showdown.Converter();
-      $(widget).html(converter.makeHtml(request.responseText));
-    }
-  };
+$(document).ready(function () {
+  $('.widget[role="md2html"]').each(function (_index, widget) {
+    var request = new XMLHttpRequest();
+    request.open("GET", $(widget).attr("data-widget"), true);
+    request.send(null);
+    request.onreadystatechange = function () {
+      if (request.readyState === 4 && request.status === 200) {
+        var converter = new showdown.Converter();
+        $(widget).html(converter.makeHtml(request.responseText));
+      }
+    };
+  });
+
+  $("#icp").iconpicker({});
+
+  bsCustomFileInput.init();
+
+  var fonts = [
+    "Arial",
+    "Montez",
+    "Lobster",
+    "Josefin Sans",
+    "Shadows Into Light",
+    "Pacifico",
+    "Amatic SC",
+    "Orbitron",
+    "Rokkitt",
+    "Righteous",
+    "Dancing Script",
+    "Bangers",
+    "Chewy",
+    "Sigmar One",
+    "Architects Daughter",
+    "Abril Fatface",
+    "Covered By Your Grace",
+    "Kaushan Script",
+    "Gloria Hallelujah",
+    "Satisfy",
+    "Lobster Two",
+    "Comfortaa",
+    "Cinzel",
+    "Courgette",
+    "Annie Use Your Telescope",
+    "Baloo",
+    "Bowlby One SC",
+    "Bungee Inline",
+    "Cabin Sketch",
+    "Caveat",
+    "Contrail One",
+    "Damion",
+    "Economica",
+    "Fascinate Inline",
+    "Faster One",
+    "Fredericka the Great",
+    "Gabriela",
+    "Just Another Hand",
+    "Kodchasan",
+    "Love Ya Like A Sister",
+    "Megrim",
+    "Monoton",
+    "Mouse Memoirs",
+    "Podkova",
+    "Pompiere",
+    "Quicksand",
+    "Reenie Beanie",
+    "Rokkitt",
+    "Six Caps",
+    "Source Sans Pro",
+    "Special Elite",
+    "Spicy Rice",
+    "VT323",
+    "Wire One",
+  ];
+  for (const font of fonts) {
+    var opt = document.createElement("option");
+    opt.value = opt.innerHTML = font;
+    opt.style.fontFamily = font;
+    document.getElementById("main_font-select").add(opt.cloneNode(true));
+    document.getElementById("accent_font-select").add(opt.cloneNode(true));
+  }
+
+  refreshGUI();
+  render();
 });
-
-$("#icp").iconpicker({});
-
-var fonts = [
-  "Arial",
-  "Montez",
-  "Lobster",
-  "Josefin Sans",
-  "Shadows Into Light",
-  "Pacifico",
-  "Amatic SC",
-  "Orbitron",
-  "Rokkitt",
-  "Righteous",
-  "Dancing Script",
-  "Bangers",
-  "Chewy",
-  "Sigmar One",
-  "Architects Daughter",
-  "Abril Fatface",
-  "Covered By Your Grace",
-  "Kaushan Script",
-  "Gloria Hallelujah",
-  "Satisfy",
-  "Lobster Two",
-  "Comfortaa",
-  "Cinzel",
-  "Courgette",
-  "Annie Use Your Telescope",
-  "Baloo",
-  "Bowlby One SC",
-  "Bungee Inline",
-  "Cabin Sketch",
-  "Caveat",
-  "Contrail One",
-  "Damion",
-  "Economica",
-  "Fascinate Inline",
-  "Faster One",
-  "Fredericka the Great",
-  "Gabriela",
-  "Just Another Hand",
-  "Kodchasan",
-  "Love Ya Like A Sister",
-  "Megrim",
-  "Monoton",
-  "Mouse Memoirs",
-  "Podkova",
-  "Pompiere",
-  "Quicksand",
-  "Reenie Beanie",
-  "Rokkitt",
-  "Six Caps",
-  "Source Sans Pro",
-  "Special Elite",
-  "Spicy Rice",
-  "VT323",
-  "Wire One",
-];
-for (const font of fonts) {
-  var opt = document.createElement("option");
-  opt.value = opt.innerHTML = font;
-  opt.style.fontFamily = font;
-  document.getElementById("main_font-select").add(opt.cloneNode(true));
-  document.getElementById("accent_font-select").add(opt.cloneNode(true));
-}
 
 /* LISTENERS */
 $("#icp").on("iconpickerSelected", function (_e) {
@@ -297,13 +330,114 @@ document
     );
   });
 
+$("#conf_download-btn").on("click", function (_e){
+  var conf ={
+    version:'v1.0.0',
+    components: components,
+    global:{
+      offset:{
+        size: off_1,
+        color: offset_clr
+      },
+      layout: layout,
+      shapes: shapes
+    }
+  };
+  $(this).attr("href", "data:application/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(conf)));
+});
+
+$("#conf_upload-fs").on("change", function (e) {
+  var fileSelector = $(this);
+  var reader = new FileReader();
+  reader.onload = function (event) {
+    try {
+      var conf = JSON.parse(event.target.result);
+      if(conf.version == 'v1.0.0'){
+        icon.sync(conf.components.icon);
+        main.sync(conf.components.main);
+        accent.sync(conf.components.accent);
+        off_1 = conf.global.offset.size;
+        offset_clr = conf.global.offset.color;
+        layout = conf.global.layout;
+        shapes = conf.global.shapes;
+      }else{
+        throw new DOMException('Version not supported', 'VersionError');
+      }
+
+      $(fileSelector).addClass('is-valid').removeClass('is-invalid');
+      $(fileSelector).parent().children('.feedback').remove();
+      $(fileSelector).parent().append($('<div></div>').addClass("feedback valid-feedback").html("Nice! We load the config."));
+      refreshGUI();
+    } catch (error) {
+      var message;
+      if(error.name == 'VersionError'){
+        message = 'Ouups! File version not supported.';
+      }else{
+        message = "Ouups! We can't parse the config.";
+      }
+
+      $(fileSelector).addClass('is-invalid').removeClass('is-valid');
+      $(fileSelector).parent().children('.feedback').remove();
+      $(fileSelector).parent().append($('<div></div>').addClass("feedback invalid-feedback").html(message));
+    }
+    render();
+  };
+  reader.readAsText(e.target.files[0]);
+});
+
 /* FUNCTIONS */
 /**
  * Set the selected font family to the selector
  * @param {HTMLSelectElement} select : HTML select element to change font family
  */
 function setSelectFont(select) {
-  select.style.fontFamily = select.value;
+  if (select) {
+    select.style.fontFamily = select.value;
+  }
+}
+
+/**
+ * Refresh GUI data from JS objects
+ */
+function refreshGUI(){
+  // Layout
+  var layout_toggle = $('input[data-toggle="toggle"][data-param="layout"]');
+  switch (layout.toUpperCase()) {
+    case "HORIZONTAL":
+      layout_toggle.bootstrapToggle('on');
+      break;
+    case "VERTICAL":
+      layout_toggle.bootstrapToggle('off');
+      break;
+    default:
+      layout="HORIZONTAL";
+      layout_toggle.bootstrapToggle('on');
+      break;
+  }
+
+  // Shapes
+  var shapes_toggle = $('input[data-toggle="toggle"][data-param="shapes"]');
+  shapes ? shapes_toggle.bootstrapToggle('on') : shapes_toggle.bootstrapToggle('off');
+
+  // Offset
+  document.getElementById("offset-clr").value = offset_clr;
+
+  // Components
+  icon.init();
+  main.init();
+  accent.init();
+  $("#icp-component").children("i").remove();
+  $("#icp-component").append(
+    $("<i></i>")
+      .attr(
+        "style",
+        "font-style: normal; font-weight: " +
+          icon.fontWeight +
+          "; font-family: " +
+          icon.fontFamily
+      )
+      .html(icon.text)
+  );
 }
 
 /**
