@@ -197,6 +197,7 @@ $(document).ready(function () {
 
 /* LISTENERS */
 $("#icp").on("iconpickerSelected", function (_e) {
+  $("#icp-component i").attr('style','').html('');
   icon.text = window
     .getComputedStyle(document.querySelector("#icp-component i"), ":before")
     .content.replace(/['"]/g, "");
