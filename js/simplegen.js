@@ -146,12 +146,14 @@ var components = {
   accent: accent,
 };
 
-const padding = new Object();
-padding.width = 7;
-padding.height = 7;
-padding.internal = new Object();
-padding.internal.x = 3;
-padding.internal.y = 5;
+const padding = {
+  width: 7,
+  height: 7,
+  internal:{
+    x: 3,
+    y: 5
+  }
+};
 Object.freeze(padding);
 
 var global = {
