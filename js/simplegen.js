@@ -222,15 +222,10 @@ $('.collapsible').on('shown.bs.collapse', function () {
   $('button[data-toggle="collapse"][data-target="#'+$(this).attr('id')+'"]').html('<i class="fas fa-chevron-up"></i>')
 })
 
-document.getElementById("main-input").oninput = function () {
-  main.text = document.getElementById("main-input").value;
+$('input[type="text"][data-param="text"]').on('input',function(_e){
+  components[$(this).attr('data-component')].text = $(this).val();
   render();
-};
-
-document.getElementById("accent-input").oninput = function () {
-  accent.text = document.getElementById("accent-input").value;
-  render();
-};
+});
 
 $('input[type="range"][data-param="offsetSize"]').on('input',function(_e){
   off_1 = parseFloat($(this).val());
@@ -238,12 +233,11 @@ $('input[type="range"][data-param="offsetSize"]').on('input',function(_e){
   render();
 });
 
-document.getElementById("compliment_color-btn").onclick = function () {
-  main.color = document.getElementById("main-clr").value;
+$("#compliment_color-btn").on("click",function () {
   accent.color = hexToComplimentary(main.color);
-  document.getElementById("accent-clr").value = accent.color;
+  accent.init();
   render();
-};
+});
 
 $('input[data-toggle="toggle"][data-param="layout"]').on('change',function(_e){
   if($(this).prop('checked')){
@@ -268,25 +262,15 @@ $('input[data-toggle="toggle"][data-param="shapes"]').on('change',function(_e){
   render();
 });
 
-document.getElementById("main-clr").oninput = function () {
-  main.color = document.getElementById("main-clr").value;
+$('input[type="color"][data-param="color"]').on('input',function(_e){
+  components[$(this).attr('data-component')].color = $(this).val();
   render();
-};
+});
 
-document.getElementById("accent-clr").oninput = function () {
-  accent.color = document.getElementById("accent-clr").value;
+$('input[type="color"][data-param="offsetColor"]').on('input',function(_e){
+  offset_clr = $(this).val();
   render();
-};
-
-document.getElementById("offset-clr").oninput = function () {
-  offset_clr = document.getElementById("offset-clr").value;
-  render();
-};
-
-document.getElementById("icon-clr").oninput = function () {
-  icon.color = document.getElementById("icon-clr").value;
-  render();
-};
+});
 
 $('input[type="range"][data-param="fontSize"]').on('input',function(_e){
   components[$(this).attr('data-component')].fontSize = parseInt($(this).val());
@@ -300,34 +284,24 @@ $('input[type="range"][data-param="letter_space"]').on('input',function(_e){
   render();
 });
 
-document.getElementById("main_font-select").oninput = function () {
-  main.fontFamily = document.getElementById("main_font-select").value;
-  setSelectFont(document.getElementById("main_font-select"));
+$('select[data-param="fontFamily"]').on('input',function(_e){
+  components[$(this).attr('data-component')].fontFamily = $(this).val();
+  setSelectFont($(this)[0]);
   render();
-};
+});
 
-document.getElementById("accent_font-select").oninput = function () {
-  accent.fontFamily = document.getElementById("accent_font-select").value;
-  setSelectFont(document.getElementById("accent_font-select"));
-  render();
-};
-
-document
-  .getElementById("fav_download-btn")
-  .addEventListener("click", function (_e) {
+$("#fav_download-btn").on("click", function (_e) {
     exportCanva(
-      document.getElementById("fav_download-btn"),
+      $(this)[0],
       canvas_fav,
       "favicon",
       renderFav
     );
   });
 
-document
-  .getElementById("logo_download-btn")
-  .addEventListener("click", function (_e) {
+$("#logo_download-btn").on("click", function (_e) {
     exportCanva(
-      document.getElementById("logo_download-btn"),
+      $(this)[0],
       canvas_logo,
       "logo",
       renderLogo
@@ -436,7 +410,7 @@ function refreshGUI(ignore = []){
   var offsetSize_input =$('input[data-component="global"][data-param="offsetSize"]');
   offsetSize_input.val(off_1);
   offsetSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(off_1);
-  document.getElementById("offset-clr").value = offset_clr;
+  $('input[data-component="global"][data-param="offsetColor"]').val(offset_clr);
   }
 
   // Components
