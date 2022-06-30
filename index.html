@@ -260,11 +260,11 @@
           <div class="card border-secondary">
             <div class="card-header d-flex align-items-center">
               <span class="flex-grow-1 font-weight-bold">Export Configuration</span>
-              <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#exp_conf-fieldset"
-                aria-expanded="true" aria-controls="exp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn btn-light" type="button" data-toggle="collapse" data-target=".imp_exp_conf"
+                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
             </div>
-            <div class="card-body text-secondary collapsible collapse show" id="exp_conf-fieldset">
-              <div class="input-group mb-3">
+            <div class="card-body text-secondary collapsible collapse imp_exp_conf" id="exp_conf-fieldset">
+              <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="input-group-text">Export</div>
                 </div>
@@ -280,10 +280,10 @@
           <div class="card border-secondary">
             <div class="card-header d-flex align-items-center">
               <span class="flex-grow-1 font-weight-bold">Import Configuration</span>
-              <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#imp_conf-fieldset"
-                aria-expanded="true" aria-controls="imp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
+              <button class="btn btn-light" type="button" data-toggle="collapse" data-target=".imp_exp_conf"
+                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
             </div>
-            <div class="card-body text-secondary collapsible collapse show" id="imp_conf-fieldset">
+            <div class="card-body text-secondary collapsible collapse imp_exp_conf" id="imp_conf-fieldset">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="conf_upload-fs" accept=".json">
                 <label class="custom-file-label" for="conf_upload-fs">Choose file</label>
