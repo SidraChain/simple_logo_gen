@@ -288,7 +288,7 @@ $('input[type="range"][data-param="offsetSize"]').on("input", function (_e) {
   $(this)
     .siblings('.input-group-append[data-display="value"]')
     .children("span")
-    .html($(this).val());
+    .html(global.offset.size.toFixed(1));
   render();
 });
 
@@ -492,7 +492,7 @@ function refreshGUI(ignore = []) {
     offsetSize_input
       .siblings('.input-group-append[data-display="value"]')
       .children("span")
-      .html(global.offset.size);
+      .html(global.offset.size.toFixed(1));
     $('input[data-component="global"][data-param="offsetColor"]').val(
       global.offset.color
     );
