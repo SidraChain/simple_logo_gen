@@ -28,8 +28,12 @@ class SimplegenTextComponent {
     $('select[data-component="'+this.name+'"][data-param="fontFamily"]').val(this.fontFamily);
     setSelectFont($('select[data-component="'+this.name+'"][data-param="fontFamily"]')[0]);
     $('input[data-component="'+this.name+'"][data-param="font_weight"]').bootstrapToggle(this.fontWeight == 'bold' ? 'on' : 'off');
-    $('input[data-component="'+this.name+'"][data-param="fontSize"]').val(this.fontSize);
-    $('input[data-component="'+this.name+'"][data-param="letter_space"]').val(this.letterSpacing);
+    var fontSize_input =$('input[data-component="'+this.name+'"][data-param="fontSize"]');
+    fontSize_input.val(this.fontSize);
+    fontSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(this.fontSize);
+    var letterSpacing_input =$('input[data-component="'+this.name+'"][data-param="letter_space"]');
+    letterSpacing_input.val(this.letterSpacing);
+    letterSpacing_input.siblings('.input-group-append[data-display="value"]').children('span').html(this.letterSpacing);
   }
 
   /**
@@ -107,7 +111,7 @@ Object.freeze(padding);
 var off_1 = 0;
 var layout = "HORIZONTAL";
 var shapes = true;
-var offset_clr = "#f2f2f2";
+var offset_clr = "#e2e2e2";
 
 /* SETTINGS */
 $(document).ready(function () {
@@ -228,14 +232,11 @@ document.getElementById("accent-input").oninput = function () {
   render();
 };
 
-document.getElementById("offset-btn").onclick = function () {
-  if (off_1 !== 3) {
-    off_1 = 3;
-  } else {
-    off_1 = 0;
-  }
+$('input[type="range"][data-param="offsetSize"]').on('input',function(_e){
+  off_1 = parseFloat($(this).val());
+  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
-};
+});
 
 document.getElementById("compliment_color-btn").onclick = function () {
   main.color = document.getElementById("main-clr").value;
@@ -286,13 +287,14 @@ document.getElementById("icon-clr").oninput = function () {
   render();
 };
 
-document.getElementById("icon-sz").oninput = function () {
-  icon.fontSize = parseInt(document.getElementById("icon-sz").value);
+$('input[type="range"][data-param="fontSize"]').on('input',function(_e){
+  components[$(this).attr('data-component')].fontSize = parseInt($(this).val());
+  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
-};
+});
 
 $('input[type="range"][data-param="letter_space"]').on('input',function(_e){
-  components[$(this).attr('data-component')].letterSpacing = $(this).val();
+  components[$(this).attr('data-component')].letterSpacing = parseInt($(this).val());
   $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
   render();
 });
@@ -421,6 +423,9 @@ function refreshGUI(){
   shapes ? shapes_toggle.bootstrapToggle('on') : shapes_toggle.bootstrapToggle('off');
 
   // Offset
+  var offsetSize_input =$('input[data-component="global"][data-param="offsetSize"]');
+  offsetSize_input.val(off_1);
+  offsetSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(off_1);
   document.getElementById("offset-clr").value = offset_clr;
 
   // Components
@@ -521,7 +526,7 @@ function renderLogoHorizontal(ctx, canvas) {
   ctx.textBaseline = "middle";
 
   // Offset drawing
-  if (off_1 == 3) {
+  if (off_1 != 0) {
     ctx.font = icon.getFont();
     ctx.fillStyle = offset_clr;
     ctx.fillText(icon.text, icon_start + off_1, baseline + off_1);
@@ -616,7 +621,7 @@ function renderLogoVertical(ctx, canvas) {
   }
 
   // Offset Drawing
-  if (off_1 == 3) {
+  if (off_1 != 0) {
     ctx.font = icon.getFont();
     ctx.fillStyle = offset_clr;
     ctx.fillText(icon.text, center + off_1, icon_start + off_1);

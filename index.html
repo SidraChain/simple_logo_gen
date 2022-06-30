@@ -61,34 +61,91 @@
     </nav>
     <div class="tab-content shadow-sm p-3 mb-5 rounded">
       <main class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <div class="card border-secondary mb-3">
-          <div class="card-header d-flex align-items-center">
-            <span class="flex-grow-1 font-weight-bold">Icon</span>
-            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#icon-fieldset"
-              aria-expanded="true" aria-controls="icon-fieldset"><i class="fas fa-chevron-up"></i></button>
-          </div>
-          <div class="card-body text-secondary collapsible collapse show" id="icon-fieldset">
-            <div class="btn-group d-flex">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Icon</span>
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <div class="card border-secondary">
+              <div class="card-header d-flex align-items-center">
+                <span class="flex-grow-1 font-weight-bold">Global</span>
+                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#global-fieldset"
+                  aria-expanded="true" aria-controls="global-fieldset"><i class="fas fa-chevron-up"></i></button>
               </div>
-              <button id="icp-component" type="button" class="btn btn-outline-secondary iconpicker-component w-100">
-                <i class="fa fa-fw fa-heart"></i>
-              </button>
-              <button id="icp" type="button" class="btn btn-secondary dropdown-toggle" data-selected="fa-car"
-                data-toggle="dropdown">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
-              <div class="dropdown-menu"></div>
+              <div class="card-body text-secondary collapsible collapse show" id="global-fieldset">
+                <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Layout</span>
+                  </div>
+                  <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Horizontal"
+                    data-off="Vertical" data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm"
+                    data-param="layout" data-component="global" id="layout-toggle">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Shapes</span>
+                  </div>
+                  <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="On" data-off="Off"
+                    data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="shapes"
+                    data-component="global" id="shapes-toggle">
+                </div>
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Offset</span>
+                  </div>
+                  <input type="color" id="offset-clr" value="#f2f2f2" class="form-control" aria-label="color"
+                  aria-describedby="basic-addon1" />
+                  <input type="range" class="form-control custom-range w-25" data-param="offsetSize" data-component="global"
+                    value="0" min="0" max="10" step=".5" id="offset_size-rng" />
+                  <div class="input-group-append" data-display="value">
+                    <span class="input-group-text" id="offset_size-value">0</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <input type="range" class="custom-range" value="48" min="25" max="100" step="1" id="icon-sz" data-param="fontSize" data-component="icon"/>
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Color</span>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card border-secondary">
+              <div class="card-header d-flex align-items-center">
+                <span class="flex-grow-1 font-weight-bold">Icon</span>
+                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#icon-fieldset"
+                  aria-expanded="true" aria-controls="icon-fieldset"><i class="fas fa-chevron-up"></i></button>
               </div>
-              <input type="color" id="icon-clr" class="form-control" aria-label="color"
-                aria-describedby="basic-addon1" data-param="color" data-component="icon" />
+              <div class="card-body text-secondary collapsible collapse show" id="icon-fieldset">
+                <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Icon</span>
+                  </div>
+                  <div class="input-group-apppend ml-1">
+                    <div class="btn-group d-flex btn-group-sm">
+                      <button id="icp-component" type="button" class="btn btn-outline-secondary iconpicker-component w-100">
+                        <i class="fa fa-fw fa-heart"></i>
+                      </button>
+                      <button id="icp" type="button" class="btn btn-secondary dropdown-toggle" data-selected="fa-car"
+                        data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <div class="dropdown-menu"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Size</span>
+                  </div>
+                  <input type="range" class="form-control custom-range" value="48" min="25" max="100" step="1" id="icon-sz"
+                  data-param="fontSize" data-component="icon" />
+                  <div class="input-group-append" data-display="value">
+                    <span class="input-group-text" id="icon_size-value">48</span>
+                  </div>
+                </div>
+                <div class="input-group input-group-sm">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Color</span>
+                  </div>
+                  <input type="color" id="icon-clr" class="form-control" aria-label="color"
+                    aria-describedby="basic-addon1" data-param="color" data-component="icon" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -105,21 +162,16 @@
                 <span class="input-group-text" id="basic-addon1">Text</span>
               </div>
               <input type="text" id="main-input" class="form-control" aria-label="outblock"
-                aria-describedby="basic-addon1" data-param="text" data-component="main"/>
-            </div>
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Color</span>
-              </div>
-              <input type="color" id="main-clr" class="form-control" aria-label="color"
-                aria-describedby="basic-addon1" data-param="color" data-component="main"/>
+                aria-describedby="basic-addon1" data-param="text" data-component="main" />
             </div>
             <div class="input-group input-group-sm mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Font</span>
               </div>
-              <select id="main_font-select" class="form-control" aria-label="font"
-                aria-describedby="basic-addon1" data-param="fontFamily" data-component="main"></select>
+              <input type="color" id="main-clr" class="form-control" aria-label="color" aria-describedby="basic-addon1"
+                data-param="color" data-component="main" />
+              <select id="main_font-select" class="form-control w-50" aria-label="font" aria-describedby="basic-addon1"
+                data-param="fontFamily" data-component="main"></select>
               <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
                 data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
                 data-component="main" id="main_weight-toggle">
@@ -149,21 +201,16 @@
                 <span class="input-group-text" id="basic-addon1">Text</span>
               </div>
               <input type="text" id="accent-input" class="form-control" aria-label="inblock"
-                aria-describedby="basic-addon1" data-param="text" data-component="accent"/>
-            </div>
-            <div class="input-group input-group-sm mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Color</span>
-              </div>
-              <input type="color" value="#cccccc" id="accent-clr" class="form-control" aria-label="color2"
-                aria-describedby="basic-addon1" data-param="color" data-component="accent"/>
+                aria-describedby="basic-addon1" data-param="text" data-component="accent" />
             </div>
             <div class="input-group input-group-sm mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Font</span>
               </div>
-              <select id="accent_font-select" class="form-control" aria-label="font"
-                aria-describedby="basic-addon1" data-param="fontFamily" data-component="accent"></select>
+              <input type="color" value="#cccccc" id="accent-clr" class="form-control" aria-label="color2"
+              aria-describedby="basic-addon1" data-param="color" data-component="accent" />
+              <select id="accent_font-select" class="form-control w-50" aria-label="font" aria-describedby="basic-addon1"
+                data-param="fontFamily" data-component="accent"></select>
               <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Bold" data-off="Normal"
                 data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="font_weight"
                 data-component="accent" id="accent_weight-toggle">
@@ -182,44 +229,9 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Effects</span>
               </div>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-outline-primary btn-sm" id="compliment_color-btn">Compliment Color</a>
+              <div class="btn-group ml-1" role="group" aria-label="Basic example">
+                <a class="btn btn-outline-secondary btn-sm" id="compliment_color-btn">Compliment Color</a>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card border-secondary mb-3">
-          <div class="card-header d-flex align-items-center">
-            <span class="flex-grow-1 font-weight-bold">Global</span>
-            <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#global-fieldset"
-              aria-expanded="true" aria-controls="global-fieldset"><i class="fas fa-chevron-up"></i></button>
-          </div>
-          <div class="card-body text-secondary collapsible collapse show" id="global-fieldset">
-            <div class="row mb-3">
-              <div class="input-group input-group-sm col">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Layout</span>
-                </div>
-                <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="Horizontal"
-                  data-off="Vertical" data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm"
-                  data-param="layout" data-component="global" id="layout-toggle">
-              </div>
-              <div class="input-group input-group-sm col">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Shapes</span>
-                </div>
-                <input type="checkbox" checked data-toggle="toggle" data-style="ml-1" data-on="On" data-off="Off"
-                  data-onstyle="outline-dark" data-offstyle="outline-secondary" data-size="sm" data-param="shapes"
-                  data-component="global" id="shapes-toggle">
-              </div>
-            </div>
-            <div class="input-group input-group-sm">
-              <div class="input-group-prepend">
-                <a class="btn btn-outline-primary" id="offset-btn">Offset</a>
-              </div>
-              <input type="color" id="offset-clr" value="#f2f2f2" class="form-control" aria-label="color"
-                aria-describedby="basic-addon1" />
             </div>
           </div>
         </div>
@@ -261,7 +273,8 @@
             <div class="card-header d-flex align-items-center">
               <span class="flex-grow-1 font-weight-bold">Export Configuration</span>
               <button class="btn btn-light" type="button" data-toggle="collapse" data-target=".imp_exp_conf"
-                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
+                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i
+                  class="fas fa-chevron-up"></i></button>
             </div>
             <div class="card-body text-secondary collapsible collapse imp_exp_conf" id="exp_conf-fieldset">
               <div class="input-group">
@@ -281,7 +294,8 @@
             <div class="card-header d-flex align-items-center">
               <span class="flex-grow-1 font-weight-bold">Import Configuration</span>
               <button class="btn btn-light" type="button" data-toggle="collapse" data-target=".imp_exp_conf"
-                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i class="fas fa-chevron-up"></i></button>
+                aria-expanded="false" aria-controls="exp_conf-fieldset imp_conf-fieldset"><i
+                  class="fas fa-chevron-up"></i></button>
             </div>
             <div class="card-body text-secondary collapsible collapse imp_exp_conf" id="imp_conf-fieldset">
               <div class="custom-file">
