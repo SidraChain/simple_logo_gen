@@ -12,7 +12,15 @@ class SimplegenTextComponent {
    * @param {Number} fontSize Text font size
    * @param {Number} letterSpacing Letter Spacing
    */
-  constructor(name, text, color, fontFamily, fontWeight, fontSize, letterSpacing = 0) {
+  constructor(
+    name,
+    text,
+    color,
+    fontFamily,
+    fontWeight,
+    fontSize,
+    letterSpacing = 0
+  ) {
     this.name = name;
     this.text = text;
     this.color = color;
@@ -23,17 +31,39 @@ class SimplegenTextComponent {
   }
 
   init() {
-    $('input[data-component="'+this.name+'"][data-param="text"]').val(this.text);
-    $('input[data-component="'+this.name+'"][data-param="color"]').val(this.color);
-    $('select[data-component="'+this.name+'"][data-param="fontFamily"]').val(this.fontFamily);
-    setSelectFont($('select[data-component="'+this.name+'"][data-param="fontFamily"]')[0]);
-    $('input[data-component="'+this.name+'"][data-param="font_weight"]').bootstrapToggle(this.fontWeight == 'bold' ? 'on' : 'off');
-    var fontSize_input =$('input[data-component="'+this.name+'"][data-param="fontSize"]');
+    $('input[data-component="' + this.name + '"][data-param="text"]').val(
+      this.text
+    );
+    $('input[data-component="' + this.name + '"][data-param="color"]').val(
+      this.color
+    );
+    $(
+      'select[data-component="' + this.name + '"][data-param="fontFamily"]'
+    ).val(this.fontFamily);
+    setSelectFont(
+      $(
+        'select[data-component="' + this.name + '"][data-param="fontFamily"]'
+      )[0]
+    );
+    $(
+      'input[data-component="' + this.name + '"][data-param="font_weight"]'
+    ).bootstrapToggle(this.fontWeight == "bold" ? "on" : "off");
+    var fontSize_input = $(
+      'input[data-component="' + this.name + '"][data-param="fontSize"]'
+    );
     fontSize_input.val(this.fontSize);
-    fontSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(this.fontSize);
-    var letterSpacing_input =$('input[data-component="'+this.name+'"][data-param="letter_space"]');
+    fontSize_input
+      .siblings('.input-group-append[data-display="value"]')
+      .children("span")
+      .html(this.fontSize);
+    var letterSpacing_input = $(
+      'input[data-component="' + this.name + '"][data-param="letter_space"]'
+    );
     letterSpacing_input.val(this.letterSpacing);
-    letterSpacing_input.siblings('.input-group-append[data-display="value"]').children('span').html(this.letterSpacing);
+    letterSpacing_input
+      .siblings('.input-group-append[data-display="value"]')
+      .children("span")
+      .html(this.letterSpacing);
   }
 
   /**
@@ -54,7 +84,9 @@ class SimplegenTextComponent {
    * @returns {String} Text with letter spacing
    */
   getText() {
-    return this.text.split("").join((String.fromCharCode(8202)).repeat(this.letterSpacing));
+    return this.text
+      .split("")
+      .join(String.fromCharCode(8202).repeat(this.letterSpacing));
   }
 
   /**
@@ -91,13 +123,27 @@ let icon = new SimplegenTextComponent(
   ).fontWeight,
   48
 );
-let main = new SimplegenTextComponent("main", "", "#000000", "Arial", "bold", 48);
-let accent = new SimplegenTextComponent("accent", "", "#cccccc", "Arial", "bold", 48);
+let main = new SimplegenTextComponent(
+  "main",
+  "",
+  "#000000",
+  "Arial",
+  "bold",
+  48
+);
+let accent = new SimplegenTextComponent(
+  "accent",
+  "",
+  "#cccccc",
+  "Arial",
+  "bold",
+  48
+);
 
-var components ={
+var components = {
   icon: icon,
   main: main,
-  accent: accent
+  accent: accent,
 };
 
 const padding = new Object();
@@ -108,10 +154,14 @@ padding.internal.x = 3;
 padding.internal.y = 5;
 Object.freeze(padding);
 
-var off_1 = 0;
-var layout = "HORIZONTAL";
-var shapes = true;
-var offset_clr = "#e2e2e2";
+var global = {
+  offset: {
+    size: 0,
+    color: "#e2e2e2",
+  },
+  layout: "HORIZONTAL",
+  shapes: true,
+};
 
 /* SETTINGS */
 $(document).ready(function () {
@@ -201,7 +251,7 @@ $(document).ready(function () {
 
 /* LISTENERS */
 $("#icp").on("iconpickerSelected", function (_e) {
-  $("#icp-component i").attr('style','').html('');
+  $("#icp-component i").attr("style", "").html("");
   icon.text = window
     .getComputedStyle(document.querySelector("#icp-component i"), ":before")
     .content.replace(/['"]/g, "");
@@ -214,114 +264,128 @@ $("#icp").on("iconpickerSelected", function (_e) {
   render();
 });
 
-$('.collapsible').on('hidden.bs.collapse', function () {
-  $('button[data-toggle="collapse"][data-target="#'+$(this).attr('id')+'"]').html('<i class="fas fa-chevron-down"></i>')
-})
+$(".collapsible").on("hidden.bs.collapse", function () {
+  $(
+    'button[data-toggle="collapse"][data-target="#' + $(this).attr("id") + '"]'
+  ).html('<i class="fas fa-chevron-down"></i>');
+});
 
-$('.collapsible').on('shown.bs.collapse', function () {
-  $('button[data-toggle="collapse"][data-target="#'+$(this).attr('id')+'"]').html('<i class="fas fa-chevron-up"></i>')
-})
+$(".collapsible").on("shown.bs.collapse", function () {
+  $(
+    'button[data-toggle="collapse"][data-target="#' + $(this).attr("id") + '"]'
+  ).html('<i class="fas fa-chevron-up"></i>');
+});
 
-$('input[type="text"][data-param="text"]').on('input',function(_e){
-  components[$(this).attr('data-component')].text = $(this).val();
+$('input[type="text"][data-param="text"]').on("input", function (_e) {
+  components[$(this).attr("data-component")].text = $(this).val();
   render();
 });
 
-$('input[type="range"][data-param="offsetSize"]').on('input',function(_e){
-  off_1 = parseFloat($(this).val());
-  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
+$('input[type="range"][data-param="offsetSize"]').on("input", function (_e) {
+  global.offset.size = parseFloat($(this).val());
+  $(this)
+    .siblings('.input-group-append[data-display="value"]')
+    .children("span")
+    .html($(this).val());
   render();
 });
 
-$("#compliment_color-btn").on("click",function () {
+$("#compliment_color-btn").on("click", function () {
   accent.color = hexToComplimentary(main.color);
   accent.init();
   render();
 });
 
-$('input[data-toggle="toggle"][data-param="layout"]').on('change',function(_e){
-  if($(this).prop('checked')){
-    layout = "HORIZONTAL";
-    accent.fontSize = 48;
-  }else{
-    layout = "VERTICAL";
-    accent.fontSize = 12;
+$('input[data-toggle="toggle"][data-param="layout"]').on(
+  "change",
+  function (_e) {
+    if ($(this).prop("checked")) {
+      global.layout = "HORIZONTAL";
+      accent.fontSize = 48;
+    } else {
+      global.layout = "VERTICAL";
+      accent.fontSize = 12;
+    }
+    refreshGUI(["layout"]);
+    render();
   }
-  refreshGUI(['layout']);
+);
+
+$('input[data-toggle="toggle"][data-param="font_weight"]').on(
+  "change",
+  function (_e) {
+    components[$(this).attr("data-component")].fontWeight = $(this).prop(
+      "checked"
+    )
+      ? "bold"
+      : "normal";
+    render();
+  }
+);
+
+$('input[data-toggle="toggle"][data-param="shapes"]').on(
+  "change",
+  function (_e) {
+    global.shapes = $(this).prop("checked");
+    render();
+  }
+);
+
+$('input[type="color"][data-param="color"]').on("input", function (_e) {
+  components[$(this).attr("data-component")].color = $(this).val();
   render();
 });
 
-$('input[data-toggle="toggle"][data-param="font_weight"]').on('change',function(_e){
-  components[$(this).attr('data-component')].fontWeight = $(this).prop('checked')?'bold':'normal';
+$('input[type="color"][data-param="offsetColor"]').on("input", function (_e) {
+  global.offset.color = $(this).val();
   render();
 });
 
-
-$('input[data-toggle="toggle"][data-param="shapes"]').on('change',function(_e){
-  shapes = $(this).prop('checked');
+$('input[type="range"][data-param="fontSize"]').on("input", function (_e) {
+  components[$(this).attr("data-component")].fontSize = parseInt($(this).val());
+  $(this)
+    .siblings('.input-group-append[data-display="value"]')
+    .children("span")
+    .html($(this).val());
   render();
 });
 
-$('input[type="color"][data-param="color"]').on('input',function(_e){
-  components[$(this).attr('data-component')].color = $(this).val();
+$('input[type="range"][data-param="letter_space"]').on("input", function (_e) {
+  components[$(this).attr("data-component")].letterSpacing = parseInt(
+    $(this).val()
+  );
+  $(this)
+    .siblings('.input-group-append[data-display="value"]')
+    .children("span")
+    .html($(this).val());
   render();
 });
 
-$('input[type="color"][data-param="offsetColor"]').on('input',function(_e){
-  offset_clr = $(this).val();
-  render();
-});
-
-$('input[type="range"][data-param="fontSize"]').on('input',function(_e){
-  components[$(this).attr('data-component')].fontSize = parseInt($(this).val());
-  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
-  render();
-});
-
-$('input[type="range"][data-param="letter_space"]').on('input',function(_e){
-  components[$(this).attr('data-component')].letterSpacing = parseInt($(this).val());
-  $(this).siblings('.input-group-append[data-display="value"]').children('span').html($(this).val());
-  render();
-});
-
-$('select[data-param="fontFamily"]').on('input',function(_e){
-  components[$(this).attr('data-component')].fontFamily = $(this).val();
+$('select[data-param="fontFamily"]').on("input", function (_e) {
+  components[$(this).attr("data-component")].fontFamily = $(this).val();
   setSelectFont($(this)[0]);
   render();
 });
 
 $("#fav_download-btn").on("click", function (_e) {
-    exportCanva(
-      $(this)[0],
-      canvas_fav,
-      "favicon",
-      renderFav
-    );
-  });
+  exportCanva($(this)[0], canvas_fav, "favicon", renderFav);
+});
 
 $("#logo_download-btn").on("click", function (_e) {
-    exportCanva(
-      $(this)[0],
-      canvas_logo,
-      "logo",
-      renderLogo
-    );
-  });
+  exportCanva($(this)[0], canvas_logo, "logo", renderLogo);
+});
 
-$("#conf_download-btn").on("click", function (_e){
-  var conf ={
-    version:'v1.0.0',
+$("#conf_download-btn").on("click", function (_e) {
+  var conf = {
+    version: "v1.0.0",
     components: components,
-    global:{
-      offset:{
-        size: off_1,
-        color: offset_clr
-      },
-      layout: layout,
-      shapes: shapes
-    }
+    global: global,
   };
-  $(this).attr("href", "data:application/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(conf)));
+  $(this).attr(
+    "href",
+    "data:application/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(conf))
+  );
 });
 
 $("#conf_upload-fs").on("change", function (e) {
@@ -330,33 +394,43 @@ $("#conf_upload-fs").on("change", function (e) {
   reader.onload = function (event) {
     try {
       var conf = JSON.parse(event.target.result);
-      if(conf.version == 'v1.0.0'){
+      if (conf.version == "v1.0.0") {
         icon.sync(conf.components.icon);
         main.sync(conf.components.main);
         accent.sync(conf.components.accent);
-        off_1 = conf.global.offset.size;
-        offset_clr = conf.global.offset.color;
-        layout = conf.global.layout;
-        shapes = conf.global.shapes;
-      }else{
-        throw new DOMException('Version not supported', 'VersionError');
+        global.offset.size = conf.global.offset.size;
+        global.offset.color = conf.global.offset.color;
+        global.layout = conf.global.layout;
+        global.shapes = conf.global.shapes;
+      } else {
+        throw new DOMException("Version not supported", "VersionError");
       }
 
-      $(fileSelector).addClass('is-valid').removeClass('is-invalid');
-      $(fileSelector).parent().children('.feedback').remove();
-      $(fileSelector).parent().append($('<div></div>').addClass("feedback valid-feedback").html("Nice! We load the config."));
+      $(fileSelector).addClass("is-valid").removeClass("is-invalid");
+      $(fileSelector).parent().children(".feedback").remove();
+      $(fileSelector)
+        .parent()
+        .append(
+          $("<div></div>")
+            .addClass("feedback valid-feedback")
+            .html("Nice! We load the config.")
+        );
       refreshGUI();
     } catch (error) {
       var message;
-      if(error.name == 'VersionError'){
-        message = 'Ouups! File version not supported.';
-      }else{
+      if (error.name == "VersionError") {
+        message = "Ouups! File version not supported.";
+      } else {
         message = "Ouups! We can't parse the config.";
       }
 
-      $(fileSelector).addClass('is-invalid').removeClass('is-valid');
-      $(fileSelector).parent().children('.feedback').remove();
-      $(fileSelector).parent().append($('<div></div>').addClass("feedback invalid-feedback").html(message));
+      $(fileSelector).addClass("is-invalid").removeClass("is-valid");
+      $(fileSelector).parent().children(".feedback").remove();
+      $(fileSelector)
+        .parent()
+        .append(
+          $("<div></div>").addClass("feedback invalid-feedback").html(message)
+        );
     }
     render();
   };
@@ -378,62 +452,71 @@ function setSelectFont(select) {
  * Refresh GUI data from JS objects
  * @param {Array} ignore : Components to not refresh
  */
-function refreshGUI(ignore = []){
-  ignore = ignore.map(component =>{
+function refreshGUI(ignore = []) {
+  ignore = ignore.map((component) => {
     return component.toLowerCase();
-  })
+  });
   // Layout
-  if(!ignore.includes('layout')){
+  if (!ignore.includes("layout")) {
     var layout_toggle = $('input[data-toggle="toggle"][data-param="layout"]');
-    switch (layout.toUpperCase()) {
+    switch (global.layout.toUpperCase()) {
       case "HORIZONTAL":
-        layout_toggle.bootstrapToggle('on');
+        layout_toggle.bootstrapToggle("on");
         break;
       case "VERTICAL":
-        layout_toggle.bootstrapToggle('off');
+        layout_toggle.bootstrapToggle("off");
         break;
       default:
-        layout="HORIZONTAL";
-        layout_toggle.bootstrapToggle('on');
+        global.layout = "HORIZONTAL";
+        layout_toggle.bootstrapToggle("on");
         break;
     }
   }
 
   // Shapes
-  if(!ignore.includes('shapes')){
-  var shapes_toggle = $('input[data-toggle="toggle"][data-param="shapes"]');
-  shapes ? shapes_toggle.bootstrapToggle('on') : shapes_toggle.bootstrapToggle('off');
+  if (!ignore.includes("shapes")) {
+    var shapes_toggle = $('input[data-toggle="toggle"][data-param="shapes"]');
+    global.shapes
+      ? shapes_toggle.bootstrapToggle("on")
+      : shapes_toggle.bootstrapToggle("off");
   }
 
   // Offset
-  if(!ignore.includes('offset')){
-  var offsetSize_input =$('input[data-component="global"][data-param="offsetSize"]');
-  offsetSize_input.val(off_1);
-  offsetSize_input.siblings('.input-group-append[data-display="value"]').children('span').html(off_1);
-  $('input[data-component="global"][data-param="offsetColor"]').val(offset_clr);
+  if (!ignore.includes("offset")) {
+    var offsetSize_input = $(
+      'input[data-component="global"][data-param="offsetSize"]'
+    );
+    offsetSize_input.val(global.offset.size);
+    offsetSize_input
+      .siblings('.input-group-append[data-display="value"]')
+      .children("span")
+      .html(global.offset.size);
+    $('input[data-component="global"][data-param="offsetColor"]').val(
+      global.offset.color
+    );
   }
 
   // Components
-  if(!ignore.includes('icon')){
-  icon.init();
-  $("#icp-component").children("i").remove();
-  $("#icp-component").append(
-    $("<i></i>")
-      .attr(
-        "style",
-        "font-style: normal; font-weight: " +
-          icon.fontWeight +
-          "; font-family: " +
-          icon.fontFamily
-      )
-      .html(icon.text)
-  );
+  if (!ignore.includes("icon")) {
+    icon.init();
+    $("#icp-component").children("i").remove();
+    $("#icp-component").append(
+      $("<i></i>")
+        .attr(
+          "style",
+          "font-style: normal; font-weight: " +
+            icon.fontWeight +
+            "; font-family: " +
+            icon.fontFamily
+        )
+        .html(icon.text)
+    );
   }
-  if(!ignore.includes('main')){
-  main.init();
+  if (!ignore.includes("main")) {
+    main.init();
   }
-  if(!ignore.includes('accent')){
-  accent.init();
+  if (!ignore.includes("accent")) {
+    accent.init();
   }
 }
 
@@ -468,7 +551,7 @@ function renderFav(ctx, canvas) {
  * @param {HTMLCanvasElement} canvas : Painting canvas element
  */
 function renderLogo(ctx, canvas) {
-  if (layout.toUpperCase() == "HORIZONTAL") {
+  if (global.layout.toUpperCase() == "HORIZONTAL") {
     renderLogoHorizontal(ctx, canvas);
   } else {
     renderLogoVertical(ctx, canvas);
@@ -498,43 +581,55 @@ function renderLogoHorizontal(ctx, canvas) {
     main_start +
     main_w +
     (accent.text != "" ? padding.internal.x : 0) +
-    (accent.text != "" && shapes ? 2 * padding.internal.x : 0);
+    (accent.text != "" && global.shapes ? 2 * padding.internal.x : 0);
 
   canvas.width =
     icon_w +
     (main.text != "" ? padding.internal.x : 0) +
     main_w +
     (accent.text != "" ? padding.internal.x : 0) +
-    (accent.text != "" && shapes ? 4 * padding.internal.x : 0) +
+    (accent.text != "" && global.shapes ? 4 * padding.internal.x : 0) +
     accent_w +
     2 * padding.width;
   canvas.height =
     max_h +
-    (accent.text != "" && shapes ? 2 * padding.internal.y : 0) +
+    (accent.text != "" && global.shapes ? 2 * padding.internal.y : 0) +
     2 * padding.height;
 
   var baseline = canvas.height / 2;
   ctx.textBaseline = "middle";
 
   // Offset drawing
-  if (off_1 != 0) {
+  if (global.offset.size != 0) {
     ctx.font = icon.getFont();
-    ctx.fillStyle = offset_clr;
-    ctx.fillText(icon.text, icon_start + off_1, baseline + off_1);
+    ctx.fillStyle = global.offset.color;
+    ctx.fillText(
+      icon.text,
+      icon_start + global.offset.size,
+      baseline + global.offset.size
+    );
 
     ctx.font = main.getFont();
-    ctx.fillStyle = offset_clr;
-    ctx.fillText(main.getText(), main_start + off_1, baseline + off_1);
+    ctx.fillStyle = global.offset.color;
+    ctx.fillText(
+      main.getText(),
+      main_start + global.offset.size,
+      baseline + global.offset.size
+    );
 
-    if (!shapes) {
+    if (!global.shapes) {
       ctx.font = accent.getFont();
-      ctx.fillStyle = offset_clr;
-      ctx.fillText(accent.getText(), accent_start + off_1, baseline + off_1);
+      ctx.fillStyle = global.offset.color;
+      ctx.fillText(
+        accent.getText(),
+        accent_start + global.offset.size,
+        baseline + global.offset.size
+      );
     }
   }
 
   // Shape Drawing
-  if (accent.text != "" && shapes) {
+  if (accent.text != "" && global.shapes) {
     ctx.strokeStyle = main.color;
     ctx.fillStyle = main.color;
     var pos = new Object();
@@ -597,7 +692,7 @@ function renderLogoVertical(ctx, canvas) {
   ctx.textBaseline = "middle";
 
   // Shape drawing
-  if (accent.text != "" && shapes) {
+  if (accent.text != "" && global.shapes) {
     ctx.strokeStyle = main.color;
     ctx.moveTo(
       center - main_w / 2,
@@ -612,18 +707,30 @@ function renderLogoVertical(ctx, canvas) {
   }
 
   // Offset Drawing
-  if (off_1 != 0) {
+  if (global.offset.size != 0) {
     ctx.font = icon.getFont();
-    ctx.fillStyle = offset_clr;
-    ctx.fillText(icon.text, center + off_1, icon_start + off_1);
+    ctx.fillStyle = global.offset.color;
+    ctx.fillText(
+      icon.text,
+      center + global.offset.size,
+      icon_start + global.offset.size
+    );
 
     ctx.font = main.getFont();
-    ctx.fillStyle = offset_clr;
-    ctx.fillText(main.getText(), center + off_1, main_start + off_1);
+    ctx.fillStyle = global.offset.color;
+    ctx.fillText(
+      main.getText(),
+      center + global.offset.size,
+      main_start + global.offset.size
+    );
 
     ctx.font = accent.getFont();
-    ctx.fillStyle = offset_clr;
-    ctx.fillText(accent.getText(), center + off_1, accent_start + off_1);
+    ctx.fillStyle = global.offset.color;
+    ctx.fillText(
+      accent.getText(),
+      center + global.offset.size,
+      accent_start + global.offset.size
+    );
   }
 
   // Text Drawing
