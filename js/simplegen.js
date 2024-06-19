@@ -970,3 +970,58 @@ function hexToComplimentary(hex) {
   rgb = b | (g << 8) | (r << 16);
   return "#" + (0x1000000 | rgb).toString(16).substring(1);
 }
+
+
+function generateHarmonicColors() {
+  const baseHue = Math.floor(Math.random() * 360);
+  const saturation = 70; // Fixed saturation percentage
+  const lightness = 50;  // Fixed lightness percentage
+  const colorScheme = [];
+
+  // Generate a set of 5 harmonious colors
+  for (let i = 0; i < 5; i++) {
+      const hue = (baseHue + i * 72) % 360; // 72 degree separation for a quintic scheme
+      colorScheme.push(hslToHex(hue, saturation, lightness));
+  }
+
+  return colorScheme;
+}
+
+function hslToHex(h, s, l) {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = n => {
+      const k = (n + h / 30) % 12;
+      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+      return Math.round(255 * color).toString(16).padStart(2, '0'); // Convert to Hex and format
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+const icons = [
+  "fa-heart", "fa-car", "fa-tree", "fa-user", "fa-clock", "fa-bell", "fa-coffee", "fa-apple-alt-o", "fa-feather-alt", "fa-anchor"];
+
+function randomizeComponent(component) {
+  const fonts = ["Arial", "Montez", "Lobster", "Josefin Sans", "Shadows Into Light", "Pacifico"];
+  const fontWeights = ["normal", "bold", "bolder", "lighter"];
+  const fontSizes = [12, 14, 16, 18, 20, 22, 24, 26, 28, 30];
+  const letterSpacings = [0, 1, 2, 3, 4, 5];
+  const colors = generateHarmonicColors();
+
+  // Randomly select attributes
+  component.text = "Sample Text";  // Static example text, consider more dynamic options if needed
+  component.color = colors[Math.floor(Math.random() * colors.length)];
+  component.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+  component.fontWeight = fontWeights[Math.floor(Math.random() * fontWeights.length)];
+  component.fontSize = fontSizes[Math.floor(Math.random() * fontSizes.length)];
+  component.letterSpacing = letterSpacings[Math.floor(Math.random() * letterSpacings.length)];
+
+  // Reinitialize the component to apply new properties
+  component.init();
+}
+
+// Attach the randomization to a button
+document.getElementById('randomize-btn').addEventListener('click', function() {
+  randomizeComponent(main);  // Assuming 'main' is your component object
+  randomizeComponent(accent); // Assuming 'accent' is another component object
+  // randomizeComponent(icon); // Assuming 'icon' is the icon component
+});
