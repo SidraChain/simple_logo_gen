@@ -7,13 +7,13 @@ services:
       context: simple-logo-generator
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "8083:5000"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
   web:
     build: .
     ports:
-      - "80:80"
+      - "8082:80"
     depends_on:
       - react-app
