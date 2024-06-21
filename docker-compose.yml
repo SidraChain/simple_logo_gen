@@ -7,7 +7,7 @@ services:
       context: simple-logo-generator
       dockerfile: Dockerfile
     ports:
-      - "8083:5000"
+      - "8084:5000"
     environment:
       - NODE_ENV=production
     restart: unless-stopped
