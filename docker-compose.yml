@@ -1,7 +1,19 @@
 version: '3.8'
 
 services:
+  react-app:
+    container_name: react-app
+    build:
+      context: simple-logo-generator
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
   web:
     build: .
     ports:
       - "80:80"
+    depends_on:
+      - react-app
