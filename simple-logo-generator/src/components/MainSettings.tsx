@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchableFontDropdown from './SearchableFontDropdown'; // Ensure this is imported correctly
+import GoogleFontLoader from 'react-google-font-loader';
 
 interface MainSettingsProps {
   text: string;
@@ -32,9 +33,12 @@ const MainSettings: React.FC<MainSettingsProps> = ({
 }) => {
   const fonts = [
     "Arial", "Verdana", "Helvetica", "Tahoma", "Trebuchet MS", "Times New Roman",
-    "Georgia", "Garamond", "Courier New", "Brush Script MT", "Lobster", "Pacifico"
+    "Georgia", "Garamond", "Courier New", "Brush Script MT", "Lobster", "Pacifico",
+    "Roboto", "Montserrat", "Open Sans", "Playfair Display", "Merriweather", "Roboto Slab"
     // Add more fonts as necessary
   ];
+
+  const googleFonts = fonts.map(font => ({ font, weights: [400] }));
 
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg">
@@ -47,6 +51,9 @@ const MainSettings: React.FC<MainSettingsProps> = ({
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         />
       </div>
+
+      <GoogleFontLoader fonts={googleFonts} />
+
       <div className="mb-4">
         <SearchableFontDropdown fonts={fonts} fontFamily={fontFamily} setFontFamily={setFontFamily} />
       </div>

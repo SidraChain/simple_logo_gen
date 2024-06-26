@@ -11,11 +11,11 @@ interface Icon {
 }
 
 interface IconSettingsProps {
-  setIcon:  (icon: any) => void
-  iconSize: number
-  setIconSize: (size: number) => void
-  iconColor: string
-  setIconColor: (color: string) => void
+  setIcon: (icon: any) => void;
+  iconSize: number;
+  setIconSize: (size: number) => void;
+  iconColor: string;
+  setIconColor: (color: string) => void;
 }
 
 const IconSettings: React.FC<IconSettingsProps> = ({
@@ -33,7 +33,7 @@ const IconSettings: React.FC<IconSettingsProps> = ({
     icon.name.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm, combinedIcons]);
 
   const handleIconChange = (icon: Icon): void => {
-    setIcon(icon)
+    setIcon(icon);
     if (icon) {
       // Update icons with the selected color
       icon.color = iconColor; // Assign the selected color to the icon
@@ -41,18 +41,44 @@ const IconSettings: React.FC<IconSettingsProps> = ({
   };
 
   return (
-    <div className="p-4 bg-gray-800 text-white rounded-lg">
-      <div className="mb-4">
-        <label className="block mb-2">Icon</label>
-        <CustomDropdown icons={filteredIcons} onChange={handleIconChange} iconSize="lg" iconColor={iconColor} />
+    <div className="p-6 bg-gray-900 text-white rounded-xl shadow-lg h-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold">Icon Settings</h2>
+       
       </div>
-      <div className="mb-4 flex items-center">
-        <label className="block mb-2 w-1/4">Size</label>
-        <input type="range" className="form-range w-1/2 mx-2" min="12" max="94" step="1" value={iconSize} onChange={(e) => setIconSize(Number(e.target.value))} />
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Icon</label>
+        <CustomDropdown 
+          icons={filteredIcons} 
+          onChange={handleIconChange} 
+          iconSize="lg" 
+          iconColor={iconColor} 
+        />
       </div>
-      <div className="mb-4 flex items-center">
-        <label className="block mb-2 w-1/4">Color</label>
-        <input type="color" className="w-10 h-10 p-0 border-none" value={iconColor} onChange={(e) => setIconColor(e.target.value)} />
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Size</label>
+        <div className="flex items-center">
+          <input 
+            type="range" 
+            defaultValue={50} 
+            className="form-range w-full" 
+            min="12" 
+            max="94" 
+            step="1" 
+            value={iconSize} 
+            onChange={(e) => setIconSize(Number(e.target.value))} 
+          />
+          <span className="ml-4">{iconSize}</span>
+        </div>
+      </div>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Color</label>
+        <input 
+          type="color" 
+          className="w-12 h-12 p-0 border-none rounded-lg cursor-pointer" 
+          value={iconColor} 
+          onChange={(e) => setIconColor(e.target.value)} 
+        />
       </div>
     </div>
   );

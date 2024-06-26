@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import SearchableFontDropdown from './SearchableFontDropdown';
+import GoogleFontLoader from 'react-google-font-loader';
 
 interface AccentSettingsProps {
   text: string;
@@ -31,9 +33,12 @@ const AccentSettings: React.FC<AccentSettingsProps> = ({
 }) => {
   const fonts = [
     "Arial", "Verdana", "Helvetica", "Tahoma", "Trebuchet MS", "Times New Roman",
-    "Georgia", "Garamond", "Courier New", "Brush Script MT", "Lobster", "Pacifico"
+    "Georgia", "Garamond", "Courier New", "Brush Script MT", "Lobster", "Pacifico",
+    "Roboto", "Montserrat", "Open Sans", "Playfair Display", "Merriweather", "Roboto Slab"
     // Add more fonts as necessary
   ];
+
+  const googleFonts = fonts.map(font => ({ font, weights: [400] }));
 
   return (
     <div className="bg-gray-800 text-white p-4 rounded-lg">
@@ -46,20 +51,11 @@ const AccentSettings: React.FC<AccentSettingsProps> = ({
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         />
       </div>
+
+      <GoogleFontLoader fonts={googleFonts} />
+
       <div className="mb-4">
-        <label className="block mb-2">Font</label>
-        <select
-          value={fontFamily}
-          onChange={(e) => setFontFamily(e.target.value)}
-          className="form-select block w-full mt-1 text-gray-700 bg-white"
-          style={{ fontFamily }}
-        >
-          {fonts.map(font => (
-            <option key={font} value={font} style={{ fontFamily: font }}>
-              {font}
-            </option>
-          ))}
-        </select>
+        <SearchableFontDropdown fonts={fonts} fontFamily={fontFamily} setFontFamily={setFontFamily} />
       </div>
       <div className="mb-4">
         <label className="block mb-2">Size</label>

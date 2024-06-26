@@ -100,13 +100,13 @@ class SimplegenTextComponent {
 
 /* DEFAULT PARAMETERS */
 var canvas_logo = document.getElementById("logo-canvas");
-canvas_logo.width = 5;
-canvas_logo.height = 5;
+canvas_logo.width = 100;
+canvas_logo.height = 100;
 var ctx_logo = canvas_logo.getContext("2d");
 
 var canvas_fav = document.getElementById("fav-canvas");
-canvas_fav.width = 5;
-canvas_fav.height = 5;
+canvas_fav.width = 100;
+canvas_fav.height = 100;
 var ctx_fav = canvas_fav.getContext("2d");
 
 let icon = new SimplegenTextComponent(
