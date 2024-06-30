@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'; // Import the dropdown icon
 import Icon from '@mdi/react';
 
-const CustomDropdown = ({ icons, onChange, iconSize, iconColor }) => {
+const CustomDropdown = ({ icons, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState(icons[0]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -28,12 +29,8 @@ const CustomDropdown = ({ icons, onChange, iconSize, iconColor }) => {
     <div className="relative" ref={ref}>
       <button className="p-2 bg-gray-700 rounded-md w-full text-white flex justify-between items-center"
               onClick={() => setIsOpen(!isOpen)}>
-        {selectedIcon.library === 'FontAwesome' ? (
-          <FontAwesomeIcon icon={selectedIcon.icon} size={iconSize} />
-        ) : (
-          <Icon path={selectedIcon.icon} size={iconSize} />
-        )}
-        <span className="ml-2">{selectedIcon.name}</span>
+        <span>Select Icon</span> {/* Text for the button */}
+        <FontAwesomeIcon icon={faCaretDown} /> {/* FontAwesome icon for the dropdown */}
       </button>
       {isOpen && (
         <div className="absolute bg-white text-black w-full rounded-md shadow-lg z-10">
@@ -44,8 +41,7 @@ const CustomDropdown = ({ icons, onChange, iconSize, iconColor }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <div className="grid grid-cols-4 gap-2 p-2 overflow-y-auto max-h-60">
-            {filteredIcons.map((icon, index) => {
-              return (
+            {filteredIcons.map((icon, index) => (
               <button key={index} className="flex flex-col items-center p-2 hover:bg-gray-200"
                       onClick={() => {
                         setSelectedIcon(icon);
@@ -58,7 +54,7 @@ const CustomDropdown = ({ icons, onChange, iconSize, iconColor }) => {
                   <Icon path={icon.icon} size="2x" />
                 )}
               </button>
-            )})}
+            ))}
           </div>
         </div>
       )}

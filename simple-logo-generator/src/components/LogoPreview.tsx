@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Icon from '@mdi/react';
 import domtoimage from 'dom-to-image';
+// Load the Google Fonts dynamically
 
 interface LogoPreviewProps {
   icon: { library: string, icon: any };
@@ -46,10 +47,8 @@ const LogoPreview: React.FC<LogoPreviewProps> = ({
   isAccentBold,
   accentColor,
   layoutHorizontal,
-  shapesOn,
   offsetSize,
   offsetColor,
-  shapeColor,
   backgroundColorLogo,
   horizontalPadding,
   verticalPadding
@@ -86,7 +85,7 @@ const LogoPreview: React.FC<LogoPreviewProps> = ({
         <h2 className="text-lg font-semibold mb-2">Logo</h2>
         <div
           ref={previewRef}
-          className={`flex ${layoutHorizontal ? 'flex-row' : 'flex-col'} items-center space-x-2 transform scale-50 sm:scale-100`}
+          className={`flex ${layoutHorizontal ? 'flex-row' : 'flex-col'} items-center space-x-2 transform scale-75 sm:scale-100`}
           style={{
             backgroundColor: backgroundColorLogo,
             padding: `${verticalPadding}px ${horizontalPadding}px`,
@@ -101,7 +100,7 @@ const LogoPreview: React.FC<LogoPreviewProps> = ({
           </div>
           <span
             style={{
-              fontFamily:fontFamily,
+              fontFamily: fontFamily,
               fontSize: `${fontSize}px`,
               letterSpacing: `${letterSpacing}px`,
               fontWeight: isBold ? 'bold' : 'normal',
@@ -118,7 +117,6 @@ const LogoPreview: React.FC<LogoPreviewProps> = ({
               letterSpacing: `${accentLetterSpacing}px`,
               fontWeight: isAccentBold ? 'bold' : 'normal',
               color: accentColor,
-              backgroundColor: shapesOn ? shapeColor : 'transparent',
               padding: '0 4px',
               borderRadius: '4px',
             }}

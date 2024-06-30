@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+@font-face {
+    font-family: 'Pacifico';
+    src: url('./components/fonts/Pacifico-Regular.woff') format('woff2'),
+        url('./components/fonts/Pacifico-Regular.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+/* Roboto */
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), url('./components/fonts/Roboto-Regular.woff2') format('woff2'),
+        url('./components/fonts/Roboto-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Montserrat */
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url('./components/fonts/Montserrat-Regular.woff2') format('woff2'),
+        url('./components/fonts/Montserrat-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Open Sans */
+@font-face {
+    font-family: 'Open Sans';
+    src: local('Open Sans'), url('./components/fonts/OpenSans-Regular.woff2') format('woff2'),
+        url('./components/fonts/OpenSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Playfair Display */
+@font-face {
+    font-family: 'Playfair Display';
+    src: local('Playfair Display'), url('./components/fonts/PlayfairDisplay-Regular.woff2') format('woff2'),
+        url('./components/fonts/PlayfairDisplay-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Merriweather */
+@font-face {
+    font-family: 'Merriweather';
+    src: local('Merriweather'), url('./components/fonts/Merriweather-Regular.woff2') format('woff2'),
+        url('./components/fonts/Merriweather-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Roboto Slab */
+@font-face {
+    font-family: 'Roboto Slab';
+    src: local('Roboto Slab'), url('./components/fonts/RobotoSlab-Regular.woff2') format('woff2'),
+        url('./components/fonts/RobotoSlab-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Lobster */
+@font-face {
+    font-family: 'Lobster';
+    src: local('Lobster'), url('./components/fonts/Lobster-Regular.woff2') format('woff2'),
+        url('./components/fonts/Lobster-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Courier New */
+@font-face {
+    font-family: 'Courier New';
+    src: local('Courier New'), url('./components/fonts/CourierPrime-Regular.woff2') format('woff2'),
+        url('./components/fonts/CourierPrime-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
