@@ -125,6 +125,7 @@ const getRandomColorWithContrast = (bgColorHex: string) => {
 };
 const Form: React.FC = () => {
 
+  const [transparentBackground, setTransparentBackground] = useState(false);
 
 
   const [text, setText] = useState('Logo');
@@ -137,7 +138,7 @@ const Form: React.FC = () => {
   const [iconSize, setIconSize] = useState(100);
   const [iconColor, setIconColor] = useState('#000000');
   
-  const [accentText, setAccentText] = useState('World');
+  const [accentText, setAccentText] = useState('');
   const [accentFontSize, setAccentFontSize] = useState(48);
   const [accentLetterSpacing, setAccentLetterSpacing] = useState(0);
   const [isAccentBold, setIsAccentBold] = useState(false);
@@ -166,7 +167,7 @@ const Form: React.FC = () => {
     const backgroundColor = getRandomColor(); // Get a random background color first
     setBackgroundColorLogo(backgroundColor);
   
-    setText(getRandomElement(['Hello', 'Logo', 'Design', 'Creative']));
+    setText(getRandomElement([ 'Logo',]));
     setFontFamily(getRandomElement(fonts));
     setFontSize(getRandomNumber(35, 60));
     setLetterSpacing(getRandomNumber(0, 5));
@@ -177,7 +178,7 @@ const Form: React.FC = () => {
     setIconSize(getRandomNumber(50, 100));
     setIconColor(getRandomColorWithContrast(backgroundColor)); // Ensure icon color contrasts with background
     
-    setAccentText(getRandomElement(['World', 'Art', 'Style', 'Vibe']));
+    setAccentText(getRandomElement(['']));
     setAccentFontFamily(getRandomElement(fonts));
     setAccentFontSize(getRandomNumber(35, 60));
     setAccentLetterSpacing(getRandomNumber(0, 5));
@@ -273,14 +274,16 @@ const Form: React.FC = () => {
         {activeTab === 'global' && (
           <div className="px-4 mb-4">
             <GlobalSettings
-              layoutHorizontal={layoutHorizontal}
-              setLayoutHorizontal={setLayoutHorizontal}
+        layoutHorizontal={layoutHorizontal}
+        setLayoutHorizontal={setLayoutHorizontal}
+        transparentBackground={transparentBackground}
+        setTransparentBackground={setTransparentBackground}
+        backgroundColorLogo={backgroundColorLogo}
+        setBackgroundColorLogo={setBackgroundColorLogo}              
               offsetSize={offsetSize}
               setOffsetSize={setOffsetSize}
               offsetColor={offsetColor}
               setOffsetColor={setOffsetColor}
-              backgroundColorLogo={backgroundColorLogo}
-              setBackgroundColorLogo={setBackgroundColorLogo}
               horizontalPadding={horizontalPadding}
               setHorizontalPadding={setHorizontalPadding}
               verticalPadding={verticalPadding}

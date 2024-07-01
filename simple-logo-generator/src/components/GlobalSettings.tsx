@@ -3,7 +3,7 @@ import React from 'react';
 interface GlobalSettingsProps {
   layoutHorizontal: boolean;
   setLayoutHorizontal: (horizontal: boolean) => void;
- 
+
   offsetSize: number;
   setOffsetSize: (size: number) => void;
   offsetColor: string;
@@ -11,6 +11,9 @@ interface GlobalSettingsProps {
 
   backgroundColorLogo: string;
   setBackgroundColorLogo: (color: string) => void;
+  transparentBackground: boolean; // New prop for background transparency toggle
+  setTransparentBackground: (transparent: boolean) => void; // Handler for toggle
+
   horizontalPadding: number;
   setHorizontalPadding: (padding: number) => void;
   verticalPadding: number;
@@ -25,8 +28,12 @@ const GlobalSettings: React.FC<GlobalSettingsProps> = ({
   setOffsetSize,
   offsetColor,
   setOffsetColor,
+
   backgroundColorLogo,
   setBackgroundColorLogo,
+  transparentBackground, // Use this state in your styling conditionally
+  setTransparentBackground,
+
   horizontalPadding,
   setHorizontalPadding,
   verticalPadding,
@@ -36,9 +43,17 @@ const GlobalSettings: React.FC<GlobalSettingsProps> = ({
     setLayoutHorizontal(!layoutHorizontal);
   };
 
+  const toggleBackgroundTransparency = () => {
+    setTransparentBackground(!transparentBackground);
+    if (!transparentBackground) {
+      setBackgroundColorLogo('transparent'); // Set the background color to transparent
+    } else {
+      setBackgroundColorLogo('#FFFFFF'); // Reset to default or previous color
+    }
+  };
+
   return (
     <div className="flex-1 p-6 bg-white text-gray-900 rounded-xl">
-
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2">Layout</label>
         <button 
@@ -82,6 +97,7 @@ const GlobalSettings: React.FC<GlobalSettingsProps> = ({
           onChange={(e) => setBackgroundColorLogo(e.target.value)}
         />
       </div>
+
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2">Horizontal Padding</label>
         <input 
@@ -95,6 +111,7 @@ const GlobalSettings: React.FC<GlobalSettingsProps> = ({
         />
         <span className="ml-4 text-gray-800">{horizontalPadding}px</span>
       </div>
+
       <div className="mb-6">
         <label className="block text-sm font-medium mb-2">Vertical Padding</label>
         <input 
@@ -107,6 +124,17 @@ const GlobalSettings: React.FC<GlobalSettingsProps> = ({
           onChange={(e) => setVerticalPadding(Number(e.target.value))}
         />
         <span className="ml-4 text-gray-800">{verticalPadding}px</span>
+      </div>
+
+      {/* Background transparency toggle */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Background Transparency</label>
+        <button 
+          className={`w-full p-3 rounded-lg transition-colors ${transparentBackground ? 'bg-blue-500' : 'bg-gray-300'} hover:bg-blue-400 text-white`}
+          onClick={toggleBackgroundTransparency}
+        >
+          {transparentBackground ? 'Transparent' : 'Opaque'}
+        </button>
       </div>
     </div>
   );
